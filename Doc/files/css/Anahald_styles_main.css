@@ -1,0 +1,9 @@
+body {
+    background-color: rgb(220,220,220);
+    color: rgb(0,0,0);
+}
+
+img {
+  border: 20px solid black;
+  background-color: black;
+}

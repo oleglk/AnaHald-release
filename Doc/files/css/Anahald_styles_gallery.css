@@ -1,0 +1,39 @@
+body {
+    background-color: rgb(0,0,0);
+    color: rgb(230,230,230);
+}
+
+a {
+  outline-color: transparent;
+}
+
+a:link {
+  color: rgb(200,200,230);
+}
+
+a:visited {
+  color: rgb(230,180,230);
+}
+
+a:focus {
+  text-decoration: none;
+  background: rgb(110,110,110);
+}
+
+a:hover {
+  text-decoration: none;
+  background: rgb(110,110,110);
+}
+
+a:active {
+  background: #6900ff;
+  color: #cdfeaa;
+}
+
+p.ahg_caption {
+    text-align: center; white-space: nowrap; margin: 0 auto; max-width: 99%;
+}
+
+a.ahg_imglink {
+    border: 2px lightgray dashed;      border-radius: 10px;     padding: 5px;
+}

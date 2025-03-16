@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-03-16 Sun 18:50 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Anaglyph HALD Generator (Anahald) - Author's favorite pre-made HALD LUT-s</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Oleg Kosyakovsky" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="files/css/Anahald_styles_main.css" />
+<style type="text/css">.example {background-color: rgb(50,50,50);}</style>
+<link rel="stylesheet" type="text/css" href="files/css/Anahald_styles_gallery.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="Anahald_Intro.html"> UP </a>
+ |
+ <a accesskey="H" href="http://www.dualcam.net"> HOME </a>
+</div><div id="content">
+<h1 class="title">Anaglyph HALD Generator (Anahald) - Author's favorite pre-made HALD LUT-s</h1>
+<p>
+(this page has dark background to improve viewing experience with anaglyph samples)<br />
+</p>
+
+<p>
+<i>By Oleg Kosyakovsky</i><br />
+</p>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org4b24f6b">The four HALD lookup tables supplied with Anahald</a></li>
+<li><a href="#org309abee">Illustrations on LUT choices for some sample stereopairs</a></li>
+<li><a href="#org2c28ee5">Anahald versus anaglyph options in StereoPhotoMaker</a></li>
+<li><a href="#org2b65bdd">More LUT's that <b>should</b> be there?</a></li>
+</ul>
+</div>
+</div>
+
+<p>
+Anahald distribution includes four pairs of config + premade-HALD that the author used during development. They cover different color-and-content scenarios that arose in the author's reference "dataset" of 369 stereopairs.<br />
+</p>
+
+<p>
+<b><span class="underline">Disclaimer</span></b>: at the time of development and of writing this guide the author had no scientific or even orderly methodology to choose input configuration parameters. This was all trial-and-error iterations, and creation of such a methodology should be the central task of <a href="Anahald_Future_Work.html">future work on Anahald</a>.<br />
+</p>
+<hr />
+
+
+<div id="outline-container-org4b24f6b" class="outline-2">
+<h2 id="org4b24f6b">The four HALD lookup tables supplied with Anahald</h2>
+<div class="outline-text-2" id="text-org4b24f6b">
+<p>
+Anahald distribution has configuration files for the sample HALD-s in CFG/ directory, and resulting level-16 HALD-s could be downloaded from <a href="http://dualcam.net/galleries/ADDON__ANAHALD/SAMPLE_HALDS/anahald_sample_luts.zip">here</a><br />
+In order to see their control parameters at a glance, use Anahald utility "anahald_cfg_table" (the command of example below assumes BASH):<br />
+</p>
+<pre class="example">
+$ bin/anahald_cfg_table.sh  GLOB  "CFG/"  "ahg_oleg_*"
+...
+       -ID-|Green|MinBn|MaxRg|Smoot|PreSq|MinMi|PreIn|MaxBa
+           |ToBlu|dBala| bVal|hBndB|ueeze|norSc|flate|lance
+           |eBias|ncedM|     |alanc|Major|aleOp|Minor|dMajo
+           |MultW|ajorT|     |edOpt|ToFra| tion|ToFra|rToMa
+           |henMi|oMaxM|     |  ion|   ct|     |   ct|xMino
+           |  nor|inorR|     |     |     |     |     |rRati
+           |     | atio|     |     |     |     |     |    o
+ahg_oleg_cp| 0.97|  1.5|  255|    2| 0.80|    2|  1.0|  3.0
+ahg_oleg_ec|  1.0|  1.0|  255|    1| 0.90|    1|  1.0|  2.0
+ahg_oleg_gp|  1.0|  1.3|  255|    2| 0.90|    2|  1.0|  2.0
+ahg_oleg_sf| 0.85|  1.0|  255|    1| 1.00|    1| 0.50|  2.0
+</pre>
+<p>
+Please refer to <a href="Anahald_Configuration_Files_and_Control_Parameters.html#org0284676">Control Parameters Specification</a> and/or <a href="Anahald_Algorithm_and_Parameters.html">Anahald algorithm and how to control it</a> to refresh the meaning of the <b><i>control parameters</i></b>.<br />
+</p>
+
+<p>
+A HALD-LUT being an image by itself helps to illustrate the expected effect of the sample HALD-s. The example below generates small level-5 HALD-LUTs for all four sample config files and then shows them side-by-side.<br />
+The example runs in BASH both under Windows and under Linux; in order to play with it (not needed), just change the paths (<i>Anahald-Root</i> and <i>Imagemagick-convert/magick</i>) to match your system<br />
+</p>
+<pre class="example">
+cd &lt;Anahald-Root&gt;  # the code assumes the current directory is the one
+                   #     where Anahald was unpacked
+CFGDIR="CFG";    HALDDIR="TMP"
+INP_GLOB="ahg_oleg_*.ini"
+LEVEL=5
+for inpCfg in "${CFGDIR}"/${INP_GLOB}; do   inpName=$(basename -- "$inpCfg");   bin/anahald_lut_make.sh  $inpCfg  $LEVEL  $HALDDIR; done
+
+IMC="convert"     # do adjust the path to Imagemagick convert/magick utility
+LEVEL_STR="05"
+HALD_GLOB="hald__ahg_oleg_*__${LEVEL_STR}.TIF"
+for haldTif in "${HALDDIR}"/${HALD_GLOB}; do  inpName=$(basename -- "$haldTif" .TIF);  "$IMC" "$haldTif" "${HALDDIR}/${inpName}.PNG";  done
+</pre>
+
+
+<div id="org2aedd4a" class="figure">
+<p><img src="files/hald_05.PNG" alt="hald_05.PNG" width="20%" align="center" /><br />
+</p>
+<p><span class="figure-number">Figure 1: </span>Identity HALD (above) and Anahald sample HALD-s (below) ordered by anount of color change - _CP -&gt; _GP -&gt; _EC -&gt; _SF</p>
+</div>
+
+<img src="files/hald__ahg_oleg_cp__05.PNG" width="20%"> <img src="files/hald__ahg_oleg_gp__05.PNG" width="20%"> <img src="files/hald__ahg_oleg_ec__05.PNG" width="20%"> <img src="files/hald__ahg_oleg_sf__05.PNG" width="20%">
+<p>
+When examining the HALD-LUT images above, pay attention to what happened to colors that were saturated in the identity HALD.<br />
+While it's tempting to look at them through red-cyan glasses, the disappointing (for the author :)) outcome would be the result. Specifics of the "thin" patterns arising from HALD format structure unfortunately prevents proper fusing and provoke retinal rivalry. The good news is that this phenomenon is not so frequent in the actual photography-originated stereopairs.<br />
+If insisting anyway, do recall: reviewing these color-balancing LUT-s imposes the same <a href="Glasses_Screens_etc.html">requirements on anaglyph glasses</a> as stereo-picture viewing does.<br />
+</p>
+
+<p>
+The <b><span class="underline">effect of sample HALD-LUT-s on cyan-red linear gradient</span></b> is easier to grasp - both without- and with anaglyph glasses:<br />
+</p>
+
+
+<div id="org6223599" class="figure">
+<p><img src="files/linear_gradient_cr__id.PNG" alt="linear_gradient_cr__id.PNG" width="20%" align="center" /><br />
+</p>
+<p><span class="figure-number">Figure 2: </span>Cyan-red color gradient (above) and its conversions by Anahald sample HALD-s (below) ordered by anount of color change - _CP -&gt; _GP -&gt; _EC -&gt; _SF</p>
+</div>
+
+<img src="files/linear_gradient_cr__hald__ahg_oleg_cp__05.PNG" width="20%"> <img src="files/linear_gradient_cr__hald__ahg_oleg_gp__05.PNG" width="20%"> <img src="files/linear_gradient_cr__hald__ahg_oleg_ec__05.PNG" width="20%"> <img src="files/linear_gradient_cr__hald__ahg_oleg_sf__05.PNG" width="20%">
+<hr />
+</div>
+</div>
+
+<div id="outline-container-org309abee" class="outline-2">
+<h2 id="org309abee">Illustrations on LUT choices for some sample stereopairs</h2>
+<div class="outline-text-2" id="text-org309abee">
+<p>
+This section demonstrates choices of Anahald LUT for several representative stereopairs - out of the four options supplied as the sample LUT-s.<br />
+All the examples are structured identically:<br />
+</p>
+<ul class="org-ul">
+<li>the original stereopair at top-left - small size<br /></li>
+<li>the author's favorite conversion as anaglyph at top-right - larger size; clicking it opens this image as a page of its own<br /></li>
+<li>all four sample conversions as anaglyphs at the bottom - small size<br /></li>
+</ul>
+<p>
+<b>Important tips for viewing:</b><br />
+</p>
+<ul class="org-ul">
+<li><b>the close environment of anaglyph pictures on this page is far from being optimal - text and other images instead of wide black border</b><br /></li>
+<li><b>do not try to asses retinal-rivalry by judging small-size images; only use red-cyan glasses with the larger (the chosen) one</b><br /></li>
+<li><b>even then, let yourself some 2-3 seconds to accommodate with each image before claiming retinal-rivalry. The usual requirements from the glasses apply here too</b><br /></li>
+<li><b>alternatively, for the best viewing experience, click the chosen-conversion image (top-right) to open as a separate page; for other options just copy the relevant pictures into a proper image viewer</b><br /></li>
+</ul>
+
+<hr />
+<p>
+The following two <b><span class="underline">examples of conversions with "Color-Preserve" LUT</span></b> show what can happen to red-like color.<br />
+</p>
+<ol class="org-ol">
+<li><p>
+Color-Preserve LUT - #1 - red-like color with green channel being stronger than blue channel remains visually red.<br />
+</p>
+<img src="files/DSC00399_sbs.jpg" width="40%"> 
+<a href="files/DSC00399_sbs_hald__ahg_oleg_cp__FCA.jpg">  <img class="ahg_imglink" src="files/DSC00399_sbs_hald__ahg_oleg_cp__FCA.jpg" width="40%"></a>
+<p class="ahg_caption">|Top-Left:::::Original-stereopair - - - -  - - - - - - - - -        - - - - - - Anahald-Config-Color-Preserve:::::Top-Right|<br/>|Bottom-Left::::: Color-Preserve - - - - -> General-Purpose - - - - -> Eye-Comfort - - - - -> Small-Flowers:::::Bottom-Right|</p>
+<img src="files/DSC00399_sbs_hald__ahg_oleg_cp__FCA.jpg" width="20%"> 
+<img src="files/DSC00399_sbs_hald__ahg_oleg_gp__FCA.jpg" width="20%"> 
+<img src="files/DSC00399_sbs_hald__ahg_oleg_ec__FCA.jpg" width="20%"> 
+<img src="files/DSC00399_sbs_hald__ahg_oleg_sf__FCA.jpg" width="20%"></li>
+<li><p>
+Color-Preserve LUT - #2 - red-like color with green- and blue channels nearly equal ends-up visually pink because of green-blue-bias value of 0.97.<br />
+</p>
+<img src="files/DSC02411.jpg" width="40%"> 
+<a href="files/DSC02411_hald__ahg_oleg_cp__FCA.jpg">  <img class="ahg_imglink" src="files/DSC02411_hald__ahg_oleg_cp__FCA.jpg" width="40%"></a>
+<p class="ahg_caption">|Top-Left:::::Original-stereopair - - - -  - - - - - - - - -        - - - - - - Anahald-Config-Color-Preserve:::::Top-Right|<br/>|Bottom-Left::::: Color-Preserve - - - - -> General-Purpose - - - - -> Eye-Comfort - - - - -> Small-Flowers:::::Bottom-Right|</p>
+<img src="files/DSC02411_hald__ahg_oleg_cp__FCA.jpg" width="20%"> 
+<img src="files/DSC02411_hald__ahg_oleg_gp__FCA.jpg" width="20%"> 
+<img src="files/DSC02411_hald__ahg_oleg_ec__FCA.jpg" width="20%"> 
+<img src="files/DSC02411_hald__ahg_oleg_sf__FCA.jpg" width="20%">
+<p>
+And next comes a very rare green-dominated stereopair; the problematic region is to the left of the front-left wheel; though retinal-rivalry is less obvious compared to typical red-dominated cases.<br />
+</p></li>
+<li><p>
+Color-Preserve LUT - #3 - green-dominated. Despite that retinal-rivalry is rather tolerable, the balanced version is more pleasant to the eye.<br />
+</p>
+<img src="files/DSC00664_nw.jpg" width="40%"> 
+<a href="files/DSC00664_nw_hald__ahg_oleg_cp__FCA.jpg">  <img class="ahg_imglink" src="files/DSC00664_nw_hald__ahg_oleg_cp__FCA.jpg" width="40%"></a>
+<p class="ahg_caption">|Top-Left:::::Original-stereopair - - - -  - - - - - - - - -        - - - - - - Anahald-Config-Color-Preserve:::::Top-Right|<br/>|Bottom-Left::::: Color-Preserve - - - - -> General-Purpose - - - - -> Eye-Comfort - - - - -> Small-Flowers:::::Bottom-Right|</p>
+<img src="files/DSC00664_nw_hald__ahg_oleg_cp__FCA.jpg" width="20%"> 
+<img src="files/DSC00664_nw_hald__ahg_oleg_gp__FCA.jpg" width="20%"> 
+<img src="files/DSC00664_nw_hald__ahg_oleg_ec__FCA.jpg" width="20%"> 
+<img src="files/DSC00664_nw_hald__ahg_oleg_sf__FCA.jpg" width="20%">
+<hr />
+<p>
+The following two are <b><span class="underline">examples of conversions with "General-Purpose" LUT</span></b><br />
+</p></li>
+<li><p>
+General-Purpose LUT - #1.<br />
+</p>
+<img src="files/DSC00172-00938.jpg" width="40%"> 
+<a href="files/DSC00172-00938_hald__ahg_oleg_gp__FCA.jpg">  <img class="ahg_imglink" src="files/DSC00172-00938_hald__ahg_oleg_gp__FCA.jpg" width="40%"></a>
+<p class="ahg_caption">|Top-Left:::::Original-stereopair - - - -  - - - - - - - - -        - - - - - - Anahald-Config-General-Purpose:::::Top-Right|<br/>|Bottom-Left::::: Color-Preserve - - - - -> General-Purpose - - - - -> Eye-Comfort - - - - -> Small-Flowers:::::Bottom-Right|</p>
+<img src="files/DSC00172-00938_hald__ahg_oleg_cp__FCA.jpg" width="20%"> 
+<img src="files/DSC00172-00938_hald__ahg_oleg_gp__FCA.jpg" width="20%"> 
+<img src="files/DSC00172-00938_hald__ahg_oleg_ec__FCA.jpg" width="20%"> 
+<img src="files/DSC00172-00938_hald__ahg_oleg_sf__FCA.jpg" width="20%"></li>
+<li><p>
+General-Purpose LUT - #2 - &#x2026; though some readers may prefer the Eye-Comfort LUT instead&#x2026;<br />
+</p>
+<img src="files/PICT1600_ivrdef.jpg" width="40%"> 
+<a href="files/PICT1600_ivrdef_hald__ahg_oleg_gp__FCA.jpg">  <img class="ahg_imglink" src="files/PICT1600_ivrdef_hald__ahg_oleg_gp__FCA.jpg" width="40%"></a>
+<p class="ahg_caption">|Top-Left:::::Original-stereopair - - - -  - - - - - - - - -        - - - - - - Anahald-Config-General-Purpose:::::Top-Right|<br/>|Bottom-Left::::: Color-Preserve - - - - -> General-Purpose - - - - -> Eye-Comfort - - - - -> Small-Flowers:::::Bottom-Right|</p>
+<img src="files/PICT1600_ivrdef_hald__ahg_oleg_cp__FCA.jpg" width="20%"> 
+<img src="files/PICT1600_ivrdef_hald__ahg_oleg_gp__FCA.jpg" width="20%"> 
+<img src="files/PICT1600_ivrdef_hald__ahg_oleg_ec__FCA.jpg" width="20%"> 
+<img src="files/PICT1600_ivrdef_hald__ahg_oleg_sf__FCA.jpg" width="20%">
+<hr />
+<p>
+The below <b><span class="underline">examples of conversions with "Eye-Comfort" LUT</span></b> illustrate two different scenarios it happened to serve.<br />
+</p></li>
+<li><p>
+Eye-Comfort LUT - #1 - the conversion chosen is the "weakest" out of what's available that managed to suppress retinal-rivalry with the large red flower. As a matter of fact, this picture needs dual-layer glasses for being fused. It was made for 3DTV, which allowed slightly more depth. But it tells its story despite some cross-talk.<br />
+</p>
+<img src="files/DSC00707.jpg" width="40%"> 
+<a href="files/DSC00707_hald__ahg_oleg_ec__FCA.jpg">  <img class="ahg_imglink" src="files/DSC00707_hald__ahg_oleg_ec__FCA.jpg" width="40%"></a>
+<p class="ahg_caption">|Top-Left:::::Original-stereopair - - - -  - - - - - - - - -        - - - - - - Anahald-Config-Eye-Comfort:::::Top-Right|<br/>|Bottom-Left::::: Color-Preserve - - - - -> General-Purpose - - - - -> Eye-Comfort - - - - -> Small-Flowers:::::Bottom-Right|</p>
+<img src="files/DSC00707_hald__ahg_oleg_cp__FCA.jpg" width="20%"> 
+<img src="files/DSC00707_hald__ahg_oleg_gp__FCA.jpg" width="20%"> 
+<img src="files/DSC00707_hald__ahg_oleg_ec__FCA.jpg" width="20%"> 
+<img src="files/DSC00707_hald__ahg_oleg_sf__FCA.jpg" width="20%">
+<hr /></li>
+<li><p>
+Eye-Comfort LUT - #2 - the choice of conversion exploits long linear slope in conversion strength of the Eye-Comfort LUT to gradually desaturate burned-out red channel in the flowers and thus hide this exposure defect.<br />
+</p>
+<img src="files/JERRY.jpg" width="40%"> 
+<a href="files/JERRY_hald__ahg_oleg_ec__FCA.jpg">  <img class="ahg_imglink" src="files/JERRY_hald__ahg_oleg_ec__FCA.jpg" width="40%"></a>
+<p class="ahg_caption">|Top-Left:::::Original-stereopair - - - -  - - - - - - - - -        - - - - - - Anahald-Config-Eye-Comfort:::::Top-Right|<br/>|Bottom-Left::::: Color-Preserve - - - - -> General-Purpose - - - - -> Eye-Comfort - - - - -> Small-Flowers:::::Bottom-Right|</p>
+<img src="files/JERRY_hald__ahg_oleg_cp__FCA.jpg" width="20%"> 
+<img src="files/JERRY_hald__ahg_oleg_gp__FCA.jpg" width="20%"> 
+<img src="files/JERRY_hald__ahg_oleg_ec__FCA.jpg" width="20%"> 
+<img src="files/JERRY_hald__ahg_oleg_sf__FCA.jpg" width="20%">
+<hr /></li>
+</ol>
+<p>
+Unsurprisingly, the two <b><span class="underline">examples of conversions with "Small-Flowers" LUT</span></b>  below deal with &#x2026; flowers. It's indeed intended for showing saturated-color flowers on mostly green background, so that they appear nearly neutral. Sounds odd, but this LUT does better than both standard conversions - half-color and Dubois, and than the other three sample Anahald LUTs. The former would leave these flowers almost black, while the latter would fail to prevent retinal-rivalry.<br />
+</p>
+<ol class="org-ol">
+<li><p>
+Small-Flowers LUT - #1 - a bunch of tiny red flowers hanging in front of the screen &#x2026; Just be sure you can fuse this image; move backward or scale it down if needed.<br />
+</p>
+<img src="files/DSC00040-00564.jpg" width="40%"> 
+<a href="files/DSC00040-00564_hald__ahg_oleg_sf__FCA.jpg">  <img class="ahg_imglink" src="files/DSC00040-00564_hald__ahg_oleg_sf__FCA.jpg" width="40%"></a>
+<p class="ahg_caption">|Top-Left:::::Original-stereopair - - - -  - - - - - - - - -        - - - - - - Anahald-Config-Small-Flowers:::::Top-Right|<br/>|Bottom-Left::::: Color-Preserve - - - - -> General-Purpose - - - - -> Eye-Comfort - - - - -> Small-Flowers:::::Bottom-Right|</p>
+<img src="files/DSC00040-00564_hald__ahg_oleg_cp__FCA.jpg" width="20%"> 
+<img src="files/DSC00040-00564_hald__ahg_oleg_gp__FCA.jpg" width="20%"> 
+<img src="files/DSC00040-00564_hald__ahg_oleg_ec__FCA.jpg" width="20%"> 
+<img src="files/DSC00040-00564_hald__ahg_oleg_sf__FCA.jpg" width="20%">
+<hr /></li>
+<li><p>
+Small-Flowers LUT - #2 - even though the flower is both small and doesn't constitute centre of interest, it destroys stereo-viewing experience if left unbalanced. And if it was the centre of interest, it would prompt the author to make an additional LUT - with even stronger degree of balancing applied - to fully eliminate retinal-rivalry with this flower.<br />
+</p>
+<img src="files/DSC03307-02394.jpg" width="40%"> 
+<a href="files/DSC03307-02394_hald__ahg_oleg_sf__FCA.jpg">  <img class="ahg_imglink" src="files/DSC03307-02394_hald__ahg_oleg_sf__FCA.jpg" width="40%"></a>
+<p class="ahg_caption">|Top-Left:::::Original-stereopair - - - -  - - - - - - - - -        - - - - - - Anahald-Config-Small-Flowers:::::Top-Right|<br/>|Bottom-Left::::: Color-Preserve - - - - -> General-Purpose - - - - -> Eye-Comfort - - - - -> Small-Flowers:::::Bottom-Right|</p>
+<img src="files/DSC03307-02394_hald__ahg_oleg_cp__FCA.jpg" width="20%"> 
+<img src="files/DSC03307-02394_hald__ahg_oleg_gp__FCA.jpg" width="20%"> 
+<img src="files/DSC03307-02394_hald__ahg_oleg_ec__FCA.jpg" width="20%"> 
+<img src="files/DSC03307-02394_hald__ahg_oleg_sf__FCA.jpg" width="20%">
+<hr /></li>
+</ol>
+
+
+<hr />
+</div>
+</div>
+<div id="outline-container-org2c28ee5" class="outline-2">
+<h2 id="org2c28ee5">Anahald versus anaglyph options in StereoPhotoMaker</h2>
+<div class="outline-text-2" id="text-org2c28ee5">
+<p>
+And finally one more example - all conversions available in StereoPhotoMaker versus Anahald sample LUT-s. The author considers a conversion to be "standard" if it is both freely available and documented.<br />
+StereoPhotoMaker offers four choices:<br />
+</p>
+<ol class="org-ol">
+<li>Half-color - standard<br />
+It was the author's primary choice of stereophoto output prior to the "stereobum" of 2010-s - when options superior to anaglyph were temporarily available.<br />
+Colors with no red presence are more or less in touch with reality, but reds become nearly black, sometimes up to loss of shape<br /></li>
+<li>Dubois - standard<br />
+Colors are mostly off, but all the details manage to preserve their shapes<br /></li>
+<li>Suto - undocumented<br />
+Probably named after the creator of StereoPhotoMaker :).<br />
+The outputs resemble those from Anahald in the aspect of preserving initially balanced colors<br /></li>
+<li>SPM - undocumented<br /></li>
+</ol>
+<p>
+The two standard conversions are "bullet-proof" in fighting retinal rivalry.<br />
+The two  undocumented conversions, like Anahald, do better job in preserving colors, but not always succeed to prevent retinal rivalry.<br />
+</p>
+<img src="files/DSC01364-02014_HCA.jpg" width="20%"> 
+<img src="files/DSC01364-02014_DBA.jpg" width="20%"> 
+<img src="files/DSC01364-02014_SUA.jpg" width="20%"> 
+<img src="files/DSC01364-02014_SPA.jpg" width="20%">
+<p class="ahg_caption">|Top-Left::::: Anaglyph-option-Half-Color - - - - -> Anaglyph-option-Dubois - - - - -> Anaglyph-option-Suto - - - - -> Anaglyph-option-SPM:::::Top-Right|</p>
+<img src="files/DSC01364-02014.jpg" width="40%">  <a href="files/DSC01364-02014_hald__ahg_oleg_ec__FCA.jpg">  <img class="ahg_imglink" src="files/DSC01364-02014_hald__ahg_oleg_ec__FCA.jpg" width="40%"></a>
+<p class="ahg_caption">|Middle-Left:::::Original-stereopair - - - -  - - - - - - - - -        - - - - - - Anahald-Config-Eye-Comfort:::::Middle-Right|<br/>|Bottom-Left::::: Color-Preserve - - - - -> General-Purpose - - - - -> Eye-Comfort - - - - -> Small-Flowers:::::Bottom-Right|</p>
+<img src="files/DSC01364-02014_hald__ahg_oleg_cp__FCA.jpg" width="20%"> 
+<img src="files/DSC01364-02014_hald__ahg_oleg_gp__FCA.jpg" width="20%"> 
+<img src="files/DSC01364-02014_hald__ahg_oleg_ec__FCA.jpg" width="20%"> 
+<img src="files/DSC01364-02014_hald__ahg_oleg_sf__FCA.jpg" width="20%">
+<p>
+The author's verdict for this comparison is:<br />
+</p>
+<ul class="org-ul">
+<li>out of the four offerings from StereoPhotoMaker only Dubois is usable<br /></li>
+<li>out of the four Anahald sample LUTs the choice is between the "Eye-Comfort" and the "Small-Flowers"<br /></li>
+<li>over all the "Eye-Comfort" wins due to colors being closer to reality, even though Dubois did better to preserve differrent coloring of the front region when viewed through the glasses.<br /></li>
+</ul>
+<hr />
+<p>
+&#x2026; So, there <span class="underline">is</span> light coming from the end of a tunnel.  Literally :) &#x2026;<br />
+</p>
+<hr />
+</div>
+</div>
+<div id="outline-container-org2b65bdd" class="outline-2">
+<h2 id="org2b65bdd">More LUT's that <b>should</b> be there?</h2>
+<div class="outline-text-2" id="text-org2b65bdd">
+<p>
+Working on the <a href="https://flic.kr/s/aHBqjC3ybW">sample gallery for Anahald</a> revealed a need for two more LUTs. Their configuration files are placed under CFG/ADD/ subdirectory, and filenames of actual demo images and their EXIF comments include references to the HALDs being used. The additional HALDs are silently included with <a href="http://dualcam.net/galleries/ADDON__ANAHALD/SAMPLE_HALDS/anahald_sample_luts.zip">the examples of Anbahald-generatated HALD-LUTs</a>.<br />
+</p>
+<ol class="org-ol">
+<li>"Moderate-Correction" (_mc) HALD is a proliferation of the "Color-Preserve" - with wider range of colors considered unbalanced.<br />
+The need for the "_mc" LUT arouse from viewing anaglyphs on HDTV, where the user's ability to switch off automatic color optimization altogether is questionable at best.<br /></li>
+<li>"eXtreme-Correction" (_xc) HALD is a proliferation of the "Small-Flowers"- with (green-blue) bias towards blue being significantly reduced.<br />
+The "_xc" LUT served cases where otherwise "_sf" would be the only option that prevents retinal-rivalry - e.g. correction power is behind the choice, not distinguishing flowers from the surrounding greenery.<br /></li>
+</ol>
+<p>
+The table below compares the relevant config-s using Anahald utility "anahald_cfg_table" (BASH is assumed as the command shell):<br />
+</p>
+<pre class="example">
+$ in/anahald_cfg_table.sh LIST CFG/ahg_oleg_cp.ini CFG/ADD/ahg_oleg_mc.ini CFG/ahg_oleg_sf.ini CFG/ADD/ahg_oleg_xc.ini
+       -ID-|Green|MinBn|MaxRg|Smoot|PreSq|MinMi|PreIn|MaxBa
+           |ToBlu|dBala| bVal|hBndB|ueeze|norSc|flate|lance
+           |eBias|ncedM|     |alanc|Major|aleOp|Minor|dMajo
+           |MultW|ajorT|     |edOpt|ToFra| tion|ToFra|rToMa
+           |henMi|oMaxM|     |  ion|   ct|     |   ct|xMino
+           |  nor|inorR|     |     |     |     |     |rRati
+           |     | atio|     |     |     |     |     |    o
+ahg_oleg_cp| 0.97|  1.5|  255|    2| 0.80|    2|  1.0|  3.0
+ahg_oleg_mc| 0.97|  1.3|  255|    2| 0.80|    2|  1.0|  2.6
+ahg_oleg_sf| 0.85|  1.0|  255|    1| 1.00|    1| 0.50|  2.0
+ahg_oleg_xc| 0.97|  1.0|  255|    1| 1.00|    1| 0.50|  2.0
+...
+</pre>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p>Oleg Kosyakovsky</p><p>Haifa, Israel</p><p>2024</p>
+</div>
+</body>
+</html>

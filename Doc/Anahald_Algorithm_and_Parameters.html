@@ -1,0 +1,860 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-03-16 Sun 18:50 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Anaglyph HALD Generator algorithm and how to control it</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Oleg Kosyakovsky" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="files/css/Anahald_styles_main.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="Anahald_Intro.html"> UP </a>
+ |
+ <a accesskey="H" href="http://www.dualcam.net"> HOME </a>
+</div><div id="content">
+<h1 class="title">Anaglyph HALD Generator algorithm and how to control it</h1>
+<p>
+<i>By Oleg Kosyakovsky</i><br />
+</p>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org9bec740">The idea and the glossary</a></li>
+<li><a href="#orgf47337c">The simplified view of color-modification process</a>
+<ul>
+<li><a href="#org1990a2b">The core idea</a>
+<ul>
+<li><a href="#org978b300">Color scale from sides-ratio perspective</a></li>
+<li><a href="#org835aa03">The idea behind the main color-balancing action formulae</a></li>
+<li><a href="#org084b049">Adjustment of min-minor channel</a></li>
+<li><a href="#org6a9f031">Colors on the boundary between balanced and unbalanced</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org2bedf74">Color computation steps in order</a></li>
+<li><a href="#org4a779ba">Examples of color modifications</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9bec740" class="outline-2">
+<h2 id="org9bec740">The idea and the glossary</h2>
+<div class="outline-text-2" id="text-org9bec740">
+<p>
+As stated, <i><b>Anaglyph Hald Generator produces *color lookup tables</b> that substitute colors which are prone to retinal rivalry when viewed through red-cyan glasses with the colors that aren't, while the latter are chosen to look related to the original colors they replace.</i><br />
+</p>
+
+<p>
+Notes on <b><span class="underline">glossary</span></b>:<br />
+</p>
+<ul class="org-ul">
+<li>the author uses interchangeably the terms <i>"folder"</i> and <i>"directory"</i>; the former is misleading but widely known , the latter is technically correct but for some reason "obstructed" from the common users<br /></li>
+<li>the author uses interchangeably the terms <i>"Tcl shell"</i> and <i>"Tcl interpreter"</i><br /></li>
+<li>the author uses interchangeably the terms <i>"command-shell*</i> and <i>"shell*</i>; these refer to CMD or BASH<br /></li>
+<li><i>"LUT"</i> means lookup table, <i>"CLUT"</i> means color lookup table; the author uses these two terms and terms <i>"HALD"</i>, <i>"HALD-LUT"</i>, <i>"HALD-CLUT"</i> interchangeably<br /></li>
+<li><i>"Identity-HALD"</i> standardly means a HALD-CLUT that maps each color to itself<br /></li>
+<li>the author refers to a HALD-CLUT made by Anaglyph HALD Generator as <i>"balanced HALD"</i><br /></li>
+<li>the author uses interchangeably the terms <i>"configuration file"</i>, <i>"config file"</i>, and <i>"config"</i><br /></li>
+<li>the author uses interchangeably the terms <i>"anaglyph"</i> and <i>"red-cyan anaglyph"</i><br /></li>
+
+<li><b><i>"balancing"</i></b> a color means replacing it with some related anaglyph-friendly color obtained by reducing the difference between red channel on one side, and green and blue channels on the other side<br /></li>
+<li><b><i>sides-ratio</i></b> is a ratio between values of red channel, and maximum of green and blue channels - the larger divided by the smaller; used as a measure of <i>disbalance</i> in colors<br /></li>
+</ul>
+
+<p>
+In the Anahald terminology, a color is <b><i>balanced</i></b> if it does not cause retinal rivalry, otherwise the color is <b><i>unbalanced</i></b>.<br />
+</p>
+
+<p>
+Example of balanced (160,120,100) and unbalanced (200,50,30) colors:<br />
+</p>
+
+<div id="org1ecd597" class="figure">
+<p><img src="files/two_r160g120b100.jpg" alt="two_r160g120b100.jpg" width="600px" align="center" /><br />
+</p>
+<p><span class="figure-number">Figure 1: </span>Example of balanced (top) and unbalanced (bottom) red-dominated colors</p>
+</div>
+
+<p>
+Example of balanced (100,120,160) and unbalanced (50,30,200) colors:<br />
+</p>
+
+<div id="orgddf7df4" class="figure">
+<p><img src="files/two_r100g120b160.jpg" alt="two_r100g120b160.jpg" width="600px" align="center" /><br />
+</p>
+<p><span class="figure-number">Figure 2: </span>Example of balanced (top) and unbalanced (bottom) cyan-dominated colors</p>
+</div>
+
+<p>
+Anahald measures the <b><span class="underline">amount of disbalance</span></b> by means of <b><i>sides-ratio</i></b> represented by<br />
+</p>
+<ul class="org-ul">
+<li><b><i>red-cyan-ratio</i></b> for mostly red colors - ("red-dominated")<br /></li>
+<li><b><i>cyan-red-ratio</i></b> for mostly green or blue colors - ("cyan-dominated")<br /></li>
+</ul>
+<p>
+The former (conceptually) equals <i>RedValue / max(GreenValue, BlueValue)</i>, the latter - vice versa. E.g. sides-ratio used in computations is larger than 1, except for neutral colors having sides-ratio of 1.0.<br />
+In the example above<br />
+</p>
+<ul class="org-ul">
+<li>RedCyanRatio(160,120,100) ~ 1.33<br /></li>
+<li>RedCyanRatio(200,50,30)   = 4.00<br /></li>
+</ul>
+<p>
+Color where red strongly dominates is characterized as <b><i>red-heavy</i></b>, color where blue and/or green strongly dominates is characterized as <b><i>cyan-heavy</i></b>.<br />
+</p>
+
+<p>
+For Anahald, a color has <b><i>major</i></b> (dominating - larger channel value) and <b><i>minor</i></b> (the other) <i>sides</i>, where <i>side</i> means red or cyan. On the cyan side, green and blue channels are <i>max</i> or <i>min</i> depending on their values:<br />
+</p>
+<ul class="org-ul">
+<li>for (10,20,30), red is minor, green is min-major, blue is max-major<br /></li>
+<li>for (30,20,10), red is major, green is max-minor, blue is min-minor<br /></li>
+<li>for (30,20,20), red is major, max-minor == min-minor<br /></li>
+</ul>
+
+
+<p>
+Anahald looks at mostly-red and mostly-cyan colors separately - as two "half-palitres", where each one is ordered by correspondent sides-ratio that's greater than one<br />
+</p>
+<ul class="org-ul">
+<li>red-dominated colors are ordered by red-to-cyan ratio<br /></li>
+<li>cyan-dominated (mostly green or blue) colors are ordered by cyan-to-red ratio<br /></li>
+<li>neutral colors are considered included into both half-palitres<br /></li>
+<li>each half-palitre is split into three regions - neutral, non-neutral-balanced, non-neutral-unbalanced<br /></li>
+</ul>
+<pre class="example">
+[1.0 --&gt; NEUTRAL --&gt;][--&gt; BALANCED --&gt; Min-Balanced] [--&gt; UNBALANCED --&gt; 255/0.5]
+</pre>
+<p>
+The <b><span class="underline">goal of Anahald algorithm</span></b> is to:<br />
+</p>
+<ul class="org-ul">
+<li>map red-heavy colors to red-dominated balanced colors while maintaining their relative ordering<br /></li>
+<li>map cyan-heavy colors to cyan-dominated balanced colors while maintaining their relative ordering<br /></li>
+<li>ensure smooth transition between modified and unmodified colors; done by altering some of the originally balanced colors too<br />
+<ul class="org-ul">
+<li>the closer is a color to neutrality, the smaller the magnitude of change<br /></li>
+</ul></li>
+<li>prevent any significant change in neutral colors to avoid shifting the whites<br /></li>
+</ul>
+
+<p>
+<span class="underline">Boundaries between the above-shown regions on sides-ratio axis</span>, as well as <span class="underline">options to fine-tune color-mapping formulae</span> are specified by <b><i>Anahald control parameters</i></b>. These parameters are supplied to Anahald invocation in <b><i>Anahald config files</i></b>; one config file fully defines the LUT to be generated. This page provides enough explanations whenever needed, and a summary is located in    <a href="Anahald_Configuration_Files_and_Control_Parameters.html">Anahald Configuration Files and Control Parameters</a>.<br />
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgf47337c" class="outline-2">
+<h2 id="orgf47337c">The simplified view of color-modification process</h2>
+<div class="outline-text-2" id="text-orgf47337c">
+<p>
+Anahald color modification is applied to lookup table, not to the actual stereopairs.<br />
+E.g. conceptually the algorithm takes as input an identity-lookup-table (the one mapping colors to themselves) and outputs a modified lookup-table to be applied to the stereopairs.<br />
+</p>
+</div>
+
+<div id="outline-container-org1990a2b" class="outline-3">
+<h3 id="org1990a2b">The core idea</h3>
+<div class="outline-text-3" id="text-org1990a2b">
+<p>
+Looking straight at RGB channel values, do the following for each color in identity LUT:<br />
+</p>
+<ol class="org-ol">
+<li>classify the color into balanced or unbalanced<br /></li>
+<li>if unbalanced, increment the minor side to make the RGB trio balanced; if originally balanced, leave unchanged<br /></li>
+</ol>
+
+<p>
+Disclaimer: the formulas in this section aim to present the pure <b>concept</b> of color balancing; the actual code became significantly more complicated - as usual - as the result of handling corner cases and control parameters.<br />
+</p>
+
+<p>
+Of course, the color mapping applied must reflect the difference in channel-to-channel ratios between original colors; it <span class="underline">is</span> scaled, but shouldn't be inverted.<br />
+</p>
+</div>
+
+<div id="outline-container-org978b300" class="outline-4">
+<h4 id="org978b300">Color scale from sides-ratio perspective</h4>
+<div class="outline-text-4" id="text-org978b300">
+<p>
+Colors are analyzed and modified in terms of their red-to-cyan or cyan-to red ratio - larger value divided by smaller value.<br />
+The key control parameter is <b><i>MaxBalancedMajorToMaxMinorRatio</i></b> - the value of sides-ratio that separates balanced and unbalanced ranges. The author assumed the typical value is around 2.0 and up to 3.0, but a formal research would be better.<br />
+</p>
+
+<p>
+The change must result in max-minor channel coming in balance with the major side (max-major channel). The value of min-minor channel could be adjusted too; the way of doing it depends on <b>MinMinorScaleOption</b> control parameter.<br />
+</p>
+
+<p>
+<b><span class="underline">The drawing below illustrates change to modified color's sides-ratio with the old and new values placed on the red-to-cyan- and cyan-to-red- axis</span></b><br />
+</p>
+<ul class="org-ul">
+<li>The treatments for red-dominated and cyan-dominated colors are symmetrical, while the former deals with red-to-green or red-to-blue ratio, and the later - with green-to-red or blue-to-red ratio<br /></li>
+<li>"Min-Balanced" thresholds for both red domination and cyan domination are derived from <b><i>MaxBalancedMajorToMaxMinorRatio</i></b>. As of this writing the thresholds are equal<br /></li>
+<li>The numeric constants assume 8-bit color - the only option supported (at the time of this writing)<br /></li>
+</ul>
+<pre class="example">
+ &gt;-{0.5/255}-----(red-cyan-ratio)-----{1.0}-------------------------{255/0.5}-&gt;
+ &lt;-{255/0.5}-----(cyan-red-ratio)-----{1.0}-------------------------{0.5/255}-&lt;
+                                        !
+[...&lt;- Cyan-Heavy] [Min-Balanced ...[Neu!tral]... Min-Balanced] [Red-Heavy -&gt;...]
+   \/        \/                      \/ !                                    \/
+    |         +-----------+           | !                   +----------------+
+    +----------------\/   \/         \/ !                  \/  
+[...&lt;- Cyan-Heavy] [Min-Balanced ...[Neu!tral]... Min-Balanced] [Red-Heavy -&gt;...]
+|                  |                    !                     |                 |
+|                  |&lt;---- only-balanced-colors-range (new)---&gt;|                 |
+|&lt;--------------------------------- all-colors-range (old)---------------------&gt;|
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org835aa03" class="outline-4">
+<h4 id="org835aa03">The idea behind the main color-balancing action formulae</h4>
+<div class="outline-text-4" id="text-org835aa03">
+<p>
+<b>The main action of Anahald color balancing brings max-minor channel into the balance with max-major channel.</b><br />
+</p>
+<ul class="org-ul">
+<li>e.g. if an unbalanced color is green-dominated, red channel must be increased<br /></li>
+</ul>
+
+<p>
+<b><span class="underline">The conceptual formulae for max-minor channel</span></b> is presented below<br />
+</p>
+
+<pre class="example">
+colorRangeWidthNew = 1 - 1/{MaxBalancedMajorToMaxMinorRatio}
+colorRangeWidthOld = MaxChannelValue - MinChannelValue == 255 - 0 = 255
+
+MinAllowedMaxMinor = OldMaxMajor / {MaxBalancedMajorToMaxMinorRatio}
+
+NewMaxMinor = MinAllowedMaxMinor  +  OldMaxMinor * (colorRangeWidthNew / colorRangeWidthOld)
+</pre>
+<ul class="org-ul">
+<li>control parameters appear in {} - curly braces<br /></li>
+<li>on the concept level red-dominated and cyan-dominated colors are treated symmetrically<br /></li>
+<li>as the result the original range of RGB color trio-s gets "squeezed" into its subset - the one of the balanced colors.<br /></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org084b049" class="outline-4">
+<h4 id="org084b049">Adjustment of min-minor channel</h4>
+<div class="outline-text-4" id="text-org084b049">
+<p>
+The main color-balancing action - scaling of max-minor channel - brings the color into balance from Anahald point of view. But leaving min-minor channel untouched may produce an unrelated color.<br />
+</p>
+
+<p>
+<span class="underline">Two approaches provided for balancing min-minor channel</span>, selectable by <b>MinMinorScaleOption</b> control parameter.<br />
+</p>
+
+<p>
+If <b>MinMinorScaleOption</b> = 1, min-minor channel undergoes the same treatment as the max-minor, independently of it; in the formulae below lines that completely duplicate prior calculation of max-minor are commented-out with #:<br />
+</p>
+<pre class="example">
+
+
+NewMinMinor = MinAllowedMaxMinor  +  OldMinMinor * (colorRangeWidthNew / colorRangeWidthOld)
+</pre>
+<p>
+If <b><i>MinMinorScaleOption</i></b> = 2, min-minor channel is scaled-up by the same factor as max-minor:<br />
+</p>
+
+<pre class="example">
+NewMinMinor = OldMinMinor  *  (NewMaxMinor / OldMaxMinor)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org6a9f031" class="outline-4">
+<h4 id="org6a9f031">Colors on the boundary between balanced and unbalanced</h4>
+<div class="outline-text-4" id="text-org6a9f031">
+<p>
+If the boundary between balanced and unbalanced is a hard threshold, color gradients crossing this boundary are disrupted with apparent "stair" at appropriate points. Anahald addresses this problem by <b>smoothing the transition - modifying originally balanced colors with sides-ratios (red-to-cyan or cyan-to-red) close to the threshold value:</b><br />
+</p>
+<ul class="org-ul">
+<li>such colors are referred to as <i>"marginally balanced"</i><br /></li>
+<li>the more balanced is such a color, the smaller change it undergoes<br /></li>
+<li>control parameter <b><i>MinBndBalancedMajorToMaxMinorRatio</i></b> specifies the minimum value of color's sides-ratio for the color to be considered marginally balanced; colors with smaller sides-ratios aren't altered at all<br /></li>
+<li>control parameter <b><i>SmoothBndBalancedOption</i></b> allows to choose one of two approaches for the smoothing action; more on this follows<br /></li>
+<li>all the three color channels are affected<br /></li>
+</ul>
+
+<p>
+<b><span class="underline">Two approaches to smoothing balanced-unbalanced boundary</span></b><br />
+Whatever the approach, the smoothing formulae just takes weighted average between the original and would-be-modified values for each of the three color channels.<br />
+</p>
+
+<pre class="example">
+channelValueNew = (1 - w) * channelValueOld  +  w * channelValueIfScaled
+</pre>
+<ul class="org-ul">
+<li><i>channelValueOld</i> is the original color-channel value<br /></li>
+<li><i>channelValIfScaled</i> would be the modified color-channel value as if this (RGB) color was treated as originally unbalanced<br /></li>
+<li><i>channelValueNew</i> is the ultimate color-channel value<br /></li>
+<li><i>w</i> is the weight coefficient; the way of calculating its value depends on control parameter <b><i>SmoothBndBalancedOption</i></b><br /></li>
+<li>the goal is to gradually diminish the change in color-channel value (result of balancing) - from its maximum at the balanced-unbalanced boundary, so that this change disappears at colors with sides-ratio equal to <b>MinBndBalancedMajorToMaxMinorRatio</b><br /></li>
+</ul>
+
+<p>
+<b><span class="underline">The two user-selectable formulas for calculating smoothing weight coefficient (assumuing red-dominated color):</span></b><br />
+</p>
+<ol class="org-ol">
+<li><p>
+"linear weight" - used if <b><i>SmoothBndBalancedOption</i></b> = 1<br />
+</p>
+
+<pre class="example">
+wLinear = 1.0*(red_cyan_ratio - {MinBndBalancedMajorToMaxMinorRatio}) /  ({MaxBalancedMajorToMaxMinorRatio} - {MinBndBalancedMajorToMaxMinorRatio})}]
+</pre></li>
+<li><p>
+"parabolic weight" - used if <b><i>SmoothBndBalancedOption</i></b> = 2<br />
+</p>
+
+<pre class="example">
+a == -1 / ({MinBndBalancedMajorToMaxMinorRatio} - {MaxBalancedMajorToMaxMinorRatio})^2
+wParabolic = a*(red_cyan_ratio - {MaxBalancedMajorToMaxMinorRatio})^2 + 1,
+</pre></li>
+</ol>
+<p>
+Compared to linear-weight, for the parabolic option the weight reduces slower for near-balanced color, and steeper for more unbalanced colors.<br />
+</p>
+
+<p>
+<b><span class="underline">Alternative to smoothing balanced-unbalanced boundary</span></b><br />
+There anyway exists a possibility to keep the boundary as the hard limit (e.g. colors with smaller sides-ratio are unchanged, only colors with larger sides-ratio undergo balancing). But then one has to maintain a collection of LUT-s with different threshold values and choose the LUT on per-image basis. This is perfectly suitable for individual images or finite sequences of images; becomes more complicated for videos. In any case, an automatic tool to select an optimal LUT for an image out of <span class="underline">multiple</span> choices would be beneficial and should be a subject for future work - see <a href="Anahald_Future_Work.html">Anahald_Future_Work.html</a>.<br />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org2bedf74" class="outline-2">
+<h2 id="org2bedf74">Color computation steps in order</h2>
+<div class="outline-text-2" id="text-org2bedf74">
+<p>
+In reality computation of each color includes more stages than described in <a href="#orgf47337c">The simplified view of color-modification process</a>. The author decided to save on detailed description of steps whose related control parameters are simple enough to understand.<br />
+</p>
+
+<p>
+Here is the <b><span class="underline">list of steps involved in balancing one color</span></b>:<br />
+</p>
+
+<ol class="org-ol">
+<li><i>Pre-squeeze</i> the major side or <i>pre-inflate</i> the minor side<br />
+<ul class="org-ul">
+<li><i>pre-squeeze</i> makes the major side pay its part in balancing, which otherwise would keep it unchanged and only increase the minor side - see (<a href="#org835aa03">The idea behind the main color-balancing action formulae</a>). The major side is scaled down to constitute approximately <b><i>PreSqueezeMajorToFract</i></b> (control parameter, &lt;= 1) of the initial difference between major and minor sides.<br /></li>
+<li><i>pre-inflate</i> is symmetrical to <i>pre-squeeze</i> computation-wise; specified by control parameter <b><i>PreInflateMinorToFract</i></b> being &lt; 1; results in minor side ending-up bigger than it would be otherwise<br /></li>
+<li>Only one of <i>pre-squeeze</i> or <i>pre-inflate</i> allowed to be active (e.g. have its control parameter &lt; 1)<br /></li>
+<li>This stage includes a hidden action of <i>thresholding</i> - clipping very low channel values to a hardcoded threshold; currently restricted to replacing 0 by 1<br /></li>
+</ul></li>
+<li>Application of <i>green-blue bias to the minor side</i> of red-dominated colors.<br />
+<ul class="org-ul">
+<li>green channel ls multiplied by- and blue channel is divided by  <b><i>GreenToBlueBiasMultWhenMinor</i></b> control parameter<br /></li>
+<li>e.g. <b><i>GreenToBlueBiasMultWhenMinor</i></b> &lt; 1.0 results in blue tint on the minor side, while <b><i>GreenToBlueBiasMultWhenMinor</i></b> &gt; 1.0 results in green tint there<br /></li>
+</ul></li>
+<li><i>Scale up the max-minor channel</i><br />
+<ul class="org-ul">
+<li>see <a href="#org835aa03">The idea behind the main color-balancing action formulae</a><br /></li>
+</ul></li>
+<li><i>Increment the min-minor channel</i> to prevent gap with new value of the max-minor<br />
+<ul class="org-ul">
+<li>see <a href="#org084b049">Adjustment of min-minor channel</a><br /></li>
+</ul></li>
+<li>Take <i>weighted averages between the scaled- and original values</i> for all the channels to smoothen transition between originally-balanced and originally-unbalanced colors<br />
+<ul class="org-ul">
+<li>see <a href="#org6a9f031">Colors on the boundary between balanced and unbalanced</a><br /></li>
+</ul></li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-org4a779ba" class="outline-2">
+<h2 id="org4a779ba">Examples of color modifications</h2>
+<div class="outline-text-2" id="text-org4a779ba">
+<p>
+Sample color modification flows shown in this section assume config file "rma_ba12_sq0d80gb0d97sc1d5_cp.ini" which is supplied with Anahald.<br />
+Recall that the numbers don't exactly match the conceptual ratios, bur are close enough.<br />
+</p>
+
+<p>
+Parameter values are shown tn the table below:<br />
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="all" frame="border">
+<caption class="t-above"><span class="table-number">Table 1:</span> Config parameters assumed in color-computation examples</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">-ID-</th>
+<th scope="col" class="org-left">Green</th>
+<th scope="col" class="org-left">MinBn</th>
+<th scope="col" class="org-left">MaxRg</th>
+<th scope="col" class="org-left">Smoot</th>
+<th scope="col" class="org-left">PreSq</th>
+<th scope="col" class="org-left">MinMi</th>
+<th scope="col" class="org-left">PreIn</th>
+<th scope="col" class="org-left">MaxBa</th>
+</tr>
+
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">ToBlu</th>
+<th scope="col" class="org-left">dBala</th>
+<th scope="col" class="org-left">bVal</th>
+<th scope="col" class="org-left">hBndB</th>
+<th scope="col" class="org-left">ueeze</th>
+<th scope="col" class="org-left">norSc</th>
+<th scope="col" class="org-left">flate</th>
+<th scope="col" class="org-left">lance</th>
+</tr>
+
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">eBias</th>
+<th scope="col" class="org-left">ncedM</th>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">alanc</th>
+<th scope="col" class="org-left">Major</th>
+<th scope="col" class="org-left">aleOp</th>
+<th scope="col" class="org-left">Minor</th>
+<th scope="col" class="org-left">dMajo</th>
+</tr>
+
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">MultW</th>
+<th scope="col" class="org-left">ajorT</th>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">edOpt</th>
+<th scope="col" class="org-left">ToFra</th>
+<th scope="col" class="org-left">tion</th>
+<th scope="col" class="org-left">ToFra</th>
+<th scope="col" class="org-left">rToMa</th>
+</tr>
+
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">henMi</th>
+<th scope="col" class="org-left">oMaxM</th>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">ion</th>
+<th scope="col" class="org-left">ct</th>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">ct</th>
+<th scope="col" class="org-left">xMino</th>
+</tr>
+
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">nor</th>
+<th scope="col" class="org-left">inorR</th>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">rRati</th>
+</tr>
+
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">atio</th>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">o</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">ahg_oleg_cp</td>
+<td class="org-left">0.97</td>
+<td class="org-left">1.5</td>
+<td class="org-left">255</td>
+<td class="org-left">2</td>
+<td class="org-left">0.80</td>
+<td class="org-left">2</td>
+<td class="org-left">1.0</td>
+<td class="org-left">3.0</td>
+</tr>
+</tbody>
+</table>
+<br>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="all" frame="border">
+<caption class="t-above"><span class="table-number">Table 2:</span> Color-computation examples</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left"><b>Comment</b></th>
+<th scope="col" class="org-left"><b>Original-RGB</b></th>
+<th scope="col" class="org-left"><b>PreSqueeze/PreInflate</b></th>
+<th scope="col" class="org-left"><b>Bias</b></th>
+<th scope="col" class="org-left"><b>Balance</b></th>
+<th scope="col" class="org-left"><b>Weghting</b></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Saturated red</td>
+<td class="org-left">255 0 0</td>
+<td class="org-left">204 0 0</td>
+<td class="org-left">204 0 0</td>
+<td class="org-left">204 68 0</td>
+<td class="org-left">204 68 0</td>
+</tr>
+
+<tr>
+<td class="org-left">Saturated red</td>
+<td class="org-left">255 1 0</td>
+<td class="org-left">204 1 0</td>
+<td class="org-left">204 1 0</td>
+<td class="org-left">204 69 0</td>
+<td class="org-left">204 69 0</td>
+</tr>
+
+<tr>
+<td class="org-left">Saturated blue</td>
+<td class="org-left">0 0 200</td>
+<td class="org-left">0 0 160</td>
+<td class="org-left">0 0 160</td>
+<td class="org-left">53 0 160</td>
+<td class="org-left">53 0 160</td>
+</tr>
+
+<tr>
+<td class="org-left">Marginal reddish</td>
+<td class="org-left">100 55 50</td>
+<td class="org-left">91 55 50</td>
+<td class="org-left">91 53 52</td>
+<td class="org-left">91 66 58</td>
+<td class="org-left">91 59 58</td>
+</tr>
+
+<tr>
+<td class="org-left">Green-heavy</td>
+<td class="org-left">50 200 40</td>
+<td class="org-left">50 170 40</td>
+<td class="org-left">50 170 40</td>
+<td class="org-left">90 170 34</td>
+<td class="org-left">90 170 34</td>
+</tr>
+</tbody>
+</table>
+<br>
+
+<p>
+<b><span class="underline">Visualization of color-computation examples</span></b><br />
+</p>
+
+
+<div id="org67c847c" class="figure">
+<p><img src="files/color_trans_1.jpg" alt="color_trans_1.jpg" width="600px" align="center" /><br />
+</p>
+<p><span class="figure-number">Figure 3: </span>Balancing saturated-red color {255 1 0}</p>
+</div>
+
+<div id="org8ac1dd2" class="figure">
+<p><img src="files/color_trans_2.jpg" alt="color_trans_2.jpg" width="600px" align="center" /><br />
+</p>
+<p><span class="figure-number">Figure 4: </span>Balancing saturated-blue color {0 0 200}</p>
+</div>
+
+<div id="orgb75de55" class="figure">
+<p><img src="files/color_trans_3.jpg" alt="color_trans_3.jpg" width="600px" align="center" /><br />
+</p>
+<p><span class="figure-number">Figure 5: </span>Balancing marginally balanced reddish color {100 55 50}</p>
+</div>
+
+<div id="orga103c81" class="figure">
+<p><img src="files/color_trans_4.jpg" alt="color_trans_4.jpg" width="600px" align="center" /><br />
+</p>
+<p><span class="figure-number">Figure 6: </span>Balancing green-heavy color {50 200 40}</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p>Oleg Kosyakovsky</p><p>Haifa, Israel</p><p>2024</p>
+</div>
+</body>
+</html>

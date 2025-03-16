@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-03-16 Sun 18:50 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Anaglyph HALD Generator (Anahald) - Invocation</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Oleg Kosyakovsky" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="files/css/Anahald_styles_main.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="Anahald_Intro.html"> UP </a>
+ |
+ <a accesskey="H" href="http://www.dualcam.net"> HOME </a>
+</div><div id="content">
+<h1 class="title">Anaglyph HALD Generator (Anahald) - Invocation</h1>
+<p>
+<i>By Oleg Kosyakovsky</i><br />
+</p>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgb5fd93d">Anahald User Commands</a>
+<ul>
+<li><a href="#org51f50c8">Command to make HALD CLUT according to a configuration file</a></li>
+<li><a href="#org2c385a8">Command to read and summarize available Anahald configuration files</a></li>
+</ul>
+</li>
+<li><a href="#org9105345">Performance and computer-memory considerations</a></li>
+</ul>
+</div>
+</div>
+
+<p>
+Notes on <b>expected users' knowledge</b> could be found in <a href="Anahald_Install.html">installation guide</a>.<br />
+</p>
+
+<p>
+Notes on <b><span class="underline">glossary</span></b>:<br />
+</p>
+<ul class="org-ul">
+<li>the author uses interchangeably the terms <i>"folder"</i> and <i>"directory"</i>; the former is misleading but widely known , the latter is technically correct but for some reason "obstructed" from the common users<br /></li>
+<li>the author uses interchangeably the terms <i>"Tcl shell"</i> and <i>"Tcl interpreter"</i><br /></li>
+<li>the author uses interchangeably the terms <i>"command-shell*</i> and <i>"shell*</i>; these refer to CMD or BASH<br /></li>
+<li><i>"LUT"</i> means lookup table, <i>"CLUT"</i> means color lookup table; the author uses these two terms and terms <i>"HALD"</i>, <i>"HALD-LUT"</i>, <i>"HALD-CLUT"</i> interchangeably<br /></li>
+<li><i>"Identity-HALD"</i> standardly means a HALD-CLUT that maps each color to itself<br /></li>
+<li>the author refers to a HALD-CLUT made by Anaglyph HALD Generator as <i>"balanced HALD"</i><br /></li>
+<li>the author uses interchangeably the terms <i>"configuration file"</i>, <i>"config file"</i>, and <i>"config"</i><br /></li>
+<li>the author uses interchangeably the terms <i>"anaglyph"</i> and <i>"red-cyan anaglyph"</i><br /></li>
+
+<li><b><i>"balancing"</i></b> a color means replacing it with some related anaglyph-friendly color obtained by reducing the difference between red channel on one side, and green and blue channels on the other side<br /></li>
+<li><b><i>sides-ratio</i></b> is a ratio between values of red channel, and maximum of green and blue channels - the larger divided by the smaller; used as a measure of <i>disbalance</i> in colors<br /></li>
+</ul>
+
+
+<div id="outline-container-orgb5fd93d" class="outline-2">
+<h2 id="orgb5fd93d">Anahald User Commands</h2>
+<div class="outline-text-2" id="text-orgb5fd93d">
+<p>
+In the first version Anaglyph HALD Generator consists of two command-line utilities::<br />
+</p>
+<ol class="org-ol">
+<li>The HALD-CLUT generation itself - "anahald_lut_make"<br /></li>
+<li>Configuration file reader - "anahald_cfg_table"<br /></li>
+</ol>
+</div>
+
+<div id="outline-container-org51f50c8" class="outline-3">
+<h3 id="org51f50c8">Command to make HALD CLUT according to a configuration file</h3>
+<div class="outline-text-3" id="text-org51f50c8">
+<p>
+The <b><i>anahald_lut_make</i></b> utility implementing this command is the core functionality of Anahald.<br />
+For this section it's enough to accept the author's claim that an Anahald configuration file fully defines characteristics of the color correction performed by HALD-CLUT that results from it. Full spec of the file syntax and the parameters is provided in <a href="Anahald_Configuration_Files_and_Control_Parameters.html">Anahald Configuration Files and Control Parameters</a>.<br />
+Trying to run <b><i>anahald_lut_make.bat</i></b> (or <b><i>anahald_lut_make.sh</i></b>) without arguments prints the command-line syntax help:<br />
+</p>
+<pre class="example">
+* Usage:  anahald_lut_make.bat  &lt;CONFIG-PATH&gt;  &lt;HALD-LEVEL&gt;  &lt;OUTPUT-DIRECTORY-PATH&gt;
+  (minimal reasonable hald-level is 8, recommended for production - 16)
+</pre>
+<ul class="org-ul">
+<li>Note: under <b><span class="underline">Windows</span></b> use <b><i>anahald_lut_make.bat</i></b> in <span class="underline">any</span> shell - whether CMD or BASH; under <b><span class="underline">Linux</span></b> - use <b><i>anahald_lut_make.sh</i></b><br /></li>
+<li>While not shown in the help, you may need to precede Anahald script name with directory path - for example <b><i>C:\Photo\ANAHALD\bin\anahald_lut_make.sh</i></b><br /></li>
+<li><b><i>CONFIG-PATH</i></b> is the full or relative path of the input Anahald config file - for example <b><i>C:\Photo\ANAHALD\CFG\ahg_oleg_sf.ini</i></b><br /></li>
+<li><b><i>HALD-LEVEL</i></b> defines number of colors in the resulting CLUT and thus its size:<br />
+<ul class="org-ul">
+<li>for detailed info see <a href="http://www.quelsolaar.com/technology/clut.html">Hald Images, Clut Technology</a><br /></li>
+<li><b>number-of-colors == LEVEL ^ 6</b>  (16777216 for level==16)<br /></li>
+<li>supported range: 1 &#x2026; 16<br /></li>
+<li>the more colors appear explicitly in the CLUT, the higher the conversion precision<br /></li>
+<li>HALD-based conversion interpolates intermediate colors<br /></li>
+<li>runtime and (temporary) disk space are affected too; see <a href="#org9105345">Performance and computer-memory considerations</a><br /></li>
+</ul></li>
+<li><b><i>OUTPUT-DIRECTORY-PATH</i></b> is a full or relative path of the directory where Anahald will write two files:<br />
+a) the resulting HALD image in 8-bit TIFF format, LZW-compressed (non-lousy)<br />
+b) a potentially *_huge*_ temporary file with textual representation of the resulting image<br />
+<ul class="org-ul">
+<li>making a level-16 HALD involves temporary text file of ~850 megabytes<br /></li>
+<li>Anahald checks the amount of available free space and aborts the run in the very beginning if it's insufficient for the requested HALD level<br /></li>
+<li>in case of successful completion Anahalds deletes the temporary file<br /></li>
+</ul></li>
+</ul>
+<p>
+Revisiting the sample run of HALD-CLUT generation and its output from <a href="Anahald_Install.html#orgde055d7">Comparison of identity HALD with &#x2026;</a>:<br />
+</p>
+
+<pre class="example">
+$ bin/anahald_lut_make.sh CFG/ahg_oleg_cp.ini  2  TMP
+...
+-I- Generated HALD-02 with 48 of 64 color(s) replaced; new text version saved in 'TMP/hald__ahg_oleg_cp__02.TXT'
+...
+-I- Success converting HALD text file 'TMP/hald__ahg_oleg_cp__02.TXT' into image 'TMP/hald__ahg_oleg_cp__02.TIF'
+...
+-I- Deleted temporary HALD-02 text file 'TMP/hald__ahg_oleg_cp__02.TXT'
+...
+</pre>
+<p>
+<b><span class="underline"><a id="org5b22289"></a> Identity HALD (left) and generated balanced HALD (right)</span></b><br />
+</p>
+
+<div id="orgc9b2104" class="figure">
+<p><img src="files/hald_2.png" alt="hald_2.png" width="200px" align="left" style="float:left" /><br />
+</p>
+<p><span class="figure-number">Figure 1: </span>Identity HALD (left) versus the balanced HALD (right)</p>
+</div>
+
+<div class="figure">
+<p><img src="files/hald__ahg_oleg_cp__02.PNG" alt="hald__ahg_oleg_cp__02.PNG" width="200px" align="right" style="float:none" /><br />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org2c385a8" class="outline-3">
+<h3 id="org2c385a8">Command to read and summarize available Anahald configuration files</h3>
+<div class="outline-text-3" id="text-org2c385a8">
+<p>
+The <b><i>anahald_cfg_table</i></b> utility collects essential contents of config files presented to it, and formats this contents into an easy to grasp table.<br />
+</p>
+<ul class="org-ul">
+<li>Anahald config files define configuration parameters detailed in <a href="Anahald_Algorithm_and_Parameters.html">*The simplified view of color-modification process</a>, <a href="Anahald_Algorithm_and_Parameters.html">*Color computation steps in order</a> and <a href="Anahald_Configuration_Files_and_Control_Parameters.html">Anahald Configuration Files and Control Parameters</a><br /></li>
+</ul>
+<p>
+Running <b><i>anahald_cfg_table.bat</i></b> (or <b><i>anahald_cfg_table.sh</i></b>) without arguments prints the command-line syntax help:<br />
+</p>
+<pre class="example">
+* Usage (1):  anahald_cfg_table.sh  GLOB  &lt;CONFIG-DIRECTORY-PATH&gt;  &lt;CONFIG-FILEPATH-PATTERN&gt; ...
+* Usage (2):  anahald_descr.sh  LIST  &lt;CONFIG-FILENAME-1&gt;  &lt;CONFIG-FILENAME-2&gt;
+</pre>
+<ul class="org-ul">
+<li>remember, under <b><span class="underline">Windows</span></b> use <b><i>anahald_cfg_table.bat</i></b> in <span class="underline">any</span> shell - whether CMD or BASH; under <b><span class="underline">Linux</span></b> - use <b><i>anahald_cfg_table.sh</i></b><br /></li>
+<li><b><i>GLOB</i></b> and <b><i>LIST</i></b> are <span class="underline">literal</span> keywords selecting one of the two flavors:<br />
+(the flavors differ in how they search for config files)<br />
+<ol class="org-ol">
+<li><p>
+The <b>GLOB</b> flavor looks in directory <b><i>CONFIG-DIRECTORY-PATH</i></b> for files whose names match <i>glob</i> pattern specified by <b><i>CONFIG-FILEPATH-PATTERN</i></b> argument<br />
+</p>
+<ul class="org-ul">
+<li>the syntax of wildcard in patterns is pretty standard - <b>"​*"</b> means anything-or-nothing-any-length, <b>"?"</b> means any-character-or-nothing; a good explanation could be found in <a href="https://www.tcl.tk/man/tcl8.6/TclCmd/glob.htm">https://www.tcl.tk/man/tcl8.6/TclCmd/glob.htm</a><br />
+<ul class="org-ul">
+<li>but do note the <span class="underline">directory separator in the <b>pattern</b></span> is always <b>"/"</b>, even on Windows<br /></li>
+</ul></li>
+<li>The following 5 examples produce the same output in various "combinations" of BASH or CMD under Linux or Windows assuming the current working directory is "&lt;USER-HOME-DIRECTORY&gt;/ANY/TMP/ANAHALD"<br /></li>
+</ul>
+<pre class="example">
+bin/anahald_cfg_table.sh  GLOB CFG "*p.ini"                       #1 - Linux   BASH
+bin/anahald_cfg_table.bat GLOB CFG "*p.ini"                       #2 - Windows BASH
+bin/anahald_cfg_table.sh  GLOB "~/ANY/TMP/ANAHALD"  "CFG/*p.ini"  #3 - Linux   BASH
+bin/anahald_cfg_table.bat GLOB "~/ANY/TMP/ANAHALD"  "CFG/*p.ini"  #4 - Windows BASH
+bin\anahald_cfg_table.bat GLOB "~/ANY/TMP/ANAHALD"  "CFG/*p.ini"  #5 - Windows CMD
+...
+       -ID-|Green|MinBn|MaxRg|Smoot|PreSq|MinMi|PreIn|MaxBa
+           |ToBlu|dBala| bVal|hBndB|ueeze|norSc|flate|lance
+           |eBias|ncedM|     |alanc|Major|aleOp|Minor|dMajo
+           |MultW|ajorT|     |edOpt|ToFra| tion|ToFra|rToMa
+           |henMi|oMaxM|     |  ion|   ct|     |   ct|xMino
+           |  nor|inorR|     |     |     |     |     |rRati
+           |     | atio|     |     |     |     |     |    o
+ahg_oleg_cp| 0.97|  1.5|  255|    2| 0.80|    2|  1.0|  3.0
+ahg_oleg_gp|  1.0|  1.3|  255|    2| 0.90|    2|  1.0|  2.0
+</pre></li>
+<li><p>
+The <b>LIST</b> flavor looks for literally specified files<br />
+</p>
+<ul class="org-ul">
+<li>each file is represented by its full path - either relative or absolute<br /></li>
+<li>path are separated by spaces<br /></li>
+<li>The following 5 examples produce equal output in various "combinations" of BASH or CMD under Linux or Windows assuming the current working directory is "&lt;USER-HOME-DIRECTORY&gt;/ANY/TMP/ANAHALD"<br /></li>
+</ul>
+<pre class="example">
+bin/anahald_cfg_table.sh  LIST ~/ANY/TMP/ANAHALD/CFG/ahg_oleg_gp.ini CFG/ahg_oleg_ec.ini                                                   #1 - Linux BASH   - relative paths
+bin/anahald_cfg_table.bat LIST ~/ANY/TMP/ANAHALD/CFG/ahg_oleg_gp.ini CFG/ahg_oleg_ec.ini                                                  #2 - Windows BASH - relative paths
+bin/anahald_cfg_table.sh  LIST /home/users/Oleg/ANY/TMP/ANAHALD/CFG/ahg_oleg_gp.ini /home/users/Oleg/ANY/TMP/ANAHALD/CFG/ahg_oleg_ec.ini   #3 - Linux BASH   - absolute paths
+bin/anahald_cfg_table.bat LIST "C:/Users/Oleg/ANY/TMP/ANAHALD/CFG/ahg_oleg_gp.ini" C:/Users/Oleg/ANY/TMP/ANAHALD/CFG/ahg_oleg_ec.ini      #4 - Windows BASH - absolute paths
+bin\anahald_cfg_table.bat LIST "C:/Users/Oleg/ANY/TMP/ANAHALD/CFG/ahg_oleg_gp.ini" C:/Users/Oleg/ANY/TMP/ANAHALD/CFG/ahg_oleg_ec.ini      #5 - Windows CMD  - absolute paths
+...
+       -ID-|Green|MinBn|MaxRg|Smoot|PreSq|MinMi|PreIn|MaxBa
+           |ToBlu|dBala| bVal|hBndB|ueeze|norSc|flate|lance
+           |eBias|ncedM|     |alanc|Major|aleOp|Minor|dMajo
+           |MultW|ajorT|     |edOpt|ToFra| tion|ToFra|rToMa
+           |henMi|oMaxM|     |  ion|   ct|     |   ct|xMino
+           |  nor|inorR|     |     |     |     |     |rRati
+           |     | atio|     |     |     |     |     |    o
+ahg_oleg_gp|  1.0|  1.3|  255|    2| 0.90|    2|  1.0|  2.0
+ahg_oleg_ec|  1.0|  1.0|  255|    1| 0.90|    1|  1.0|  2.0
+</pre></li>
+</ol></li>
+<li>in the output - for any flavor - values for <b>missing parameters</b>, if any, would be replaced with <b>"?"</b> <br /></li>
+<li>Notes on <b><span class="underline">file-path syntax</span></b> - applicable for all flavors of "anahald_cfg_table" utility:<br />
+<ul class="org-ul">
+<li><span class="underline">in config-file directory or as part of the pattern</span>, paths follow Tcl style irrespective of which shell is used (CMD or BASH):<br />
+<ul class="org-ul">
+<li>paths with spaces should be enclosed in double-quotes (")<br /></li>
+<li>directory separator is always slash (/), even on Windows<br /></li>
+<li>absolute paths on Windows begin with disk name (both in CMD and in BASH):<br />
+<ul class="org-ul">
+<li><b><i>"C:/Users/Oleg/ANY/TMP/ANAHALD/CFG/ahg_oleg_gp.ini"</i></b>  ### example of absolute path on Windows<br /></li>
+</ul></li>
+<li>absolute paths on Linux begin with root directory (/)<br />
+<ul class="org-ul">
+<li><b><i>"/home/Oleg/ANY/TMP/ANAHALD/CFG/ahg_oleg_gp.ini"</i></b>     ### example of absolute path on Linux<br /></li>
+</ul></li>
+</ul></li>
+<li><span class="underline">absolute executable paths</span> (the "anahald_XXX.sh" or "anahald_XXX.bat" utilities themselves) follow the syntax specific to OS and command-shell combination:<br />
+<ul class="org-ul">
+<li>in the above examples the Anahald utility path is:<br />
+a) "~/ANY/TMP/ANAHALD/bin/anahald_cfg_table.sh"              - in BASH under Linux<br />
+b) "~/ANY/TMP/ANAHALD/bin/anahald_cfg_table.bat"             - in BASH under Windows<br />
+c) "/home/Oleg/ANY/TMP/ANAHALD/bin/anahald_cfg_table.sh"     - in BASH under Linux<br />
+d) "/C/Users/Oleg/ANY/TMP/ANAHALD/bin/anahald_cfg_table.bat" - in BASH under Windows<br />
+e) "C:\Users\Oleg\ANY\TMP\ANAHALD\bin\anahald_cfg_table.bat" - in CMD  under Windows<br /></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org9105345" class="outline-2">
+<h2 id="org9105345">Performance and computer-memory considerations</h2>
+<div class="outline-text-2" id="text-org9105345">
+<p>
+Anaglyph HALD Generator does its work by first constructing a potentially huge file containing the HALD image in PPM plain-text format, then converting it into a proper TIFF image, then deleting the text file.<br />
+</p>
+<ul class="org-ul">
+<li>the maximum supported HALD-level of 16 means <b>16777216 colors</b>, and HALD image in the textual format is around <b>200 megabytes</b><br />
+<ul class="org-ul">
+<li>Anahald checks the amount of available free space and aborts the run in the very beginning if it's insufficient for the requested HALD level<br /></li>
+</ul></li>
+<li>generating a level-16 HALD takes some 6.5 minutes on a rather powerful mainstream PC<br /></li>
+</ul>
+
+<p>
+Disk space consumption could be a major problem - it slows down the process AND may over-stress the physical storage.<br />
+Especially when outputting multiple times to not-too-big SSD or flash drive, huge temporary files may even cause <span class="underline">wearout of the equipment</span>.<br />
+The author's solution is to put the output directory onto a RAM drive.<br />
+</p>
+<ul class="org-ul">
+<li>a possible option for Windows-11: <a href="https://dataram.com/">Dataram</a>, though it seems to be discontinued.<br /></li>
+</ul>
+
+<p>
+A reasonable workflow approach would be to make level-8 HALD-s for trial and evaluation purposes, and generate the ultimate level-16 HALD only when the configuration is finalized.<br />
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p>Oleg Kosyakovsky</p><p>Haifa, Israel</p><p>2024</p>
+</div>
+</body>
+</html>
