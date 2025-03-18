@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2025-03-16 Sun 18:50 -->
+<!-- 2025-03-18 Tue 16:26 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Anaglyph HALD Generator (Anahald) - Invocation</title>
@@ -277,13 +277,13 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgb5fd93d">Anahald User Commands</a>
+<li><a href="#orgf38a95c">Anahald User Commands</a>
 <ul>
-<li><a href="#org51f50c8">Command to make HALD CLUT according to a configuration file</a></li>
-<li><a href="#org2c385a8">Command to read and summarize available Anahald configuration files</a></li>
+<li><a href="#org5a951eb">Command to make HALD CLUT according to a configuration file</a></li>
+<li><a href="#orge8536a7">Command to read and summarize available Anahald configuration files</a></li>
 </ul>
 </li>
-<li><a href="#org9105345">Performance and computer-memory considerations</a></li>
+<li><a href="#org0f3be08">Performance and computer-memory considerations</a></li>
 </ul>
 </div>
 </div>
@@ -310,9 +310,9 @@ Notes on <b><span class="underline">glossary</span></b>:<br />
 </ul>
 
 
-<div id="outline-container-orgb5fd93d" class="outline-2">
-<h2 id="orgb5fd93d">Anahald User Commands</h2>
-<div class="outline-text-2" id="text-orgb5fd93d">
+<div id="outline-container-orgf38a95c" class="outline-2">
+<h2 id="orgf38a95c">Anahald User Commands</h2>
+<div class="outline-text-2" id="text-orgf38a95c">
 <p>
 In the first version Anaglyph HALD Generator consists of two command-line utilities::<br />
 </p>
@@ -322,9 +322,9 @@ In the first version Anaglyph HALD Generator consists of two command-line utilit
 </ol>
 </div>
 
-<div id="outline-container-org51f50c8" class="outline-3">
-<h3 id="org51f50c8">Command to make HALD CLUT according to a configuration file</h3>
-<div class="outline-text-3" id="text-org51f50c8">
+<div id="outline-container-org5a951eb" class="outline-3">
+<h3 id="org5a951eb">Command to make HALD CLUT according to a configuration file</h3>
+<div class="outline-text-3" id="text-org5a951eb">
 <p>
 The <b><i>anahald_lut_make</i></b> utility implementing this command is the core functionality of Anahald.<br />
 For this section it's enough to accept the author's claim that an Anahald configuration file fully defines characteristics of the color correction performed by HALD-CLUT that results from it. Full spec of the file syntax and the parameters is provided in <a href="Anahald_Configuration_Files_and_Control_Parameters.html">Anahald Configuration Files and Control Parameters</a>.<br />
@@ -345,7 +345,7 @@ Trying to run <b><i>anahald_lut_make.bat</i></b> (or <b><i>anahald_lut_make.sh</
 <li>supported range: 1 &#x2026; 16<br /></li>
 <li>the more colors appear explicitly in the CLUT, the higher the conversion precision<br /></li>
 <li>HALD-based conversion interpolates intermediate colors<br /></li>
-<li>runtime and (temporary) disk space are affected too; see <a href="#org9105345">Performance and computer-memory considerations</a><br /></li>
+<li>runtime and (temporary) disk space are affected too; see <a href="#org0f3be08">Performance and computer-memory considerations</a><br /></li>
 </ul></li>
 <li><b><i>OUTPUT-DIRECTORY-PATH</i></b> is a full or relative path of the directory where Anahald will write two files:<br />
 a) the resulting HALD image in 8-bit TIFF format, LZW-compressed (non-lousy)<br />
@@ -357,7 +357,7 @@ b) a potentially *_huge*_ temporary file with textual representation of the resu
 </ul></li>
 </ul>
 <p>
-Revisiting the sample run of HALD-CLUT generation and its output from <a href="Anahald_Install.html#orgde055d7">Comparison of identity HALD with &#x2026;</a>:<br />
+Revisiting the sample run of HALD-CLUT generation and its output from <a href="Anahald_Install.html#org4e4dbb2">Comparison of identity HALD with &#x2026;</a>:<br />
 </p>
 
 <pre class="example">
@@ -371,10 +371,10 @@ $ bin/anahald_lut_make.sh CFG/ahg_oleg_cp.ini  2  TMP
 ...
 </pre>
 <p>
-<b><span class="underline"><a id="org5b22289"></a> Identity HALD (left) and generated balanced HALD (right)</span></b><br />
+<b><span class="underline"><a id="org8d51f66"></a> Identity HALD (left) and generated balanced HALD (right)</span></b><br />
 </p>
 
-<div id="orgc9b2104" class="figure">
+<div id="orge2ecefe" class="figure">
 <p><img src="files/hald_2.png" alt="hald_2.png" width="200px" align="left" style="float:left" /><br />
 </p>
 <p><span class="figure-number">Figure 1: </span>Identity HALD (left) versus the balanced HALD (right)</p>
@@ -388,9 +388,9 @@ $ bin/anahald_lut_make.sh CFG/ahg_oleg_cp.ini  2  TMP
 </div>
 
 
-<div id="outline-container-org2c385a8" class="outline-3">
-<h3 id="org2c385a8">Command to read and summarize available Anahald configuration files</h3>
-<div class="outline-text-3" id="text-org2c385a8">
+<div id="outline-container-orge8536a7" class="outline-3">
+<h3 id="orge8536a7">Command to read and summarize available Anahald configuration files</h3>
+<div class="outline-text-3" id="text-orge8536a7">
 <p>
 The <b><i>anahald_cfg_table</i></b> utility collects essential contents of config files presented to it, and formats this contents into an easy to grasp table.<br />
 </p>
@@ -494,9 +494,9 @@ e) "C:\Users\Oleg\ANY\TMP\ANAHALD\bin\anahald_cfg_table.bat" - in CMD  under Win
 </div>
 
 
-<div id="outline-container-org9105345" class="outline-2">
-<h2 id="org9105345">Performance and computer-memory considerations</h2>
-<div class="outline-text-2" id="text-org9105345">
+<div id="outline-container-org0f3be08" class="outline-2">
+<h2 id="org0f3be08">Performance and computer-memory considerations</h2>
+<div class="outline-text-2" id="text-org0f3be08">
 <p>
 Anaglyph HALD Generator does its work by first constructing a potentially huge file containing the HALD image in PPM plain-text format, then converting it into a proper TIFF image, then deleting the text file.<br />
 </p>
