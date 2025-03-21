@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2025-03-18 Tue 16:26 -->
+<!-- 2025-03-21 Fri 18:14 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Anaglyph HALD Generator (Anahald) - Author's favorite pre-made HALD LUT-s</title>
@@ -261,10 +261,10 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orge6518db">The four HALD lookup tables supplied with Anahald</a></li>
-<li><a href="#org8c3b614">Illustrations on LUT choices for some sample stereopairs</a></li>
-<li><a href="#org8552cf8">Anahald versus anaglyph options in StereoPhotoMaker</a></li>
-<li><a href="#orgf0e594d">More LUT's that <b>should</b> be there?</a></li>
+<li><a href="#org328f7d2">The four HALD lookup tables supplied with Anahald</a></li>
+<li><a href="#org0b48e17">Illustrations on LUT choices for some sample stereopairs</a></li>
+<li><a href="#org31da4ac">Anahald versus anaglyph options in StereoPhotoMaker</a></li>
+<li><a href="#org325df51">More LUT's that <b>should</b> be there?</a></li>
 </ul>
 </div>
 </div>
@@ -279,9 +279,9 @@ Anahald distribution includes four pairs of config + premade-HALD that the autho
 <hr />
 
 
-<div id="outline-container-orge6518db" class="outline-2">
-<h2 id="orge6518db">The four HALD lookup tables supplied with Anahald</h2>
-<div class="outline-text-2" id="text-orge6518db">
+<div id="outline-container-org328f7d2" class="outline-2">
+<h2 id="org328f7d2">The four HALD lookup tables supplied with Anahald</h2>
+<div class="outline-text-2" id="text-org328f7d2">
 <p>
 Anahald distribution has configuration files for the sample HALD-s in CFG/ directory, and resulting level-16 HALD-s could be downloaded from <a href="http://dualcam.net/galleries/ADDON__ANAHALD/SAMPLE_HALDS/anahald_sample_luts.zip">here</a><br />
 In order to see their control parameters at a glance, use Anahald utility "anahald_cfg_table" (the command of example below assumes BASH):<br />
@@ -302,7 +302,7 @@ ahg_oleg_gp|  1.0|  1.3|  255|    2| 0.90|    2|  1.0|  2.0
 ahg_oleg_sf| 0.85|  1.0|  255|    1| 1.00|    1| 0.50|  2.0
 </pre>
 <p>
-Please refer to <a href="Anahald_Configuration_Files_and_Control_Parameters.html#orgb871b8c">Control Parameters Specification</a> and/or <a href="Anahald_Algorithm_and_Parameters.html">Anahald algorithm and how to control it</a> to refresh the meaning of the <b><i>control parameters</i></b>.<br />
+Please refer to <a href="Anahald_Configuration_Files_and_Control_Parameters.html#orgeab1478">Control Parameters Specification</a> and/or <a href="Anahald_Algorithm_and_Parameters.html">Anahald algorithm and how to control it</a> to refresh the meaning of the <b><i>control parameters</i></b>.<br />
 </p>
 
 <p>
@@ -324,7 +324,7 @@ for haldTif in "${HALDDIR}"/${HALD_GLOB}; do  inpName=$(basename -- "$haldTif" .
 </pre>
 
 
-<div id="org87b0af2" class="figure">
+<div id="org07f7c50" class="figure">
 <p><img src="files/hald_05.PNG" alt="hald_05.PNG" width="20%" align="center" /><br />
 </p>
 <p><span class="figure-number">Figure 1: </span>Identity HALD (above) and Anahald sample HALD-s (below) ordered by anount of color change - _CP -&gt; _GP -&gt; _EC -&gt; _SF</p>
@@ -342,7 +342,7 @@ The <b><span class="underline">effect of sample HALD-LUT-s on cyan-red linear gr
 </p>
 
 
-<div id="org763fa48" class="figure">
+<div id="org19ca7bd" class="figure">
 <p><img src="files/linear_gradient_cr__id.PNG" alt="linear_gradient_cr__id.PNG" width="20%" align="center" /><br />
 </p>
 <p><span class="figure-number">Figure 2: </span>Cyan-red color gradient (above) and its conversions by Anahald sample HALD-s (below) ordered by anount of color change - _CP -&gt; _GP -&gt; _EC -&gt; _SF</p>
@@ -353,9 +353,9 @@ The <b><span class="underline">effect of sample HALD-LUT-s on cyan-red linear gr
 </div>
 </div>
 
-<div id="outline-container-org8c3b614" class="outline-2">
-<h2 id="org8c3b614">Illustrations on LUT choices for some sample stereopairs</h2>
-<div class="outline-text-2" id="text-org8c3b614">
+<div id="outline-container-org0b48e17" class="outline-2">
+<h2 id="org0b48e17">Illustrations on LUT choices for some sample stereopairs</h2>
+<div class="outline-text-2" id="text-org0b48e17">
 <p>
 This section demonstrates choices of Anahald LUT for several representative stereopairs - out of the four options supplied as the sample LUT-s.<br />
 All the examples are structured identically:<br />
@@ -496,9 +496,9 @@ Small-Flowers LUT - #2 - even though the flower is both small and doesn't consti
 <hr />
 </div>
 </div>
-<div id="outline-container-org8552cf8" class="outline-2">
-<h2 id="org8552cf8">Anahald versus anaglyph options in StereoPhotoMaker</h2>
-<div class="outline-text-2" id="text-org8552cf8">
+<div id="outline-container-org31da4ac" class="outline-2">
+<h2 id="org31da4ac">Anahald versus anaglyph options in StereoPhotoMaker</h2>
+<div class="outline-text-2" id="text-org31da4ac">
 <p>
 And finally one more example - all conversions available in StereoPhotoMaker versus Anahald sample LUT-s. The author considers a conversion to be "standard" if it is both freely available and documented.<br />
 StereoPhotoMaker offers four choices:<br />
@@ -544,9 +544,9 @@ The author's verdict for this comparison is:<br />
 <hr />
 </div>
 </div>
-<div id="outline-container-orgf0e594d" class="outline-2">
-<h2 id="orgf0e594d">More LUT's that <b>should</b> be there?</h2>
-<div class="outline-text-2" id="text-orgf0e594d">
+<div id="outline-container-org325df51" class="outline-2">
+<h2 id="org325df51">More LUT's that <b>should</b> be there?</h2>
+<div class="outline-text-2" id="text-org325df51">
 <p>
 Working on the <a href="https://flic.kr/s/aHBqjC3ybW">sample gallery for Anahald</a> revealed a need for two more LUTs. Their configuration files are placed under CFG/ADD/ subdirectory, and filenames of actual demo images and their EXIF comments include references to the HALDs being used. The additional HALDs are silently included with <a href="http://dualcam.net/galleries/ADDON__ANAHALD/SAMPLE_HALDS/anahald_sample_luts.zip">the examples of Anbahald-generatated HALD-LUTs</a>.<br />
 </p>
