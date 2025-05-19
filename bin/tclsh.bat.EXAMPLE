@@ -1,0 +1,24 @@
+@REM <RMA>/bin/tclsh.bat
+@REM A workaround to specify tclsh executale path for Anaglyph HALD Generator
+
+@REM !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@REM Note: Only terminal-based tclsh could be used, not graphical (e.g. not wish)
+@REM !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+@REM <<<<<< Please specify full path of command-line Tcl interpreter here >>>>>
+@set TCLSH="C:\Program Files (x86)\TCL\tclsh_fw.exe"
+
+
+rem echo I am '%0'
+rem echo Arg 1 is '%1'
+rem echo Arg 2 is '%2'
+rem echo Arg 3 is '%3'
+rem echo Arg 4 is '%4'
+
+
+@if not exist %TCLSH% (
+  @echo *** '%0' references inexistent TCL interpreter file %TCLSH%
+) else (
+  @%TCLSH%  %1 %2 %3 %4 %5 %6 %7 %8 %9
+)

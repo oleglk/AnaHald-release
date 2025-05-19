@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-05-18 Sun 23:24 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Anaglyph HALD Generator (Anahald) - Installation</title>
+<meta name="author" content="Oleg Kosyakovsky" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="files/css/Anahald_styles_main.css" />
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="Anahald_Intro.html"> UP </a>
+ |
+ <a accesskey="H" href="http://www.dualcam.net"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Anaglyph HALD Generator (Anahald) - Installation</h1>
+<p>
+<i>By Oleg Kosyakovsky</i><br />
+</p>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org3260a7f">Dependencies</a>
+<ul>
+<li><a href="#org60ce189">Obtaining Tcl Interpreter</a></li>
+<li><a href="#org9aa85dc">Obtaining ImageMagick</a></li>
+</ul>
+</li>
+<li><a href="#org263d789">Obtaining Anahald</a></li>
+<li><a href="#org35d9e81">Applying some <b><span class="underline">executable path arrangements</span></b>:</a></li>
+<li><a href="#orgf463379">Verifying Anahald setup</a></li>
+</ul>
+</div>
+</div>
+<p>
+Anahald is made to be portable and non-intruding (no registry changes on Windows), so "installation" could amount to downloading and unzipping the stuff.<br />
+The Anahald code is written in plain Tcl, which is an interpretable language available on any platform, and no compilation is needed.<br />
+</p>
+
+
+<p>
+Notes on <b><span class="underline">glossary</span></b>:<br />
+</p>
+<ul class="org-ul">
+<li>the author uses interchangeably the terms <i>"folder"</i> and <i>"directory"</i>; the former is misleading but widely known , the latter is technically correct but for some reason "obstructed" from the common users<br /></li>
+<li>the author uses interchangeably the terms <i>"Tcl shell"</i> and <i>"Tcl interpreter"</i><br /></li>
+<li>the author uses interchangeably the terms <i>"command-shell*</i> and <i>"shell*</i>; these refer to CMD or BASH<br /></li>
+<li><i>"LUT"</i> means lookup table, <i>"CLUT"</i> means color lookup table; the author uses these two terms and terms <i>"HALD"</i>, <i>"HALD-LUT"</i>, <i>"HALD-CLUT"</i> interchangeably<br /></li>
+<li><i>"Identity-HALD"</i> standardly means a HALD-CLUT that maps each color to itself<br /></li>
+<li>the author refers to a HALD-CLUT made by Anaglyph HALD Generator as <i>"balanced HALD"</i><br /></li>
+<li>the author uses interchangeably the terms <i>"configuration file"</i>, <i>"config file"</i>, and <i>"config"</i><br /></li>
+<li>the author uses interchangeably the terms <i>"anaglyph"</i> and <i>"red-cyan anaglyph"</i><br /></li>
+
+<li><b><i>"balancing"</i></b> a color means replacing it with some related anaglyph-friendly color obtained by reducing the difference between red channel on one side, and green and blue channels on the other side<br /></li>
+<li><b><i>sides-ratio</i></b> is a ratio between values of red channel, and maximum of green and blue channels - the larger divided by the smaller; used as a measure of <i>disbalance</i> in colors<br /></li>
+</ul>
+
+<p>
+Notes on <b><span class="underline">expected users' knowledge</span></b>:<br />
+</p>
+<ul class="org-ul">
+<li>the user <span class="underline">must</span> be familiar with the very basics of:<br />
+<ul class="org-ul">
+<li>command line<br /></li>
+<li>file system<br /></li>
+</ul></li>
+<li>knowledge of Tcl or any other programming language is <span class="underline">not a requirement</span><br /></li>
+</ul>
+<hr />
+
+
+<div id="outline-container-org3260a7f" class="outline-2">
+<h2 id="org3260a7f">Dependencies</h2>
+<div class="outline-text-2" id="text-org3260a7f">
+<p>
+Anahald relies on two prerequisites to be available on the computer:<br />
+</p>
+<ul class="org-ul">
+<li>console version of Tcl interpreter ("tclsh")<br /></li>
+<li>ImageMagick suite of image-manipulation utilities<br /></li>
+</ul>
+</div>
+
+
+<div id="outline-container-org60ce189" class="outline-3">
+<h3 id="org60ce189">Obtaining Tcl Interpreter</h3>
+<div class="outline-text-3" id="text-org60ce189">
+<p>
+As already mentioned, we need the console-only Tcl interpreter; commonly the executable file named "tclsh.exe" or  "tclsh"; the name stands for "Tcl shell"<br />
+<b><span class="underline">On Linux computers</span></b> Tcl is usually preinstalled.<br />
+To verify it, type <b><i>tclsh</i></b> into the terminal<br />
+</p>
+<ul class="org-ul">
+<li>if Tcl <span class="underline">is</span> available, Tcl-shell is entered<br />
+<ul class="org-ul">
+<li>if it's the case, type <b><i>puts $tcl_version</i></b> into the prompt you obtained; Anahald needs version 8.5 or newer<br /></li>
+</ul></li>
+<li>if Tcl <span class="underline">is not</span> available, Linux prints commands to install it<br />
+<ul class="org-ul">
+<li>just follow the suggestion and the system takes care of the rest<br /></li>
+<li>as the result Tcl becomes invocable by typing <b><i>tclsh</i></b> into the terminal<br /></li>
+</ul></li>
+</ul>
+
+<p>
+<b><span class="underline">On Windows computers</span></b> obtaining Tcl is under the user's responsibility, and there are two options:<br />
+</p>
+<ol class="org-ol">
+<li>Install the complete official distribution<br />
+<a href="https://www.activestate.com/products/tcl/">Official Tcl Download Link</a><br />
+<ul class="org-ul">
+<li>note that this option involves changes to the system - registry, search path, etc<br /></li>
+<li>as the result  Tcl becomes invocable by typing <b><i>tclsh.exe</i></b> into the prompt of CMD.EXE or BASH<br /></li>
+</ul></li>
+<li>Download a standalone self-contained executable, unzip it and begin using<br />
+<ul class="org-ul">
+<li>this option is a part of the promised non-intrusive way of obtaining Anahald<br /></li>
+<li>the author's favorite standalone Tcl interpreter is "freeWrap"; it's meant for other job, but doubles nicely as a Tcl shell too<br /></li>
+<li>freeWrap could be obtained for free at <a href="https://freewrap.dengensys.com/">freeWrap Home Page</a><br />
+<ul class="org-ul">
+<li>download and unpack the ZIP archive<br /></li>
+<li>find <i>freewrapTCLSH.exe</i> under the relevant directory (win32 or win64)<br /></li>
+<li>rename it into <i>WHATEVER-YOU-LIKE.exe</i>, and then it becomes your Tcl interpreter<br /></li>
+<li>further in this guide the assumed name is "tclsh_fw.exe"<br /></li>
+<li>it's up to you whether to include its directory into the system search path<br /></li>
+<li>verify it by invoking as <b><i>"&lt;DIRECTORY-PATH&gt;\tclsh_fw.exe"</i></b> from CMD console<br /></li>
+</ul></li>
+</ul></li>
+<li>Now you can type <b><i>puts $tcl_version</i></b> into the prompt you obtained; Anahald needs version 8.5 or newer<br /></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org9aa85dc" class="outline-3">
+<h3 id="org9aa85dc">Obtaining ImageMagick</h3>
+<div class="outline-text-3" id="text-org9aa85dc">
+<p>
+&#x2026; copied from the mainpage of ImageMagick site:<br />
+  ImageMagick is a free, open-source software suite, used for editing and manipulating digital images.<br />
+All Anahald requires from ImageMagick is one (major) command-line utility to convert between image formats. The utility's name was recently changed, creating some minor mess.<br />
+</p>
+<ul class="org-ul">
+<li>in older versions it used to be called <b><i>"convert"</i></b><br /></li>
+<li>starting from version 7.??? the new name is <b><i>"magick"</i></b><br /></li>
+<li>Linux users may find themselves stuck with older versions<br /></li>
+</ul>
+
+<p>
+<b><span class="underline">On Linux computers</span></b> ImageMagick may be preinstalled.<br />
+To verify it, try to query the utility by its two names from the terminal - first as <i>magick</i>, then - if no luck - as <i>convert</i>:<br />
+</p>
+
+<p>
+Shown below is <span class="underline">ImageMagick verification session on the author's Linux computer</span>:<br />
+</p>
+<pre class="example" id="org5a866d1">
+$ magick --version
+Command 'magick' not found, did you mean:
+  command 'magics' from deb magics++ (4.10.1-1)
+  command 'magic' from deb magic (8.3.105+ds.1-1.1)
+Try: sudo apt install &lt;deb name&gt;
+
+$ convert --version
+Version: ImageMagick 6.9.11-60 Q16 x86_64 2021-01-25 https://imagemagick.org
+Copyright: (C) 1999-2021 ImageMagick Studio LLC
+...
+</pre>
+<p>
+Obviously the author has an old version on his Linux.<br />
+The output above indicates that ImageMagick <span class="underline">is</span> installed and invocable as <i>convert</i>.<br />
+</p>
+
+<p>
+As with Tcl, if ImageMagick <span class="underline">is not</span> available, Linux prints commands to install it<br />
+</p>
+<ul class="org-ul">
+<li>just follow the suggestion and the system takes care of the rest<br /></li>
+<li>as the result ImageMagick becomes invocable from the terminal - either as <b><i>magick</i></b> or as <b><i>convert</i></b>.<br /></li>
+</ul>
+
+<p>
+<b><span class="underline">On Windows computers</span></b>, as with Tcl, obtaining ImageMagick is under the user's responsibility.<br />
+</p>
+<ul class="org-ul">
+<li>ImageMagick is downloadable for free at <a href="https://imagemagick.org/">ImageMagick Home Page</a><br /></li>
+<li>There are multiple download formats; the author recommends to follow non-intrusive route of getting a ZIP archive:<br />
+<ul class="org-ul">
+<li>pick the option tagged <i>""Portable Win64 static at 16 bits-per-pixel component. Just copy to your host and run (no installer, no Windows registry entries).</i><br />
+<ul class="org-ul">
+<li>(or <i>"&#x2026; Win32 static &#x2026;"</i>  - whatever is relevant)<br /></li>
+</ul></li>
+<li>unpack the ZIP archive in the directory of your choice<br /></li>
+<li>find where is either <i>magick.exe</i> or <i>convert.exe</i><br /></li>
+<li>now it's up to you whether to include the directory of the found executable into the system search path<br /></li>
+<li>verify ImageMagick by running <b><i>"&lt;DIRECTORY-PATH&gt;\magick.exe" &#x2013;version</i></b> or <b><i>"&lt;DIRECTORY-PATH&gt;\convert.exe" &#x2013;version</i></b> from CMD console<br /></li>
+</ul></li>
+</ul>
+
+<hr />
+</div>
+</div>
+</div>
+
+<div id="outline-container-org263d789" class="outline-2">
+<h2 id="org263d789">Obtaining Anahald</h2>
+<div class="outline-text-2" id="text-org263d789">
+<p>
+(The example session presented in this section comes from BASH on the author's Linux computer. It would look very similar in BASH under Windows (e.g. git-bash, etc.))<br />
+</p>
+
+<ol class="org-ol">
+<li>Download Anahald Tcl code as a ZIP archive (e.g. "Source code (zip)") from <a href="https://github.com/oleglk/AnaHald-release/releases/latest">Anahald code distribution download link</a><br /></li>
+<li>Unzip the Anahald archive in a directory of your choice<br />
+<ul class="org-ul">
+<li>the unpacked files-and-directories structure is placed under "AnaHald-release-&lt;VERSION-TAG&gt;" subdirectory<br />
+<ul class="org-ul">
+<li>rename this subdirectory if you wish; the author's example assumes the new name is "AnaHald"<br /></li>
+</ul></li>
+<li><p>
+from now on this directory is referred to as <i>&lt;Anahald-Root&gt;</i><br />
+Here is how it looks:<br />
+</p>
+<pre class="example" id="org129bdca">
+$ cd ~/ANY/TMP/AnaHald/
+$ tree -d .
+.
+├── bin
+├── CFG
+│   └── ADD
+├── Code
+│   ├── img_proc
+│   └── ok_utils
+└── Doc
+    └── files
+        └── css
+
+9 directories
+...
+$ ls bin/
+anahald_cfg_table.bat  anahald_lut_make.sh  demo__embed_tcl_in_dos_batch.bat
+anahald_cfg_table.sh   convert.bat.EXAMPLE  tclsh.bat.EXAMPLE
+anahald_lut_make.bat   convert.sh.EXAMPLE
+</pre>
+<p>
+What matters for end-users, is the contents of <i>bin/</i> subdirectory - where the adjustments listed below apply.<br />
+</p></li>
+</ul></li>
+</ol>
+
+<hr />
+</div>
+</div>
+
+<div id="outline-container-org35d9e81" class="outline-2">
+<h2 id="org35d9e81">Applying some <b><span class="underline">executable path arrangements</span></b>:</h2>
+<div class="outline-text-2" id="text-org35d9e81">
+<p>
+a) For <span class="underline">Tcl interpreter - if on Linux</span><br />
+</p>
+<ul class="org-ul">
+<li>nothing needs to be done - automatic installation ensured Tcl-shell is accessible as <b><i>tclsh</i></b><br /></li>
+</ul>
+<p>
+b) For <span class="underline">Tcl interpreter - if on Windows</span><br />
+</p>
+<ul class="org-ul">
+<li>if your tclsh executable is named <i>"tclsh.exe"</i> AND its directory path is included into the system path, nothing more to be done<br />
+<ul class="org-ul">
+<li>this is usually the case when the complete official Tcl distribution is installed<br /></li>
+</ul></li>
+<li>in any other case place a file named <b><i>"tclsh.bat"</i></b> into the <b><i>bin</i>\</b> subdirectory<br />
+<ul class="org-ul">
+<li>the <b><i>"bin\\tclsh.bat"</i></b> file is aimed to <b>point at the actual tclslh executable</b><br /></li>
+<li>copy <b><i>bin\\tclsh.bat.EXAMPLE</i></b> into <b><i>bin\\tclsh.bat</i></b><br /></li>
+<li><p>
+in <b><i>bin\\tclsh.bat</i></b> <span class="underline">edit executable path</span> in the line that starts with "<b>@set TCLSH=</b>"<br />
+Example of Tcl path pointer from the author's Windows system:<br />
+</p>
+<pre class="example" id="org059707c">
+...
+@REM &lt;&lt;&lt;&lt;&lt;&lt; Please specify full path of command-line Tcl interpreter here &gt;&gt;&gt;&gt;&gt;
+@set TCLSH="c:\Oleg\Tools\TCL\tclsh_fw.exe"
+...
+</pre></li>
+</ul></li>
+</ul>
+<p>
+c) <a id="org067c305"></a> For <span class="underline">ImageMagick - if on Linux</span><br />
+</p>
+<ul class="org-ul">
+<li>if your main ImageMagick utility is named <i>"magick"</i>, nothing more to be done<br />
+<ul class="org-ul">
+<li>this assumes that Linux enforces standard installation scenarios, which always take care of search path<br /></li>
+</ul></li>
+<li>if your main ImageMagick utility is named <i>"convert"</i>, place a file named <b><i>"convert.sh"</i></b> into the <b><i>bin/</i></b> subdirectory:<br />
+<ol class="org-ol">
+<li>copy <b><i>bin/convert.sh.EXAMPLE</i></b> into <b><i>bin/convert.sh</i></b><br />
+<ul class="org-ul">
+<li>the "convert.sh.EXAMPLE" essentially translates calls of "magick" into calls of "convert"<br /></li>
+</ul></li>
+<li><p>
+give the latter executable permissions by<br />
+</p>
+<pre class="example" id="org8832bc6">
+chmod +x bin/convert.sh
+</pre></li>
+</ol></li>
+</ul>
+<p>
+d) <a id="org527030f"></a> For <span class="underline">ImageMagick - if on Windows</span><br />
+</p>
+<ul class="org-ul">
+<li>if your main ImageMagick utility is named <i>"magick.exe"</i> AND its directory path is included into the system path, nothing more to be done<br />
+<ul class="org-ul">
+<li>(this would be the case if ImageMagick installer has been used - against the author's recommendation of the portable route)<br /></li>
+</ul></li>
+<li>if your main ImageMagick utility is named <i>"convert.exe"</i> AND/OR its directory path is not included into the system path, you need to place a file named <b><i>"convert.bat"</i></b> into the <b><i>bin</i>\</b> subdirectory<br />
+<ul class="org-ul">
+<li>the <b><i>"bin\\convert.bat"</i></b> file is aimed to <b>point at the actual "convert.exe" or "magick.exe" executable</b><br /></li>
+<li>copy <b><i>bin\\convert.bat.EXAMPLE</i></b> into <b><i>bin\\convert.bat</i></b><br /></li>
+<li><p>
+in <b><i>bin\\convert.bat</i></b> <span class="underline">edit executable path</span> in the very last non-empty line<br />
+</p>
+<ul class="org-ul">
+<li>e.g. only change the path string inside quotes; do not alter anything else<br /></li>
+</ul>
+<p>
+Example of Imagemagick path pointer from the author's Windows system (convert.bat):<br />
+</p>
+<pre class="example" id="org5169cb0">
+...
+"c:\Program Files\ImageMagick_711_3\magick.exe"  %*
+</pre></li>
+</ul></li>
+</ul>
+<p>
+Upon completing the above steps, it's the time to verify the Anahald suite.<br />
+</p>
+
+<hr />
+</div>
+</div>
+
+<div id="outline-container-orgf463379" class="outline-2">
+<h2 id="orgf463379">Verifying Anahald setup</h2>
+<div class="outline-text-2" id="text-orgf463379">
+<p>
+This section is built around Anahald commands without explaining them, since their understanding isn't important at this stage. A dedicated section is <a href="Anahald_Run.html#orgd949922">Anahald User Commands</a>.<br />
+To streamline the steps, assume the current directory to be the <i>&lt;Anahald-Root&gt;</i><br />
+</p>
+<ol class="org-ol">
+<li><p>
+Check if Anahald code could at all be invoked - run without arguments - hoping to obtain usage-help message:<br />
+</p>
+<ul class="org-ul">
+<li>On Linux - in BASH - type:<br />
+cd <i>&lt;Anahald-Root&gt;</i><br />
+bin/anahald_lut_make.sh<br /></li>
+<li>On Windows - in DOS-CMD - type:<br />
+cd <i>&lt;Anahald-Root&gt;</i><br />
+bin\anahald_lut_make.bat<br /></li>
+</ul>
+<pre class="example" id="org9c9469a">
+$ bin/anahald_lut_make.sh
+... Begin loading TCL code ...
+-I- Finished setup of AnaHald suite (context: 'rca_colorset.tcl')
+-I- Imagemagick convert/magick utility will be called as 'magick'
+-I- Color-ratio tuning: MIN_COLOR_VAL_FOR_RGB_RATIO=0.5;  _MIN_RGB_RATIO=0.00196078431372549;  _MAX_RGB_RATIO=510.0
+-I- Finished setup of AnaHald suite (context: 'anahald_lut_make.sh')
+... Done  loading TCL code ...
+============ Running Anaglyph HALD Generator under SH/BASH =============
+
+* Usage:  anahald_lut_make.sh  &lt;CONFIG-PATH&gt;  &lt;HALD-LEVEL&gt;  &lt;OUTPUT-DIRECTORY-PATH&gt;
+  (minimal reasonable hald-level is 8, recommended for production - 16)
+</pre>
+<ul class="org-ul">
+<li>If, as in the sample output above - you see <i>"* Usage:  &#x2026;"</i>  somehere near the bottom, Anahald succeeded to start<br /></li>
+<li>Otherwise please examine the error messages and fix accordingly<br /></li>
+</ul></li>
+<li><p>
+Check the main Anahald functionality by requesting a tiny LUT (HALD-level of 2):<br />
+</p>
+<ul class="org-ul">
+<li>On Linux - in BASH - type:<br />
+cd <i>&lt;Anahald-Root&gt;</i><br />
+bin/anahald_lut_make.sh   CFG/ahg_oleg_cp.ini  2  TMP<br /></li>
+<li>On Windows - in DOS-CMD - type:<br />
+cd <i>&lt;Anahald-Root&gt;</i><br />
+bin\anahald_lut_make.bat   CFG\ahg_oleg_cp.ini  2  TMP<br /></li>
+<li>(The sample output is intentionally truncated to concentrate on the error)<br /></li>
+</ul>
+<pre class="example" id="org60fca18">
+$ bin/anahald_lut_make.sh CFG/ahg_oleg_cp.ini  2  TMP
+... Begin loading TCL code ...
+   ...
+... Done  loading TCL code ...
+============ Running Anaglyph HALD Generator under SH/BASH =============
+
+Config file: 'CFG/ahg_oleg_cp.ini',  HALD-level: 2,  output-directory: 'TMP'
+ ...
+-I- Runtime of generating HALD-02 with 48 of 64 color(s) replaced is 0 second(s)
+-E- Failed executing command: 'magick  TMP/hald__ahg_oleg_cp__02.TXT  -depth 8  -compress LZW TMP/hald__ahg_oleg_cp__02.TIF'.
+-E- Failed converting HALD text file 'TMP/hald__ahg_oleg_cp__02.TXT' into image 'TMP/hald__ahg_oleg_cp__02.TIF': couldn't execute "magick": no such file or directory!
+
+======== Finished running Anaglyph HALD Generator under SH/BASH ========
+</pre>
+<p>
+The above console output from the 1st attempt to generate a LUT hints that Anahald tried to invoke ImageMagick's "magick" utility but failed to. The reason - ImageMagick on this computer has it under the historical name "convert".<br />
+</p>
+<ul class="org-ul">
+<li>The solution is to redirect the calls to "convert" - see <a href="#org067c305">"For ImageMagick - if on Linux"</a> or <a href="#org527030f">"For ImageMagick - if on Windows"</a>. Doing just that leads to a flawless invocation.<br /></li>
+<li><p>
+<a id="org9e26d85"></a> Sample output from the 1st successful run of Anahald LUT generation:<br />
+</p>
+<pre class="example" id="orgcf97868">
+$ bin/anahald_lut_make.sh CFG/ahg_oleg_cp.ini  2  TMP
+...
+-I- Imagemagick convert/magick utility will be called as '/home/oleg/ANY/GitWork/AnaHald/bin/convert.sh'
+...
+============ Running Anaglyph HALD Generator under SH/BASH =============
+...
+Config file: 'CFG/ahg_oleg_cp.ini',  HALD-level: 2,  output-directory: 'TMP'
+
+-I- Enough disk space available for HALD file of level 2 in format TIF under directory 'TMP'
+-I- Building LUT for 64 color(s); progress report occurs once per 8 color(s)
+-I- ... so far processed 9 color(s) out of 64 in HALD-02 ...
+
+-I- ... so far processed 57 color(s) out of 64 in HALD-02 ...
+-I- Generated HALD-02 with 48 of 64 color(s) replaced; new text version saved in 'TMP/hald__ahg_oleg_cp__02.TXT'
+...
+-I- Success converting HALD text file 'TMP/hald__ahg_oleg_cp__02.TXT' into image 'TMP/hald__ahg_oleg_cp__02.TIF'
+...
+-I- Deleted temporary HALD-02 text file 'TMP/hald__ahg_oleg_cp__02.TXT'
+...
+======== Finished running Anaglyph HALD Generator under SH/BASH ========
+</pre></li>
+</ul>
+<p>
+<a id="org47fde06"></a> Comparison of identity HALD with the HALD made by <i>anahald_lut_make</i> command in <a href="#org9e26d85">1.2</a><br />
+</p>
+
+<div id="org9cef709" class="figure">
+<p><img src="files/hald_2.png" alt="hald_2.png" width="200px" align="left" style="float:left" /><br />
+</p>
+<p><span class="figure-number">Figure 1: </span>Identity HALD (left) versus the HALD made by <i>anahald_lut_make</i> command in <a href="#org9e26d85">1.2</a> (right)</p>
+</div>
+
+<div id="org509b79d" class="figure">
+<p><img src="files/hald__ahg_oleg_cp__02.PNG" alt="hald__ahg_oleg_cp__02.PNG" width="200px" align="right" style="float:none" /><br />
+</p>
+</div>
+
+<p>
+As the <a href="#org47fde06">comparison</a> above illustrates, Anahald not only finished the run, but created a CLUT that replaces saturated colors with similarly looking "relatives".<br />
+</p></li>
+<li><p>
+Check reading config files by Anahald - view all config files in a directory<br />
+Anahald provides an utility to build summary tables for available Anahald configuration files, and here is how to verify it:<br />
+</p>
+<ul class="org-ul">
+<li>On Linux - in BASH - type:<br />
+cd <i>&lt;Anahald-Root&gt;</i><br />
+bin/anahald_cfg_table.sh GLOB CFG <i>"*.ini"</i><br /></li>
+<li>On Windows - in DOS-CMD - type:<br />
+cd <i>&lt;Anahald-Root&gt;</i><br />
+bin\anahald_cfg_table.bat GLOB CFG <i>"*.ini"</i><br /></li>
+<li>(note, <b>glob patterns need double-quotes</b>)<br /></li>
+<li>(The sample output intentionally omits the setup preamble and shows only the actual results)<br /></li>
+</ul>
+<pre class="example" id="org350a535">
+$ bin/anahald_cfg_table.sh GLOB CFG "*.ini"
+...
+Config files' directory: 'CFG',  config files' name-pattern: '*.ini'
+
+       -ID-|Green|MinBn|MaxRg|Smoot|PreSq|MinMi|PreIn|MaxBa
+           |ToBlu|dBala| bVal|hBndB|ueeze|norSc|flate|lance
+           |eBias|ncedM|     |alanc|Major|aleOp|Minor|dMajo
+           |MultW|ajorT|     |edOpt|ToFra| tion|ToFra|rToMa
+           |henMi|oMaxM|     |  ion|   ct|     |   ct|xMino
+           |  nor|inorR|     |     |     |     |     |rRati
+           |     | atio|     |     |     |     |     |    o
+ahg_oleg_sf| 0.85|  1.0|  255|    1| 1.00|    1| 0.50|  2.0
+ahg_oleg_cp| 0.97|  1.5|  255|    2| 0.80|    2|  1.0|  3.0
+ahg_oleg_ec|  1.0|  1.0|  255|    1| 0.90|    1|  1.0|  2.0
+ahg_oleg_gp|  1.0|  1.3|  255|    2| 0.90|    2|  1.0|  2.0
+======== Finished collecting Anaglyph HALD Config summary under SH/BASH ========
+</pre>
+<p>
+The sample output table above shows essential content of config files included with Anahald<br />
+</p>
+<ul class="org-ul">
+<li>In case error(s) appear instead of the table, their text should be descriptive enough to help with resolution.<br /></li>
+</ul>
+<p>
+If your outcome matches the example, congratulations! &#x2026; And enjoy your anaglyph photos becoming more colorful!<br />
+</p></li>
+</ol>
+<hr />
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p>Oleg Kosyakovsky</p><p>Haifa, Israel</p><p>2024</p>
+</div>
+</body>
+</html>

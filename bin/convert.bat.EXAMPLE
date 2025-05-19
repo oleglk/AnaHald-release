@@ -1,0 +1,4 @@
+@REM <RMA>/bin/convert.bat
+@REM A workaround to specify ImageMagick's magick.exe executale path for Anaglyph HALD Generator
+
+"c:\Program Files\ImageMagick-7.1.1-34\magick.exe"  %*
