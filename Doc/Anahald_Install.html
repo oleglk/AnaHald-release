@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2025-05-18 Sun 23:24 -->
+<!-- 2025-06-20 Fri 13:17 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Anaglyph HALD Generator (Anahald) - Installation</title>
@@ -241,15 +241,15 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org3260a7f">Dependencies</a>
+<li><a href="#orga044a96">Dependencies</a>
 <ul>
-<li><a href="#org60ce189">Obtaining Tcl Interpreter</a></li>
-<li><a href="#org9aa85dc">Obtaining ImageMagick</a></li>
+<li><a href="#orge152175">Obtaining Tcl Interpreter</a></li>
+<li><a href="#org29bcede">Obtaining ImageMagick</a></li>
 </ul>
 </li>
-<li><a href="#org263d789">Obtaining Anahald</a></li>
-<li><a href="#org35d9e81">Applying some <b><span class="underline">executable path arrangements</span></b>:</a></li>
-<li><a href="#orgf463379">Verifying Anahald setup</a></li>
+<li><a href="#orgae543c8">Obtaining Anahald</a></li>
+<li><a href="#org5b39e83">Applying some <b><span class="underline">executable path arrangements</span></b>:</a></li>
+<li><a href="#org109ffb6">Verifying Anahald setup</a></li>
 </ul>
 </div>
 </div>
@@ -290,9 +290,9 @@ Notes on <b><span class="underline">expected users' knowledge</span></b>:<br />
 <hr />
 
 
-<div id="outline-container-org3260a7f" class="outline-2">
-<h2 id="org3260a7f">Dependencies</h2>
-<div class="outline-text-2" id="text-org3260a7f">
+<div id="outline-container-orga044a96" class="outline-2">
+<h2 id="orga044a96">Dependencies</h2>
+<div class="outline-text-2" id="text-orga044a96">
 <p>
 Anahald relies on two prerequisites to be available on the computer:<br />
 </p>
@@ -303,9 +303,9 @@ Anahald relies on two prerequisites to be available on the computer:<br />
 </div>
 
 
-<div id="outline-container-org60ce189" class="outline-3">
-<h3 id="org60ce189">Obtaining Tcl Interpreter</h3>
-<div class="outline-text-3" id="text-org60ce189">
+<div id="outline-container-orge152175" class="outline-3">
+<h3 id="orge152175">Obtaining Tcl Interpreter</h3>
+<div class="outline-text-3" id="text-orge152175">
 <p>
 As already mentioned, we need the console-only Tcl interpreter; commonly the executable file named "tclsh.exe" or  "tclsh"; the name stands for "Tcl shell"<br />
 <b><span class="underline">On Linux computers</span></b> Tcl is usually preinstalled.<br />
@@ -352,9 +352,9 @@ To verify it, type <b><i>tclsh</i></b> into the terminal<br />
 </div>
 </div>
 
-<div id="outline-container-org9aa85dc" class="outline-3">
-<h3 id="org9aa85dc">Obtaining ImageMagick</h3>
-<div class="outline-text-3" id="text-org9aa85dc">
+<div id="outline-container-org29bcede" class="outline-3">
+<h3 id="org29bcede">Obtaining ImageMagick</h3>
+<div class="outline-text-3" id="text-org29bcede">
 <p>
 &#x2026; copied from the mainpage of ImageMagick site:<br />
   ImageMagick is a free, open-source software suite, used for editing and manipulating digital images.<br />
@@ -374,7 +374,7 @@ To verify it, try to query the utility by its two names from the terminal - firs
 <p>
 Shown below is <span class="underline">ImageMagick verification session on the author's Linux computer</span>:<br />
 </p>
-<pre class="example" id="org5a866d1">
+<pre class="example" id="org6372730">
 $ magick --version
 Command 'magick' not found, did you mean:
   command 'magics' from deb magics++ (4.10.1-1)
@@ -422,9 +422,9 @@ As with Tcl, if ImageMagick <span class="underline">is not</span> available, Lin
 </div>
 </div>
 
-<div id="outline-container-org263d789" class="outline-2">
-<h2 id="org263d789">Obtaining Anahald</h2>
-<div class="outline-text-2" id="text-org263d789">
+<div id="outline-container-orgae543c8" class="outline-2">
+<h2 id="orgae543c8">Obtaining Anahald</h2>
+<div class="outline-text-2" id="text-orgae543c8">
 <p>
 (The example session presented in this section comes from BASH on the author's Linux computer. It would look very similar in BASH under Windows (e.g. git-bash, etc.))<br />
 </p>
@@ -441,7 +441,7 @@ As with Tcl, if ImageMagick <span class="underline">is not</span> available, Lin
 from now on this directory is referred to as <i>&lt;Anahald-Root&gt;</i><br />
 Here is how it looks:<br />
 </p>
-<pre class="example" id="org129bdca">
+<pre class="example" id="org66f498c">
 $ cd ~/ANY/TMP/AnaHald/
 $ tree -d .
 .
@@ -472,9 +472,9 @@ What matters for end-users, is the contents of <i>bin/</i> subdirectory - where 
 </div>
 </div>
 
-<div id="outline-container-org35d9e81" class="outline-2">
-<h2 id="org35d9e81">Applying some <b><span class="underline">executable path arrangements</span></b>:</h2>
-<div class="outline-text-2" id="text-org35d9e81">
+<div id="outline-container-org5b39e83" class="outline-2">
+<h2 id="org5b39e83">Applying some <b><span class="underline">executable path arrangements</span></b>:</h2>
+<div class="outline-text-2" id="text-org5b39e83">
 <p>
 a) For <span class="underline">Tcl interpreter - if on Linux</span><br />
 </p>
@@ -497,7 +497,7 @@ b) For <span class="underline">Tcl interpreter - if on Windows</span><br />
 in <b><i>bin\\tclsh.bat</i></b> <span class="underline">edit executable path</span> in the line that starts with "<b>@set TCLSH=</b>"<br />
 Example of Tcl path pointer from the author's Windows system:<br />
 </p>
-<pre class="example" id="org059707c">
+<pre class="example" id="org42e2a97">
 ...
 @REM &lt;&lt;&lt;&lt;&lt;&lt; Please specify full path of command-line Tcl interpreter here &gt;&gt;&gt;&gt;&gt;
 @set TCLSH="c:\Oleg\Tools\TCL\tclsh_fw.exe"
@@ -506,7 +506,7 @@ Example of Tcl path pointer from the author's Windows system:<br />
 </ul></li>
 </ul>
 <p>
-c) <a id="org067c305"></a> For <span class="underline">ImageMagick - if on Linux</span><br />
+c) <a id="org712a775"></a> For <span class="underline">ImageMagick - if on Linux</span><br />
 </p>
 <ul class="org-ul">
 <li>if your main ImageMagick utility is named <i>"magick"</i>, nothing more to be done<br />
@@ -522,13 +522,13 @@ c) <a id="org067c305"></a> For <span class="underline">ImageMagick - if on Linux
 <li><p>
 give the latter executable permissions by<br />
 </p>
-<pre class="example" id="org8832bc6">
+<pre class="example" id="org83cf3c3">
 chmod +x bin/convert.sh
 </pre></li>
 </ol></li>
 </ul>
 <p>
-d) <a id="org527030f"></a> For <span class="underline">ImageMagick - if on Windows</span><br />
+d) <a id="orgdd24bf3"></a> For <span class="underline">ImageMagick - if on Windows</span><br />
 </p>
 <ul class="org-ul">
 <li>if your main ImageMagick utility is named <i>"magick.exe"</i> AND its directory path is included into the system path, nothing more to be done<br />
@@ -548,7 +548,7 @@ in <b><i>bin\\convert.bat</i></b> <span class="underline">edit executable path</
 <p>
 Example of Imagemagick path pointer from the author's Windows system (convert.bat):<br />
 </p>
-<pre class="example" id="org5169cb0">
+<pre class="example" id="orgc4378a9">
 ...
 "c:\Program Files\ImageMagick_711_3\magick.exe"  %*
 </pre></li>
@@ -562,11 +562,11 @@ Upon completing the above steps, it's the time to verify the Anahald suite.<br /
 </div>
 </div>
 
-<div id="outline-container-orgf463379" class="outline-2">
-<h2 id="orgf463379">Verifying Anahald setup</h2>
-<div class="outline-text-2" id="text-orgf463379">
+<div id="outline-container-org109ffb6" class="outline-2">
+<h2 id="org109ffb6">Verifying Anahald setup</h2>
+<div class="outline-text-2" id="text-org109ffb6">
 <p>
-This section is built around Anahald commands without explaining them, since their understanding isn't important at this stage. A dedicated section is <a href="Anahald_Run.html#orgd949922">Anahald User Commands</a>.<br />
+This section is built around Anahald commands without explaining them, since their understanding isn't important at this stage. A dedicated section is <a href="Anahald_Run.html#org64565e5">Anahald User Commands</a>.<br />
 To streamline the steps, assume the current directory to be the <i>&lt;Anahald-Root&gt;</i><br />
 </p>
 <ol class="org-ol">
@@ -581,7 +581,7 @@ bin/anahald_lut_make.sh<br /></li>
 cd <i>&lt;Anahald-Root&gt;</i><br />
 bin\anahald_lut_make.bat<br /></li>
 </ul>
-<pre class="example" id="org9c9469a">
+<pre class="example" id="orgd7e33a3">
 $ bin/anahald_lut_make.sh
 ... Begin loading TCL code ...
 -I- Finished setup of AnaHald suite (context: 'rca_colorset.tcl')
@@ -610,7 +610,7 @@ cd <i>&lt;Anahald-Root&gt;</i><br />
 bin\anahald_lut_make.bat   CFG\ahg_oleg_cp.ini  2  TMP<br /></li>
 <li>(The sample output is intentionally truncated to concentrate on the error)<br /></li>
 </ul>
-<pre class="example" id="org60fca18">
+<pre class="example" id="org66ebc73">
 $ bin/anahald_lut_make.sh CFG/ahg_oleg_cp.ini  2  TMP
 ... Begin loading TCL code ...
    ...
@@ -629,11 +629,11 @@ Config file: 'CFG/ahg_oleg_cp.ini',  HALD-level: 2,  output-directory: 'TMP'
 The above console output from the 1st attempt to generate a LUT hints that Anahald tried to invoke ImageMagick's "magick" utility but failed to. The reason - ImageMagick on this computer has it under the historical name "convert".<br />
 </p>
 <ul class="org-ul">
-<li>The solution is to redirect the calls to "convert" - see <a href="#org067c305">"For ImageMagick - if on Linux"</a> or <a href="#org527030f">"For ImageMagick - if on Windows"</a>. Doing just that leads to a flawless invocation.<br /></li>
+<li>The solution is to redirect the calls to "convert" - see <a href="#org712a775">"For ImageMagick - if on Linux"</a> or <a href="#orgdd24bf3">"For ImageMagick - if on Windows"</a>. Doing just that leads to a flawless invocation.<br /></li>
 <li><p>
-<a id="org9e26d85"></a> Sample output from the 1st successful run of Anahald LUT generation:<br />
+<a id="orgf273247"></a> Sample output from the 1st successful run of Anahald LUT generation:<br />
 </p>
-<pre class="example" id="orgcf97868">
+<pre class="example" id="orgff151b8">
 $ bin/anahald_lut_make.sh CFG/ahg_oleg_cp.ini  2  TMP
 ...
 -I- Imagemagick convert/magick utility will be called as '/home/oleg/ANY/GitWork/AnaHald/bin/convert.sh'
@@ -657,22 +657,22 @@ Config file: 'CFG/ahg_oleg_cp.ini',  HALD-level: 2,  output-directory: 'TMP'
 </pre></li>
 </ul>
 <p>
-<a id="org47fde06"></a> Comparison of identity HALD with the HALD made by <i>anahald_lut_make</i> command in <a href="#org9e26d85">1.2</a><br />
+<a id="org7c4cd9f"></a> Comparison of identity HALD with the HALD made by <i>anahald_lut_make</i> command in <a href="#orgf273247">1.2</a><br />
 </p>
 
-<div id="org9cef709" class="figure">
+<div id="orga316e43" class="figure">
 <p><img src="files/hald_2.png" alt="hald_2.png" width="200px" align="left" style="float:left" /><br />
 </p>
-<p><span class="figure-number">Figure 1: </span>Identity HALD (left) versus the HALD made by <i>anahald_lut_make</i> command in <a href="#org9e26d85">1.2</a> (right)</p>
+<p><span class="figure-number">Figure 1: </span>Identity HALD (left) versus the HALD made by <i>anahald_lut_make</i> command in <a href="#orgf273247">1.2</a> (right)</p>
 </div>
 
-<div id="org509b79d" class="figure">
+<div id="org5399257" class="figure">
 <p><img src="files/hald__ahg_oleg_cp__02.PNG" alt="hald__ahg_oleg_cp__02.PNG" width="200px" align="right" style="float:none" /><br />
 </p>
 </div>
 
 <p>
-As the <a href="#org47fde06">comparison</a> above illustrates, Anahald not only finished the run, but created a CLUT that replaces saturated colors with similarly looking "relatives".<br />
+As the <a href="#org7c4cd9f">comparison</a> above illustrates, Anahald not only finished the run, but created a CLUT that replaces saturated colors with similarly looking "relatives".<br />
 </p></li>
 <li><p>
 Check reading config files by Anahald - view all config files in a directory<br />
@@ -688,7 +688,7 @@ bin\anahald_cfg_table.bat GLOB CFG <i>"*.ini"</i><br /></li>
 <li>(note, <b>glob patterns need double-quotes</b>)<br /></li>
 <li>(The sample output intentionally omits the setup preamble and shows only the actual results)<br /></li>
 </ul>
-<pre class="example" id="org350a535">
+<pre class="example" id="org1395681">
 $ bin/anahald_cfg_table.sh GLOB CFG "*.ini"
 ...
 Config files' directory: 'CFG',  config files' name-pattern: '*.ini'

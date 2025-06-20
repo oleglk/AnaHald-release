@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2025-05-18 Sun 23:24 -->
+<!-- 2025-06-20 Fri 13:17 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Anaglyph HALD Generator algorithm and how to control it</title>
@@ -209,28 +209,28 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org136dee6">The idea and the glossary</a></li>
-<li><a href="#orgee7f73e">The simplified view of color-modification process</a>
+<li><a href="#org1e9e65a">The idea and the glossary</a></li>
+<li><a href="#org5d705d7">The simplified view of color-modification process</a>
 <ul>
-<li><a href="#org40ba415">The core idea</a>
+<li><a href="#org16b8867">The core idea</a>
 <ul>
-<li><a href="#org1ad6085">Color scale from sides-ratio perspective</a></li>
-<li><a href="#org3f47c25">The idea behind the main color-balancing action formulae</a></li>
-<li><a href="#orge7f53e8">Adjustment of min-minor channel</a></li>
-<li><a href="#org62a8af1">Colors on the boundary between balanced and unbalanced</a></li>
+<li><a href="#orgea86fda">Color scale from sides-ratio perspective</a></li>
+<li><a href="#orgde67b0e">The idea behind the main color-balancing action formulae</a></li>
+<li><a href="#org9b41eea">Adjustment of min-minor channel</a></li>
+<li><a href="#org99b470c">Colors on the boundary between balanced and unbalanced</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgb0d3c7d">Color computation steps in order</a></li>
-<li><a href="#org83381c3">Examples of color modifications</a></li>
+<li><a href="#org6239474">Color computation steps in order</a></li>
+<li><a href="#orged92635">Examples of color modifications</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org136dee6" class="outline-2">
-<h2 id="org136dee6">The idea and the glossary</h2>
-<div class="outline-text-2" id="text-org136dee6">
+<div id="outline-container-org1e9e65a" class="outline-2">
+<h2 id="org1e9e65a">The idea and the glossary</h2>
+<div class="outline-text-2" id="text-org1e9e65a">
 <p>
 As stated, <i><b>Anaglyph Hald Generator produces *color lookup tables</b> that substitute colors which are prone to retinal rivalry when viewed through red-cyan glasses with the colors that aren't, while the latter are chosen to look related to the original colors they replace.</i><br />
 </p>
@@ -260,7 +260,7 @@ In the Anahald terminology, a color is <b><i>balanced</i></b> if it does not cau
 Example of balanced (160,120,100) and unbalanced (200,50,30) colors:<br />
 </p>
 
-<div id="orgdbe26e0" class="figure">
+<div id="orgbfcfe83" class="figure">
 <p><img src="files/two_r160g120b100.jpg" alt="two_r160g120b100.jpg" width="600px" align="center" /><br />
 </p>
 <p><span class="figure-number">Figure 1: </span>Example of balanced (top) and unbalanced (bottom) red-dominated colors</p>
@@ -270,7 +270,7 @@ Example of balanced (160,120,100) and unbalanced (200,50,30) colors:<br />
 Example of balanced (100,120,160) and unbalanced (50,30,200) colors:<br />
 </p>
 
-<div id="org9555fc4" class="figure">
+<div id="org801c351" class="figure">
 <p><img src="files/two_r100g120b160.jpg" alt="two_r100g120b160.jpg" width="600px" align="center" /><br />
 </p>
 <p><span class="figure-number">Figure 2: </span>Example of balanced (top) and unbalanced (bottom) cyan-dominated colors</p>
@@ -314,7 +314,7 @@ Anahald looks at mostly-red and mostly-cyan colors separately - as two "half-pal
 <li>neutral colors are considered included into both half-palitres<br /></li>
 <li>each half-palitre is split into three regions - neutral, non-neutral-balanced, non-neutral-unbalanced<br /></li>
 </ul>
-<pre class="example" id="orge25926e">
+<pre class="example" id="orgf94b0aa">
 [1.0 --&gt; NEUTRAL --&gt;][--&gt; BALANCED --&gt; Min-Balanced] [--&gt; UNBALANCED --&gt; 255/0.5]
 </pre>
 <p>
@@ -337,18 +337,18 @@ The <b><span class="underline">goal of Anahald algorithm</span></b> is to:<br />
 </div>
 
 
-<div id="outline-container-orgee7f73e" class="outline-2">
-<h2 id="orgee7f73e">The simplified view of color-modification process</h2>
-<div class="outline-text-2" id="text-orgee7f73e">
+<div id="outline-container-org5d705d7" class="outline-2">
+<h2 id="org5d705d7">The simplified view of color-modification process</h2>
+<div class="outline-text-2" id="text-org5d705d7">
 <p>
 Anahald color modification is applied to lookup table, not to the actual stereopairs.<br />
 E.g. conceptually the algorithm takes as input an identity-lookup-table (the one mapping colors to themselves) and outputs a modified lookup-table to be applied to the stereopairs.<br />
 </p>
 </div>
 
-<div id="outline-container-org40ba415" class="outline-3">
-<h3 id="org40ba415">The core idea</h3>
-<div class="outline-text-3" id="text-org40ba415">
+<div id="outline-container-org16b8867" class="outline-3">
+<h3 id="org16b8867">The core idea</h3>
+<div class="outline-text-3" id="text-org16b8867">
 <p>
 Looking straight at RGB channel values, do the following for each color in identity LUT:<br />
 </p>
@@ -366,9 +366,9 @@ Of course, the color mapping applied must reflect the difference in channel-to-c
 </p>
 </div>
 
-<div id="outline-container-org1ad6085" class="outline-4">
-<h4 id="org1ad6085">Color scale from sides-ratio perspective</h4>
-<div class="outline-text-4" id="text-org1ad6085">
+<div id="outline-container-orgea86fda" class="outline-4">
+<h4 id="orgea86fda">Color scale from sides-ratio perspective</h4>
+<div class="outline-text-4" id="text-orgea86fda">
 <p>
 Colors are analyzed and modified in terms of their red-to-cyan or cyan-to red ratio - larger value divided by smaller value.<br />
 The key control parameter is <b><i>MaxBalancedMajorToMaxMinorRatio</i></b> - the value of sides-ratio that separates balanced and unbalanced ranges. The author assumed the typical value is around 2.0 and up to 3.0, but a formal research would be better.<br />
@@ -386,7 +386,7 @@ The change must result in max-minor channel coming in balance with the major sid
 <li>"Min-Balanced" thresholds for both red domination and cyan domination are derived from <b><i>MaxBalancedMajorToMaxMinorRatio</i></b>. As of this writing the thresholds are equal<br /></li>
 <li>The numeric constants assume 8-bit color - the only option supported (at the time of this writing)<br /></li>
 </ul>
-<pre class="example" id="org3b8a94a">
+<pre class="example" id="org8604c0c">
  &gt;-{0.5/255}-----(red-cyan-ratio)-----{1.0}-------------------------{255/0.5}-&gt;
  &lt;-{255/0.5}-----(cyan-red-ratio)-----{1.0}-------------------------{0.5/255}-&lt;
                                         !
@@ -402,9 +402,9 @@ The change must result in max-minor channel coming in balance with the major sid
 </div>
 </div>
 
-<div id="outline-container-org3f47c25" class="outline-4">
-<h4 id="org3f47c25">The idea behind the main color-balancing action formulae</h4>
-<div class="outline-text-4" id="text-org3f47c25">
+<div id="outline-container-orgde67b0e" class="outline-4">
+<h4 id="orgde67b0e">The idea behind the main color-balancing action formulae</h4>
+<div class="outline-text-4" id="text-orgde67b0e">
 <p>
 <b>The main action of Anahald color balancing brings max-minor channel into the balance with max-major channel.</b><br />
 </p>
@@ -416,7 +416,7 @@ The change must result in max-minor channel coming in balance with the major sid
 <b><span class="underline">The conceptual formulae for max-minor channel</span></b> is presented below<br />
 </p>
 
-<pre class="example" id="orgc880842">
+<pre class="example" id="orgcef189a">
 colorRangeWidthNew = 1 - 1/{MaxBalancedMajorToMaxMinorRatio}
 colorRangeWidthOld = MaxChannelValue - MinChannelValue == 255 - 0 = 255
 
@@ -432,9 +432,9 @@ NewMaxMinor = MinAllowedMaxMinor  +  OldMaxMinor * (colorRangeWidthNew / colorRa
 </div>
 </div>
 
-<div id="outline-container-orge7f53e8" class="outline-4">
-<h4 id="orge7f53e8">Adjustment of min-minor channel</h4>
-<div class="outline-text-4" id="text-orge7f53e8">
+<div id="outline-container-org9b41eea" class="outline-4">
+<h4 id="org9b41eea">Adjustment of min-minor channel</h4>
+<div class="outline-text-4" id="text-org9b41eea">
 <p>
 The main color-balancing action - scaling of max-minor channel - brings the color into balance from Anahald point of view. But leaving min-minor channel untouched may produce an unrelated color.<br />
 </p>
@@ -446,7 +446,7 @@ The main color-balancing action - scaling of max-minor channel - brings the colo
 <p>
 If <b>MinMinorScaleOption</b> = 1, min-minor channel undergoes the same treatment as the max-minor, independently of it; in the formulae below lines that completely duplicate prior calculation of max-minor are commented-out with #:<br />
 </p>
-<pre class="example" id="org2cb0e14">
+<pre class="example" id="org27a55b0">
 
 
 NewMinMinor = MinAllowedMaxMinor  +  OldMinMinor * (colorRangeWidthNew / colorRangeWidthOld)
@@ -455,15 +455,15 @@ NewMinMinor = MinAllowedMaxMinor  +  OldMinMinor * (colorRangeWidthNew / colorRa
 If <b><i>MinMinorScaleOption</i></b> = 2, min-minor channel is scaled-up by the same factor as max-minor:<br />
 </p>
 
-<pre class="example" id="org895aa33">
+<pre class="example" id="org8ad402d">
 NewMinMinor = OldMinMinor  *  (NewMaxMinor / OldMaxMinor)
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org62a8af1" class="outline-4">
-<h4 id="org62a8af1">Colors on the boundary between balanced and unbalanced</h4>
-<div class="outline-text-4" id="text-org62a8af1">
+<div id="outline-container-org99b470c" class="outline-4">
+<h4 id="org99b470c">Colors on the boundary between balanced and unbalanced</h4>
+<div class="outline-text-4" id="text-org99b470c">
 <p>
 If the boundary between balanced and unbalanced is a hard threshold, color gradients crossing this boundary are disrupted with apparent "stair" at appropriate points. Anahald addresses this problem by <b>smoothing the transition - modifying originally balanced colors with sides-ratios (red-to-cyan or cyan-to-red) close to the threshold value:</b><br />
 </p>
@@ -480,7 +480,7 @@ If the boundary between balanced and unbalanced is a hard threshold, color gradi
 Whatever the approach, the smoothing formulae just takes weighted average between the original and would-be-modified values for each of the three color channels.<br />
 </p>
 
-<pre class="example" id="org58f56d2">
+<pre class="example" id="orgddda7bc">
 channelValueNew = (1 - w) * channelValueOld  +  w * channelValueIfScaled
 </pre>
 <ul class="org-ul">
@@ -499,14 +499,14 @@ channelValueNew = (1 - w) * channelValueOld  +  w * channelValueIfScaled
 "linear weight" - used if <b><i>SmoothBndBalancedOption</i></b> = 1<br />
 </p>
 
-<pre class="example" id="orgdf0da1f">
+<pre class="example" id="orgbf463d8">
 wLinear = 1.0*(red_cyan_ratio - {MinBndBalancedMajorToMaxMinorRatio}) /  ({MaxBalancedMajorToMaxMinorRatio} - {MinBndBalancedMajorToMaxMinorRatio})}]
 </pre></li>
 <li><p>
 "parabolic weight" - used if <b><i>SmoothBndBalancedOption</i></b> = 2<br />
 </p>
 
-<pre class="example" id="org5caa882">
+<pre class="example" id="org8070764">
 a == -1 / ({MinBndBalancedMajorToMaxMinorRatio} - {MaxBalancedMajorToMaxMinorRatio})^2
 wParabolic = a*(red_cyan_ratio - {MaxBalancedMajorToMaxMinorRatio})^2 + 1,
 </pre></li>
@@ -525,11 +525,11 @@ There anyway exists a possibility to keep the boundary as the hard limit (e.g. c
 </div>
 
 
-<div id="outline-container-orgb0d3c7d" class="outline-2">
-<h2 id="orgb0d3c7d">Color computation steps in order</h2>
-<div class="outline-text-2" id="text-orgb0d3c7d">
+<div id="outline-container-org6239474" class="outline-2">
+<h2 id="org6239474">Color computation steps in order</h2>
+<div class="outline-text-2" id="text-org6239474">
 <p>
-In reality computation of each color includes more stages than described in <a href="#orgee7f73e">The simplified view of color-modification process</a>. The author decided to save on detailed description of steps whose related control parameters are simple enough to understand.<br />
+In reality computation of each color includes more stages than described in <a href="#org5d705d7">The simplified view of color-modification process</a>. The author decided to save on detailed description of steps whose related control parameters are simple enough to understand.<br />
 </p>
 
 <p>
@@ -539,7 +539,7 @@ Here is the <b><span class="underline">list of steps involved in balancing one c
 <ol class="org-ol">
 <li><i>Pre-squeeze</i> the major side or <i>pre-inflate</i> the minor side<br />
 <ul class="org-ul">
-<li><i>pre-squeeze</i> makes the major side pay its part in balancing, which otherwise would keep it unchanged and only increase the minor side - see (<a href="#org3f47c25">The idea behind the main color-balancing action formulae</a>). The major side is scaled down to constitute approximately <b><i>PreSqueezeMajorToFract</i></b> (control parameter, &lt;= 1) of the initial difference between major and minor sides.<br /></li>
+<li><i>pre-squeeze</i> makes the major side pay its part in balancing, which otherwise would keep it unchanged and only increase the minor side - see (<a href="#orgde67b0e">The idea behind the main color-balancing action formulae</a>). The major side is scaled down to constitute approximately <b><i>PreSqueezeMajorToFract</i></b> (control parameter, &lt;= 1) of the initial difference between major and minor sides.<br /></li>
 <li><i>pre-inflate</i> is symmetrical to <i>pre-squeeze</i> computation-wise; specified by control parameter <b><i>PreInflateMinorToFract</i></b> being &lt; 1; results in minor side ending-up bigger than it would be otherwise<br /></li>
 <li>Only one of <i>pre-squeeze</i> or <i>pre-inflate</i> allowed to be active (e.g. have its control parameter &lt; 1)<br /></li>
 <li>This stage includes a hidden action of <i>thresholding</i> - clipping very low channel values to a hardcoded threshold; currently restricted to replacing 0 by 1<br /></li>
@@ -551,24 +551,24 @@ Here is the <b><span class="underline">list of steps involved in balancing one c
 </ul></li>
 <li><i>Scale up the max-minor channel</i><br />
 <ul class="org-ul">
-<li>see <a href="#org3f47c25">The idea behind the main color-balancing action formulae</a><br /></li>
+<li>see <a href="#orgde67b0e">The idea behind the main color-balancing action formulae</a><br /></li>
 </ul></li>
 <li><i>Increment the min-minor channel</i> to prevent gap with new value of the max-minor<br />
 <ul class="org-ul">
-<li>see <a href="#orge7f53e8">Adjustment of min-minor channel</a><br /></li>
+<li>see <a href="#org9b41eea">Adjustment of min-minor channel</a><br /></li>
 </ul></li>
 <li>Take <i>weighted averages between the scaled- and original values</i> for all the channels to smoothen transition between originally-balanced and originally-unbalanced colors<br />
 <ul class="org-ul">
-<li>see <a href="#org62a8af1">Colors on the boundary between balanced and unbalanced</a><br /></li>
+<li>see <a href="#org99b470c">Colors on the boundary between balanced and unbalanced</a><br /></li>
 </ul></li>
 </ol>
 </div>
 </div>
 
 
-<div id="outline-container-org83381c3" class="outline-2">
-<h2 id="org83381c3">Examples of color modifications</h2>
-<div class="outline-text-2" id="text-org83381c3">
+<div id="outline-container-orged92635" class="outline-2">
+<h2 id="orged92635">Examples of color modifications</h2>
+<div class="outline-text-2" id="text-orged92635">
 <p>
 Sample color modification flows shown in this section assume config file "rma_ba12_sq0d80gb0d97sc1d5_cp.ini" which is supplied with Anahald.<br />
 Recall that the numbers don't exactly match the conceptual ratios, bur are close enough.<br />
@@ -781,25 +781,25 @@ Parameter values are shown tn the table below:<br />
 </p>
 
 
-<div id="org1527e2b" class="figure">
+<div id="org83d1126" class="figure">
 <p><img src="files/color_trans_1.jpg" alt="color_trans_1.jpg" width="600px" align="center" /><br />
 </p>
 <p><span class="figure-number">Figure 3: </span>Balancing saturated-red color {255 1 0}</p>
 </div>
 
-<div id="org9ee01ae" class="figure">
+<div id="org9f657be" class="figure">
 <p><img src="files/color_trans_2.jpg" alt="color_trans_2.jpg" width="600px" align="center" /><br />
 </p>
 <p><span class="figure-number">Figure 4: </span>Balancing saturated-blue color {0 0 200}</p>
 </div>
 
-<div id="org1876f3c" class="figure">
+<div id="orgb66cef3" class="figure">
 <p><img src="files/color_trans_3.jpg" alt="color_trans_3.jpg" width="600px" align="center" /><br />
 </p>
 <p><span class="figure-number">Figure 5: </span>Balancing marginally balanced reddish color {100 55 50}</p>
 </div>
 
-<div id="org3bc27ee" class="figure">
+<div id="org35f9181" class="figure">
 <p><img src="files/color_trans_4.jpg" alt="color_trans_4.jpg" width="600px" align="center" /><br />
 </p>
 <p><span class="figure-number">Figure 6: </span>Balancing green-heavy color {50 200 40}</p>
