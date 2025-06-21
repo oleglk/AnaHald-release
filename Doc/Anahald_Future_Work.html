@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2025-05-18 Sun 23:24 -->
+<!-- 2025-06-21 Sat 12:15 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Anaglyph HALD Generator (Anahald) - Future Development Directions</title>
@@ -209,20 +209,20 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgcf0f938">Image classification and result estimation</a>
+<li><a href="#org81b5178">Image classification and result estimation</a>
 <ul>
-<li><a href="#org39109ef">Sides-ratio histogram</a></li>
+<li><a href="#orgf8a9894">Sides-ratio histogram</a></li>
 </ul>
 </li>
-<li><a href="#orgeda2046">New commands to make conversions of one image with several HALD-s</a></li>
-<li><a href="#org3e45467">Minimalistic GUI</a></li>
-<li><a href="#org6cfb2a4">Methodology to build input configurations</a></li>
-<li><a href="#org2780541">Two-stage workflow methodology and supporting code</a></li>
-<li><a href="#org644d0be">Test-chart images</a>
+<li><a href="#org736954b">New commands to make conversions of one image with several HALD-s</a></li>
+<li><a href="#orgf630ae7">Minimalistic GUI</a></li>
+<li><a href="#org2a3e054">Methodology to build input configurations</a></li>
+<li><a href="#org2505e61">Two-stage workflow methodology and supporting code</a></li>
+<li><a href="#org6da7eb7">Test-chart images</a>
 <ul>
-<li><a href="#orgeb9f0d5">Red-cyan extinction (cross-talk) estimation</a></li>
-<li><a href="#org3e6e1e0">Cross-talk vs parallax</a></li>
-<li><a href="#org8658cc7">Turn HALD into an inclined stereopair</a></li>
+<li><a href="#org2911802">Red-cyan extinction (cross-talk) estimation</a></li>
+<li><a href="#orgb36cc1a">Cross-talk vs parallax</a></li>
+<li><a href="#orgb52bf64">Turn HALD into an inclined stereopair</a></li>
 </ul>
 </li>
 </ul>
@@ -255,13 +255,13 @@ Notes on <b><span class="underline">glossary</span></b>:<br />
 </ul>
 <hr />
 
-<div id="outline-container-orgcf0f938" class="outline-2">
-<h2 id="orgcf0f938">Image classification and result estimation</h2>
-<div class="outline-text-2" id="text-orgcf0f938">
+<div id="outline-container-org81b5178" class="outline-2">
+<h2 id="org81b5178">Image classification and result estimation</h2>
+<div class="outline-text-2" id="text-org81b5178">
 </div>
-<div id="outline-container-org39109ef" class="outline-3">
-<h3 id="org39109ef">Sides-ratio histogram</h3>
-<div class="outline-text-3" id="text-org39109ef">
+<div id="outline-container-orgf8a9894" class="outline-3">
+<h3 id="orgf8a9894">Sides-ratio histogram</h3>
+<div class="outline-text-3" id="text-orgf8a9894">
 <p>
 Such a feature would serve both for classification and for result estimation.<br />
 Implementation suggestions:<br />
@@ -278,9 +278,9 @@ Go to <a href="https://legacy.imagemagick.org/Usage/quantize/#map">https://legac
 </div>
 </div>
 </div>
-<div id="outline-container-orgeda2046" class="outline-2">
-<h2 id="orgeda2046">New commands to make conversions of one image with several HALD-s</h2>
-<div class="outline-text-2" id="text-orgeda2046">
+<div id="outline-container-org736954b" class="outline-2">
+<h2 id="org736954b">New commands to make conversions of one image with several HALD-s</h2>
+<div class="outline-text-2" id="text-org736954b">
 <p>
 Use LIST or GLOB keywords to specify the HALD-s - as in 'anahald_cfg_table.bat'<br />
 </p>
@@ -288,9 +288,9 @@ Use LIST or GLOB keywords to specify the HALD-s - as in 'anahald_cfg_table.bat'<
 <hr />
 </div>
 </div>
-<div id="outline-container-org3e45467" class="outline-2">
-<h2 id="org3e45467">Minimalistic GUI</h2>
-<div class="outline-text-2" id="text-org3e45467">
+<div id="outline-container-orgf630ae7" class="outline-2">
+<h2 id="orgf630ae7">Minimalistic GUI</h2>
+<div class="outline-text-2" id="text-orgf630ae7">
 <p>
 While the author himself doesn't find it anyhow useful, request from important customers (if any) will prompt making some arrangement for GUI-only users.<br />
 These will provide the functionality with no concern given to the cosmetics.<br />
@@ -320,9 +320,9 @@ b) after the config-file-choice dialog is closed, opens a new window with standa
 <hr />
 </div>
 </div>
-<div id="outline-container-org6cfb2a4" class="outline-2">
-<h2 id="org6cfb2a4">Methodology to build input configurations</h2>
-<div class="outline-text-2" id="text-org6cfb2a4">
+<div id="outline-container-org2a3e054" class="outline-2">
+<h2 id="org2a3e054">Methodology to build input configurations</h2>
+<div class="outline-text-2" id="text-org2a3e054">
 <p>
 So far the single useful advice is to start from the configurations of <a href="Anahald_Premade_LUTs.html">included pre-made HALD LUT-s</a> and tweak to achieve the desired effect.<br />
 Generally, the methodology-definition task is the area with the greatest collaboration potential.<br />
@@ -331,9 +331,9 @@ Generally, the methodology-definition task is the area with the greatest collabo
 <hr />
 </div>
 </div>
-<div id="outline-container-org2780541" class="outline-2">
-<h2 id="org2780541">Two-stage workflow methodology and supporting code</h2>
-<div class="outline-text-2" id="text-org2780541">
+<div id="outline-container-org2505e61" class="outline-2">
+<h2 id="org2505e61">Two-stage workflow methodology and supporting code</h2>
+<div class="outline-text-2" id="text-org2505e61">
 <p>
 Usual workflow suggests applying balancing HALD at the end - to guarantee no further color modifications.<br />
 But having the same (or related) HALD applied in an earlier stage as well would help to better visualize the effects of color modifications during stereo-picture editing process.<br />
@@ -344,31 +344,31 @@ As it looks to the author so far, the ultimate HALD must be (re)applied somewher
 <hr />
 </div>
 </div>
-<div id="outline-container-org644d0be" class="outline-2">
-<h2 id="org644d0be">Test-chart images</h2>
-<div class="outline-text-2" id="text-org644d0be">
+<div id="outline-container-org6da7eb7" class="outline-2">
+<h2 id="org6da7eb7">Test-chart images</h2>
+<div class="outline-text-2" id="text-org6da7eb7">
 </div>
-<div id="outline-container-orgeb9f0d5" class="outline-3">
-<h3 id="orgeb9f0d5">Red-cyan extinction (cross-talk) estimation</h3>
-<div class="outline-text-3" id="text-orgeb9f0d5">
+<div id="outline-container-org2911802" class="outline-3">
+<h3 id="org2911802">Red-cyan extinction (cross-talk) estimation</h3>
+<div class="outline-text-3" id="text-org2911802">
 <p>
 For the first edition, David Romeuf's "potentiometer" image from <a href="https://www.david-romeuf.fr/3D/Anaglyphes/BonCoupleEL/GoodCoupleMonitorGlassesAnaglyph.html">https://www.david-romeuf.fr/3D/Anaglyphes/BonCoupleEL/GoodCoupleMonitorGlassesAnaglyph.html</a> is used - by his permission.<br />
 So far the author has no better ideas.<br />
 </p>
 </div>
 </div>
-<div id="outline-container-org3e6e1e0" class="outline-3">
-<h3 id="org3e6e1e0">Cross-talk vs parallax</h3>
-<div class="outline-text-3" id="text-org3e6e1e0">
+<div id="outline-container-orgb36cc1a" class="outline-3">
+<h3 id="orgb36cc1a">Cross-talk vs parallax</h3>
+<div class="outline-text-3" id="text-orgb36cc1a">
 <p>
 These prove that reducing depth-budget allows weaker red/cyan filters.<br />
 Generated charts based on displaced-text image-pairs appear in <a href="Glasses_Screens_etc.html">*Filter strength</a>.<br />
 </p>
 </div>
 </div>
-<div id="outline-container-org8658cc7" class="outline-3">
-<h3 id="org8658cc7">Turn HALD into an inclined stereopair</h3>
-<div class="outline-text-3" id="text-org8658cc7">
+<div id="outline-container-orgb52bf64" class="outline-3">
+<h3 id="orgb52bf64">Turn HALD into an inclined stereopair</h3>
+<div class="outline-text-3" id="text-orgb52bf64">
 <p>
 "<i>Inclined</i>" means tilted backward or forward.)<br />
 For HALD-s in ImageMagick text format - function working on HALD text file to alter coordinates per line - adds two terms to X coordinate:<br />

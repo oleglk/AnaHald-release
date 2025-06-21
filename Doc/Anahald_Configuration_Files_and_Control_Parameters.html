@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2025-05-18 Sun 23:24 -->
+<!-- 2025-06-21 Sat 12:15 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Anaglyph HALD Generator - Configuration Files and Control Parameters</title>
@@ -209,8 +209,8 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org29bb6cd">Configuration Files Format</a></li>
-<li><a href="#org27a7368">Control Parameters Specification</a></li>
+<li><a href="#org7466470">Configuration Files Format</a></li>
+<li><a href="#org3b90a26">Control Parameters Specification</a></li>
 </ul>
 </div>
 </div>
@@ -236,15 +236,15 @@ Notes on <b><span class="underline">glossary</span></b>:<br />
 <li><b><i>sides-ratio</i></b> is a ratio between values of red channel, and maximum of green and blue channels - the larger divided by the smaller; used as a measure of <i>disbalance</i> in colors<br /></li>
 </ul>
 
-<div id="outline-container-org29bb6cd" class="outline-2">
-<h2 id="org29bb6cd">Configuration Files Format</h2>
-<div class="outline-text-2" id="text-org29bb6cd">
+<div id="outline-container-org7466470" class="outline-2">
+<h2 id="org7466470">Configuration Files Format</h2>
+<div class="outline-text-2" id="text-org7466470">
 <p>
-Anahald configuration file contains a set of key=value pairs, where keys are names of <i>control parameters</i> (<a href="#org27a7368">specs follow</a>), and values are, well, their values. File format is that of commonly used .ini files where the key=value pairs are organized into sections.<br />
+Anahald configuration file contains a set of key=value pairs, where keys are names of <i>control parameters</i> (<a href="#org3b90a26">specs follow</a>), and values are, well, their values. File format is that of commonly used .ini files where the key=value pairs are organized into sections.<br />
 Since the Anahald configuration file is utterly straightforward, an example with only a few explanations will suffice.<br />
 Here is a <b><span class="underline">sample Anahald configuration file - "ahg_oleg_gp.ini"</span></b> - one of the four supplied with Anahald:<br />
 </p>
-<pre class="example" id="orga18994f">
+<pre class="example" id="org16b94d7">
 [Original_User_Specified]
 GreenToBlueBiasMultWhenMinor=1.0
 MaxBalancedMajorToMaxMinorRatio=2.0
@@ -285,9 +285,9 @@ That's all one needs to know about Anahald configuration file format.<br />
 </div>
 
 
-<div id="outline-container-org27a7368" class="outline-2">
-<h2 id="org27a7368">Control Parameters Specification</h2>
-<div class="outline-text-2" id="text-org27a7368">
+<div id="outline-container-org3b90a26" class="outline-2">
+<h2 id="org3b90a26">Control Parameters Specification</h2>
+<div class="outline-text-2" id="text-org3b90a26">
 <p>
 The detailed and comprehensive explanations on how each control parameter affects color computation is presented in <a href="Anahald_Algorithm_and_Parameters.html">Anahald_Algorithm_and_Parameters.html</a>; this section summarizes the parameters while attempting to explain them from the usage viewpoint.<br />
 </p>
@@ -312,10 +312,11 @@ Specifies the maximum sides-ratio for the color-trio (RGB) to be considered bala
 <li>for cyan-dominated colors, SidesRatio == max(G, B) / R<br /></li>
 </ul></li>
 <li><b><i>MaxRgbVal</i></b> == 255 - a constant for now; meant for future extensions<br /></li>
-<li><b><i>MinBndBalancedMajorToMaxMinorRatio</i></b>; range: [1.0 &#x2026; /MaxBalancedMajorToMaxMinorRatio/]<br />
+<li><b><i>MinBndBalancedMajorToMaxMinorRatio</i></b>; range: [1.0 &#x2026; <i>MaxBalancedMajorToMaxMinorRatio</i>)<br />
 Defines the lower bound of sides-ratio that could be affected while smoothening the boundary between balanced and unbalanced colors<br />
 <ul class="org-ul">
 <li>colors with sides-ratio smaller than 'MinBndBalancedMajorToMaxMinorRatio' will not be altered for any purpose<br /></li>
+<li>'MinBndBalancedMajorToMaxMinorRatio' must be strictly smaller than 'MaxBalancedMajorToMaxMinorRatio'<br /></li>
 </ul></li>
 <li><b><i>MinMinorScaleOption</i></b> - two possible values - 1 or 2<br />
 Selects the formula used to balance the smaller (<i>min-minor</i>) of green and blue channels in red-dominated colors<br />
