@@ -358,9 +358,9 @@ proc ::rca::check_config_sanity {{cfgArrName "rca::CFG"}}  {
     lappend errList "Only one of PreSqueezeMajorToFract or PreInflateMinorToFract allowed to be active (by being not equal to 1.0)"
   }
   if { ($_cfg(MinBndBalancedMajorToMaxMinorRatio) < 1.0) ||             \
-       ($_cfg(MinBndBalancedMajorToMaxMinorRatio) >                     \
+       ($_cfg(MinBndBalancedMajorToMaxMinorRatio) >=                    \
                                 $_cfg(MaxBalancedMajorToMaxMinorRatio)) }  {
-    lappend errList "Invalid MinBndBalancedMajorToMaxMinorRatio '$_cfg(MinBndBalancedMajorToMaxMinorRatio)'; must be \[1.0 ... MaxBalancedMajorToMaxMinorRatio=$_cfg(MaxBalancedMajorToMaxMinorRatio)\]"
+    lappend errList "Invalid MinBndBalancedMajorToMaxMinorRatio '$_cfg(MinBndBalancedMajorToMaxMinorRatio)'; must be \[1.0 ... MaxBalancedMajorToMaxMinorRatio=$_cfg(MaxBalancedMajorToMaxMinorRatio)\); min-ratio must be strictly smaller than max-ratio"
   }
   if { ($_cfg(MinMinorScaleOption) != $rca::_MIN_MINOR_TO_MAJOR) &&  \
        ($_cfg(MinMinorScaleOption) != $rca::_MIN_MINOR_AS_MAX_MINOR) }  {
@@ -865,6 +865,7 @@ proc ::rca::build_all_balanced_colors_hald_file {level newHaldFilePath}  {
       for {set iG 0}  {$iG < $gradLen}  {incr iG 1}  {
         for {set iR 0}  {$iR < $gradLen}  {incr iR 1}  {
           incr lineIdx 1
+          #puts "@@@@ Line $lineIdx: iR,iG,iB={$iR,$iG,$iB}"
           if { ![hald_rgb_indices_to_xy  $level  $iR $iG $iB  x y] ||  \
                  ![hald_rgb_indices_to_rgb $level $CFG(MaxRgbVal)  $iR $iG $iB  \
                                            r g b] }  {
@@ -1460,6 +1461,7 @@ proc ::rca::collect_config_summary_from_file_list {filePathList  \
 # On error returns string "ERROR".
 ## Example-01 (raw):   set hd [rca::read_r2c_histogram_from_file_glob  {./INP}  {hald_0[34].png}  0];  dict for {k v} $hd {puts "=== $k ===\n$v"}
 ## Example-02 (form):  set hd [rca::read_r2c_histogram_from_file_glob  {./INP}  {hald_0[34].png}  1];  dict for {k v} $hd {puts "=== $k ===\n$v"}
+## Example-03 (real with RR)  set hist [::rca::read_r2c_histogram_from_file_glob  d:/photo/Anaglyph_RR/Anaglyph_RR_TIFF_1080/  {Anaglyph_*/*.TIF}  0];    rca::save_multifile_r2c_histograms_to_csv  $hist  d:/photo/Anaglyph_RR/hist_rr.csv
 proc ::rca::read_r2c_histogram_from_file_glob {rootDirOrEmpty filePathGlob  \
                                                      {formatOutput 0}}  {
   set filePathList [expr {($rootDirOrEmpty != "")?                              \
@@ -1482,6 +1484,7 @@ proc ::rca::read_r2c_histogram_from_file_list {filePathList  \
   foreach imgPath $filePathList  {
     set r2cDict [::img_proc::read_image_colors_histogram $imgPath  \
                    "rca::_register_color_by_r2c__handler"]
+    if { $r2cDict == 0 }  { continue };  # error already printed; take next file
     if { !$formatOutput }  {
       dict set imgPathToHistogram $imgPath $r2cDict
     } else {
@@ -1493,6 +1496,41 @@ proc ::rca::read_r2c_histogram_from_file_list {filePathList  \
   return  $imgPathToHistogram
 }
 
+
+# Writes R2C histogram(s) from 'imgPathToHistogram' into CSV file '$outPath'
+## Example 1:  rca::save_multifile_r2c_histograms_to_csv {f1.jpg {0 10  1 11  2 12  3 13  4 14  5 15  6 16  7  17}}  TMP/dummy_r2c_histogram1.csv
+## Example 2:  rca::save_multifile_r2c_histograms_to_csv {f1.jpg {0 10  1 11  2 12  3 13  4 14  5 15  6 16  7  17}    f2.jpg {0 20  1 21  2 22  3 23  4 24  5 25  6 26  7  27}}  TMP/dummy_r2c_histogram2.csv
+## Example 3:  set hd [rca::read_r2c_histogram_from_file_list  {INP/hald_03.png INP/hald_04.png}  0];  rca::save_multifile_r2c_histograms_to_csv  $hd  "TMP/halds0304__r2c_histograms.csv"
+proc ::rca::save_multifile_r2c_histograms_to_csv {imgPathToHistogram  \
+                                                       outPath}  {
+  set thresholds [rca::_list_r2c_thresholds]
+  set csvHeader "filename"
+  for {set i 1}  {$i < [llength $thresholds]}  {incr i 1}  {
+    append csvHeader  ","  \
+      "[format {%.2f-%.2f} [lindex $thresholds $i-1] [lindex $thresholds $i]]"
+  }
+  set csvList [list $csvHeader]
+  dict for {imgPath oneImgHist} $imgPathToHistogram  {
+    # convert counts to percents
+    set numPixels 0;  foreach v [dict values $oneImgHist]  { incr numPixels $v }
+    dict for {k v} $oneImgHist {
+      dict set oneImgHist $k [expr {100.0 * $v / $numPixels}]
+    }
+    set oneCsvLine [file tail $imgPath]
+    foreach iBin [lsort -integer [dict keys $oneImgHist]]  {
+      append  oneCsvLine  ","  [format {%.2f} [dict get $oneImgHist $iBin]]
+    }
+    lappend csvList $oneCsvLine
+  }
+  set msg "saving R2C histogram(s) for [dict size $imgPathToHistogram] image(s) in '$outPath'"
+  if { [set rc [ok_write_list_into_file  $csvList  $outPath]] }  {
+    ok_info_msg "Success $msg"
+  } else {
+    ok_info_msg "Failed $msg"
+  }
+  return  $rc
+}
+  
 
 # Check for missing and/or invalid options; puts error messages into 'errListVar'
 # Returns 1 if no errors, 0 otherwise
@@ -1620,8 +1658,13 @@ proc ::rca::_classify_color_for_r2c_histogram {r g b  {r2cFractions {}}}   {
 # Updates histogram bin in 'binToCntRef' where {r g b} color-trio classifies.
 proc ::rca::_register_color_by_r2c__handler {r g b  cnt  binToCntRef}   {
   upvar $binToCntRef binToCnt
-  set binIndex [_classify_color_for_r2c_histogram $r $g $b  \
-                                                  [rca::_list_r2c_thresholds]]
+  set thresholds [rca::_list_r2c_thresholds]
+  if { 0 == [dict size $binToCnt] }  {;  # init all bins to zero counts
+    for {set i 0}  {$i < [expr [llength $thresholds] -1]}  {incr i 1}  {
+      dict set  binToCnt  $i  0
+    }
+  }
+  set binIndex [_classify_color_for_r2c_histogram $r $g $b  $thresholds]
   dict incr  binToCnt  $binIndex  $cnt
   
 }

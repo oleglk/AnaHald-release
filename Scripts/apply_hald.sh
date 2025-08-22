@@ -56,10 +56,10 @@ SBSPATH=$1;  HALDROOTDIR=$2;  HALDGLOB=$3;  OUTDIR=$4;  OUTSBSORANA=$5
 _DESCR="Anahald $OUTSBSORANA conversions of SBS image '$SBSPATH' with all HALD-LUTs matching '$HALDGLOB' located under '$HALDROOTDIR'; output directory '$OUTDIR'"
 
 echo "-I- ==== Begin  $_DESCR ===="
-if   [[ ${OUTSBSORANA^^} == "SBS" ]]; then
+if   [[ $(echo "$OUTSBSORANA" | tr '[:lower:]' '[:upper:]') == "SBS" ]]; then
     echo "-I- Will convert SBS to color-processed SBS"
     Apply_All_Anahald_LUTs   $SBSPATH  $HALDROOTDIR  $HALDGLOB  $OUTDIR
-elif [[ ${OUTSBSORANA^^} == "ANA" ]]; then
+elif [[ $(echo "$OUTSBSORANA" | tr '[:lower:]' '[:upper:]') == "ANA" ]]; then
     echo "-I- Will convert SBS to color-processed anaglyph"
     Make_All_Anaglyph_Types  $SBSPATH  $HALDROOTDIR  $HALDGLOB  $OUTDIR
 else

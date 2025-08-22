@@ -1,0 +1,4 @@
+# python.sh - invokes Python interpreter by absolute path
+#             while passing it all command-line arguments
+
+/C/Oleg/Tools/WPy64-31241/python-3.12.4.amd64/python.exe  "$@"

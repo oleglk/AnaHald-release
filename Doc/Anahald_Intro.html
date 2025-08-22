@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2025-05-18 Sun 23:24 -->
+<!-- 2025-08-22 Fri 20:45 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Anaglyph HALD Generator (Anahald) - Introduction and Navigation</title>
@@ -209,9 +209,9 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org21f7fc9">Introduction - what and why</a></li>
-<li><a href="#orgcd1b5bd">Site Navigation - what comes with Anahald?</a></li>
-<li><a href="#orge70f64e">Contact information</a></li>
+<li><a href="#orgad92617">Introduction - what and why</a></li>
+<li><a href="#org8edd5e6">Site Navigation - what comes with Anahald?</a></li>
+<li><a href="#org56f205a">Contact information</a></li>
 </ul>
 </div>
 </div>
@@ -221,15 +221,15 @@
 </p>
 
 
-<div id="org377e113" class="figure">
+<div id="org75a5151" class="figure">
 <p><img src="files/demo__DSC00163_ahg_oleg_xc__FCA_720.jpg" alt="demo__DSC00163_ahg_oleg_xc__FCA_720.jpg" width="600px" align="center" /><br />
 </p>
 <p><span class="figure-number">Figure 1: </span>Original stereopair and anaglyph conversion facilitated by Anahald</p>
 </div>
 
-<div id="outline-container-org21f7fc9" class="outline-2">
-<h2 id="org21f7fc9">Introduction - what and why</h2>
-<div class="outline-text-2" id="text-org21f7fc9">
+<div id="outline-container-orgad92617" class="outline-2">
+<h2 id="orgad92617">Introduction - what and why</h2>
+<div class="outline-text-2" id="text-orgad92617">
 <p>
 Anaglyph HALD Generator addresses the problem of <b><i>retinal-rivalry</i></b> in red-cyan stereo-3d anaglyph images.<br />
 The majority of the issues arise when the signal value in left-eye channel differs significantly from that of the right-eye channel. E.g. not only pure (saturated) or nearly pure colors are hard to see, but a much larger group of colors with big difference between magnitudes of red component on one side and green or blue component(s) on the other side.<br />
@@ -272,33 +272,37 @@ For stereo-3D the HALD is applied to a stereopair, e.g. before conversion to ana
 <p>
 The invocation format to obtain color-processed stereopair is:<br />
 </p>
-<pre class="example" id="orga43f174">
+<pre class="example" id="orgeb23bf4">
 magick  &lt;INPUT-IMAGE-PATH&gt;  -gamma 1.0  &lt;HALD-FILE-PATH&gt; -hald-clut  -depth 8 -compress LZW  &lt;OUTPUT-TIFF-IMAGE-PATH&gt;
 </pre>
 <p>
 The invocation format to obtain ultimate red-cyan anaglyph from color-processed stereopair is:<br />
 </p>
-<pre class="example" id="org2493b8b">
+<pre class="example" id="org29a6a17">
 magick  &lt;INPUT-IMAGE-PATH&gt;  -gamma 1.0  &lt;HALD-FILE-PATH&gt; -hald-clut  -crop 50%x100% -swap 0,1 -define compose:args=20 -compose stereo -composite  -depth 8 -compress LZW  &lt;OUTPUT-TIFF-IMAGE-PATH&gt;
 </pre>
 <p>
-The Anahald distribution includes a <span class="underline">BASH script that performs conversions of one stereopair with multiple HALD LUTs</span> - Scripts/apply_hald.sh . Run it without arguments to obtain command-line help.<br />
+The Anahald distribution includes a <span class="underline">BASH script for Linux and Windows that performs conversions of one stereopair with all sample Anahald LUTs</span> - Scripts/apply_hald.sh . Run it without arguments to obtain command-line help.<br />
 </p>
 <ul class="org-ul">
-<li>Tip: consider including an <i>identity-hald</i> (create with <b>magick hald:16 HALD_FILENAME</b>) to obtain unprocessed full-color anaglyph conversion as another option.<br /></li>
+<li>Tip: consider including an <i>identity-hald</i> (create with <b>magick hald:16 HALD_FILENAME</b>) to obtain unprocessed full-color anaglyph conversion as another option<br /></li>
+<li>A similar but simpler <span class="underline">DOS-batch script Scripts/apply_hald.bat is aimed at drag-and-drop-input-files</span> kind of usage. It outputs ultimate anaglyphs into ANA/ subdirectory of the input stereopairs' location. Double-click or run it without arguments to obtain usage help.<br /></li>
 </ul>
+<p>
+Advanced users can enjoy Python-powered <a href="Anahald_Choice.html">auto-choice of a suitable Anahald sample LUT</a>. This utility creates one anaglyph per SBS stereopair - with the sample HALD LUT it "prefers".<br />
+</p>
 
 <p>
 <span class="underline">For processing side-by-side videos</span>, the author used "FFMPEG" command-line tool.<br />
 FFMPEG invocation format to <i>apply a HALD-LUT to any video</i> is:<br />
 </p>
-<pre class="example" id="org6dc6f73">
+<pre class="example" id="orge812d7f">
 ffmpeg    -i &lt;INPUT-VIDEO-PATH&gt;  -i &lt;HALD-FILE-PATH&gt;  -filter_complex "haldclut"  &lt;OUTPUT-VIDEO-PATH&gt;
 </pre>
 <p>
 FFMPEG invocation format to <i>convert anamorphic-side-by-side video into red-cyan anaglyph with a HALD-LUT applied</i> is:<br />
 </p>
-<pre class="example" id="org8f4f835">
+<pre class="example" id="org7b61ca3">
 ffmpeg    -i &lt;INPUT-VIDEO-PATH&gt;  -i &lt;HALD-FILE-PATH&gt;  -filter_complex  "[0:v]scale=iw*2.0:ih*1.0[out_0] ,  [out_0][1:v]haldclut , stereo3d=sbsl:arcc"  &lt;OUTPUT-VIDEO-PATH&gt;
 </pre>
 
@@ -308,19 +312,19 @@ ffmpeg    -i &lt;INPUT-VIDEO-PATH&gt;  -i &lt;HALD-FILE-PATH&gt;  -filter_comple
 The example below demonstrates the original stereopair, the color-processed stereopair, and the full-color anaglyph made from the latter. The reader can easily imagine the amount of retinal-rivalry if a full-color anaglyph was made directly from the original image.<br />
 </p>
 
-<div id="org85334d6" class="figure">
+<div id="orgb2cc52c" class="figure">
 <p><img src="files/jerry_orig.jpg" alt="jerry_orig.jpg" width="600px" align="center" /><br />
 </p>
 <p><span class="figure-number">Figure 2: </span>The original stereopair</p>
 </div>
 
-<div id="org64094ee" class="figure">
+<div id="org87649ea" class="figure">
 <p><img src="files/jerry_ec.jpg" alt="jerry_ec.jpg" width="600px" align="center" /><br />
 </p>
 <p><span class="figure-number">Figure 3: </span>The stereopair obtained by applying "anahald__oleg_ec" HALD LUT</p>
 </div>
 
-<div id="org534892f" class="figure">
+<div id="org022b1e8" class="figure">
 <p><img src="files/jerry_ec_fca.jpg" alt="jerry_ec_fca.jpg" width="300px" align="center" /><br />
 </p>
 <p><span class="figure-number">Figure 4: </span>Anaglyph image resulting from "anahald__oleg_ec" HALD LUT</p>
@@ -337,15 +341,15 @@ For the positive answer to prevail, the spectator meeting three conditions is pa
 </ol>
 <p>
 <b>Anahald does allow to achieve a reasonable <span class="underline">for the particular image</span> trade-off between the remaining level of retinal-rivalry and color-quality preservation of the picture.</b><br />
-According to the author's experience, overall anaglyph viewing experience could be noticeably improved for absolute majority of stereopairs that suffer from retinal-rivalry and otherwise would be treated by <a href="Anahald_Premade_LUTs.html#org101c7fe">half-color, Duboius, SPM or Suto method</a>.<br />
+According to the author's experience, overall anaglyph viewing experience could be noticeably improved for absolute majority of stereopairs that suffer from retinal-rivalry and otherwise would be treated by <a href="Anahald_Premade_LUTs.html#org5407300">half-color, Duboius, SPM or Suto method</a>.<br />
 </p>
 <hr />
 </div>
 </div>
 
-<div id="outline-container-orgcd1b5bd" class="outline-2">
-<h2 id="orgcd1b5bd">Site Navigation - what comes with Anahald?</h2>
-<div class="outline-text-2" id="text-orgcd1b5bd">
+<div id="outline-container-org8edd5e6" class="outline-2">
+<h2 id="org8edd5e6">Site Navigation - what comes with Anahald?</h2>
+<div class="outline-text-2" id="text-org8edd5e6">
 <ol class="org-ol">
 <li>Command line utilities implemented in Tcl together with convenience wrappers for Windows and Linux:<br />
 <ul class="org-ul">
@@ -366,7 +370,7 @@ According to the author's experience, overall anaglyph viewing experience could 
 </ul></li>
 <li>Control parameters' specification:<br />
 <ul class="org-ul">
-<li><a href="Anahald_Configuration_Files_and_Control_Parameters.html#org27a7368">Control Parameters Specification</a><br /></li>
+<li><a href="Anahald_Configuration_Files_and_Control_Parameters.html#org8028370">Control Parameters Specification</a><br /></li>
 </ul></li>
 <li>Minimalistic incursion into all-important topic of glasses, screens, and other aspects of <b><i>viewing arrangement</i></b>. Explains how the intended viewing methods should have impacted picture-taking, and why the author ended up using two layers of anaglyph filters:<br />
 <ul class="org-ul">
@@ -388,15 +392,19 @@ According to the author's experience, overall anaglyph viewing experience could 
 <ul class="org-ul">
 <li><a href="Anahald_Human_Skin.html">Anahald and Human Skin Colour appearance</a><br /></li>
 </ul></li>
+<li>Automatic selector of Anahald LUT-s:<br />
+<ul class="org-ul">
+<li><a href="Anahald_Choice.html">Auto-choice of a LUT for stereopair</a><br /></li>
+</ul></li>
 </ol>
 <hr />
 </div>
 </div>
 
 
-<div id="outline-container-orge70f64e" class="outline-2">
-<h2 id="orge70f64e">Contact information</h2>
-<div class="outline-text-2" id="text-orge70f64e">
+<div id="outline-container-org56f205a" class="outline-2">
+<h2 id="org56f205a">Contact information</h2>
+<div class="outline-text-2" id="text-org56f205a">
 <p>
 For now, please direct your questions/suggestions/requests to email address <b>anahald_contact@dualcam.net</b><br />
 More means of communication will come if needed.<br />
@@ -406,7 +414,7 @@ More means of communication will come if needed.<br />
 </div>
 </div>
 <div id="postamble" class="status">
-<p>Oleg Kosyakovsky</p><p>Haifa, Israel</p><p>2024</p>
+<p>Oleg Kosyakovsky</p><p>Haifa, Israel</p><p>2024-2025</p>
 </div>
 </body>
 </html>

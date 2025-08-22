@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2025-05-18 Sun 23:24 -->
+<!-- 2025-08-22 Fri 20:45 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Anaglyph HALD Generator (Anahald) - Invocation</title>
@@ -241,14 +241,14 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgd949922">Anahald User Commands</a>
+<li><a href="#org2487475">Anahald User Commands</a>
 <ul>
-<li><a href="#org9f241a3">Command to make HALD CLUT according to a configuration file</a></li>
-<li><a href="#orgead1c2f">Command to read and summarize available Anahald configuration files</a></li>
-<li><a href="#orgacb98d6">Command to read image color histogram from stereopairs</a></li>
+<li><a href="#org1b0edd9">Command to make HALD CLUT according to a configuration file</a></li>
+<li><a href="#org534e9f4">Command to read and summarize available Anahald configuration files</a></li>
+<li><a href="#org53424fc">Command to read image color histogram from stereopairs</a></li>
 </ul>
 </li>
-<li><a href="#orgd08b82d">Performance and computer-memory considerations</a></li>
+<li><a href="#org05bd1dd">Performance and computer-memory considerations</a></li>
 </ul>
 </div>
 </div>
@@ -275,9 +275,9 @@ Notes on <b><span class="underline">glossary</span></b>:<br />
 </ul>
 
 
-<div id="outline-container-orgd949922" class="outline-2">
-<h2 id="orgd949922">Anahald User Commands</h2>
-<div class="outline-text-2" id="text-orgd949922">
+<div id="outline-container-org2487475" class="outline-2">
+<h2 id="org2487475">Anahald User Commands</h2>
+<div class="outline-text-2" id="text-org2487475">
 <p>
 In the first version Anaglyph HALD Generator consists of two command-line utilities::<br />
 </p>
@@ -287,15 +287,15 @@ In the first version Anaglyph HALD Generator consists of two command-line utilit
 </ol>
 </div>
 
-<div id="outline-container-org9f241a3" class="outline-3">
-<h3 id="org9f241a3">Command to make HALD CLUT according to a configuration file</h3>
-<div class="outline-text-3" id="text-org9f241a3">
+<div id="outline-container-org1b0edd9" class="outline-3">
+<h3 id="org1b0edd9">Command to make HALD CLUT according to a configuration file</h3>
+<div class="outline-text-3" id="text-org1b0edd9">
 <p>
 The <b><i>anahald_lut_make</i></b> utility implementing this command is the core functionality of Anahald.<br />
 For this section it's enough to accept the author's claim that an Anahald configuration file fully defines characteristics of the color correction performed by HALD-CLUT that results from it. Full spec of the file syntax and the parameters is provided in <a href="Anahald_Configuration_Files_and_Control_Parameters.html">Anahald Configuration Files and Control Parameters</a>.<br />
 Trying to run <b><i>anahald_lut_make.bat</i></b> (or <b><i>anahald_lut_make.sh</i></b>) without arguments prints the command-line syntax help:<br />
 </p>
-<pre class="example" id="org55fee91">
+<pre class="example" id="orgdfe74ca">
 * Usage:  anahald_lut_make.bat  &lt;CONFIG-PATH&gt;  &lt;HALD-LEVEL&gt;  &lt;OUTPUT-DIRECTORY-PATH&gt;
   (minimal reasonable hald-level is 8, recommended for production - 16)
 </pre>
@@ -310,7 +310,7 @@ Trying to run <b><i>anahald_lut_make.bat</i></b> (or <b><i>anahald_lut_make.sh</
 <li>supported range: 1 &#x2026; 16<br /></li>
 <li>the more colors appear explicitly in the CLUT, the higher the conversion precision<br /></li>
 <li>HALD-based conversion interpolates intermediate colors<br /></li>
-<li>runtime and (temporary) disk space are affected too; see <a href="#orgd08b82d">Performance and computer-memory considerations</a><br /></li>
+<li>runtime and (temporary) disk space are affected too; see <a href="#org05bd1dd">Performance and computer-memory considerations</a><br /></li>
 </ul></li>
 <li><b><i>OUTPUT-DIRECTORY-PATH</i></b> is a full or relative path of the directory where Anahald will write two files:<br />
 a) the resulting HALD image in 8-bit TIFF format, LZW-compressed (non-lousy)<br />
@@ -322,10 +322,10 @@ b) a potentially *_huge*_ temporary file with textual representation of the resu
 </ul></li>
 </ul>
 <p>
-Revisiting the sample run of HALD-CLUT generation and its output from <a href="Anahald_Install.html#org47fde06">Comparison of identity HALD with &#x2026;</a>:<br />
+Revisiting the sample run of HALD-CLUT generation and its output from <a href="Anahald_Install.html#orgb5ea794">Comparison of identity HALD with &#x2026;</a>:<br />
 </p>
 
-<pre class="example" id="org6d71852">
+<pre class="example" id="org7a7f15c">
 $ bin/anahald_lut_make.sh CFG/ahg_oleg_cp.ini  2  TMP
 ...
 -I- Generated HALD-02 with 48 of 64 color(s) replaced; new text version saved in 'TMP/hald__ahg_oleg_cp__02.TXT'
@@ -336,16 +336,16 @@ $ bin/anahald_lut_make.sh CFG/ahg_oleg_cp.ini  2  TMP
 ...
 </pre>
 <p>
-<b><span class="underline"><a id="org601e746"></a> Identity HALD (left) and generated balanced HALD (right)</span></b><br />
+<b><span class="underline"><a id="org1980a98"></a> Identity HALD (left) and generated balanced HALD (right)</span></b><br />
 </p>
 
-<div id="org6da776d" class="figure">
+<div id="org0bcb1e2" class="figure">
 <p><img src="files/hald_2.png" alt="hald_2.png" width="200px" align="left" style="float:left" /><br />
 </p>
 <p><span class="figure-number">Figure 1: </span>Identity HALD (left) versus the balanced HALD (right)</p>
 </div>
 
-<div id="org8017cc6" class="figure">
+<div id="orgc25aaa5" class="figure">
 <p><img src="files/hald__ahg_oleg_cp__02.PNG" alt="hald__ahg_oleg_cp__02.PNG" width="200px" align="right" style="float:none" /><br />
 </p>
 </div>
@@ -353,9 +353,9 @@ $ bin/anahald_lut_make.sh CFG/ahg_oleg_cp.ini  2  TMP
 </div>
 
 
-<div id="outline-container-orgead1c2f" class="outline-3">
-<h3 id="orgead1c2f">Command to read and summarize available Anahald configuration files</h3>
-<div class="outline-text-3" id="text-orgead1c2f">
+<div id="outline-container-org534e9f4" class="outline-3">
+<h3 id="org534e9f4">Command to read and summarize available Anahald configuration files</h3>
+<div class="outline-text-3" id="text-org534e9f4">
 <p>
 The <b><i>anahald_cfg_table</i></b> utility collects essential contents of config files presented to it, and formats this contents into an easy to grasp table.<br />
 </p>
@@ -365,7 +365,7 @@ The <b><i>anahald_cfg_table</i></b> utility collects essential contents of confi
 <p>
 Running <b><i>anahald_cfg_table.bat</i></b> (or <b><i>anahald_cfg_table.sh</i></b>) without arguments prints the command-line syntax help:<br />
 </p>
-<pre class="example" id="orgb3b7565">
+<pre class="example" id="orga7b6a8b">
 * Usage (1):  anahald_cfg_table.sh  GLOB  &lt;CONFIG-DIRECTORY-PATH&gt;  &lt;CONFIG-FILEPATH-PATTERN&gt; ...
 * Usage (2):  anahald_cfg_table.sh  GLOB  &lt;CONFIG-DIRECTORY-PATH&gt;  &lt;CONFIG-FILEPATH-PATTERN&gt; ....sh  LIST  &lt;CONFIG-FILENAME-1&gt;  &lt;CONFIG-FILENAME-2&gt;
 </pre>
@@ -385,7 +385,7 @@ The <b>GLOB</b> flavor looks in directory <b><i>CONFIG-DIRECTORY-PATH</i></b> fo
 </ul></li>
 <li>The following 5 examples produce the same output in various "combinations" of BASH or CMD under Linux or Windows assuming the current working directory is "&lt;USER-HOME-DIRECTORY&gt;/ANY/TMP/ANAHALD"<br /></li>
 </ul>
-<pre class="example" id="org528d1e4">
+<pre class="example" id="org3fdfc98">
 bin/anahald_cfg_table.sh  GLOB CFG "*p.ini"                       #1 - Linux   BASH
 bin/anahald_cfg_table.bat GLOB CFG "*p.ini"                       #2 - Windows BASH
 bin/anahald_cfg_table.sh  GLOB "~/ANY/TMP/ANAHALD"  "CFG/*p.ini"  #3 - Linux   BASH
@@ -410,7 +410,7 @@ The <b>LIST</b> flavor looks for literally specified files<br />
 <li>path are separated by spaces<br /></li>
 <li>The following 5 examples produce equal output in various "combinations" of BASH or CMD under Linux or Windows assuming the current working directory is "&lt;USER-HOME-DIRECTORY&gt;/ANY/TMP/ANAHALD"<br /></li>
 </ul>
-<pre class="example" id="orgb0e7781">
+<pre class="example" id="org5e07fa6">
 bin/anahald_cfg_table.sh  LIST ~/ANY/TMP/ANAHALD/CFG/ahg_oleg_gp.ini CFG/ahg_oleg_ec.ini                                                   #1 - Linux BASH   - relative paths
 bin/anahald_cfg_table.bat LIST ~/ANY/TMP/ANAHALD/CFG/ahg_oleg_gp.ini CFG/ahg_oleg_ec.ini                                                  #2 - Windows BASH - relative paths
 bin/anahald_cfg_table.sh  LIST /home/users/Oleg/ANY/TMP/ANAHALD/CFG/ahg_oleg_gp.ini /home/users/Oleg/ANY/TMP/ANAHALD/CFG/ahg_oleg_ec.ini   #3 - Linux BASH   - absolute paths
@@ -459,9 +459,9 @@ e) "C:\Users\Oleg\ANY\TMP\ANAHALD\bin\anahald_cfg_table.bat" - in CMD  under Win
 </div>
 
 
-<div id="outline-container-orgacb98d6" class="outline-3">
-<h3 id="orgacb98d6">Command to read image color histogram from stereopairs</h3>
-<div class="outline-text-3" id="text-orgacb98d6">
+<div id="outline-container-org53424fc" class="outline-3">
+<h3 id="org53424fc">Command to read image color histogram from stereopairs</h3>
+<div class="outline-text-3" id="text-org53424fc">
 <p>
 The <b><i>anahald_r2c_histogram</i></b> utility computes and prints histogram(s) of red-to-cyan ratio in stereopair file(s) presented to it.<br />
 </p>
@@ -471,19 +471,19 @@ The <b><i>anahald_r2c_histogram</i></b> utility computes and prints histogram(s)
 <p>
 Running <b><i>anahald_r2c_histogram.bat</i></b> (or <b><i>anahald_r2c_histogram.sh</i></b>) without arguments prints the command-line syntax help:<br />
 </p>
-<pre class="example" id="org08def92">
+<pre class="example" id="orgc6ed416">
 * Usage (1):  anahald_r2c_histogram.sh  GLOB  &lt;IMAGE-DIRECTORY-PATH&gt;  &lt;IMAGE-FILENAME-PATTERN&gt; ...
 * Usage (2):  anahald_r2c_histogram.sh  LIST  &lt;IMAGE-FILEPATH-1&gt;  &lt;IMAGE-FILEPATH-2&gt;
 </pre>
 <ul class="org-ul">
 <li>remember, under <b><span class="underline">Windows</span></b> use <b><i>anahald_r2c_histogram.bat</i></b> in <span class="underline">any</span> shell - whether CMD or BASH; under <b><span class="underline">Linux</span></b> - use <b><i>anahald_r2c_histogram.sh</i></b><br /></li>
-<li><b><i>GLOB</i></b> and <b><i>LIST</i></b> are <span class="underline">literal</span> keywords selecting one of the two flavors; they work the same with image files as <a href="#orgead1c2f">"anahald_cfg_table" command</a> does with config files.<br /></li>
+<li><b><i>GLOB</i></b> and <b><i>LIST</i></b> are <span class="underline">literal</span> keywords selecting one of the two flavors; they work the same with image files as <a href="#org534e9f4">"anahald_cfg_table" command</a> does with config files.<br /></li>
 </ul>
 <p>
 The example below reads histograms from an original stereopair and from the result of applying "&#x2026;ahg_oleg_xc&#x2026;" HALD-LUT to it. The range thresholds on the left side are computed as R/max(G,B); example: {R=25,G=100,B=150} gives 25/150 = 0.167.<br />
 As should have been expected, aggressive processing of this specific HALD squeezed all colors into balanced-RGB range.<br />
 </p>
-<pre class="example" id="orga11a4fa">
+<pre class="example" id="org66404df">
 bin/anahald_r2c_histogram.sh LIST  INP/printer_test_3D.jpg  OUT/PrinterTest/PRE/printer_test_3D__hald__ahg_oleg_xc__16.PNG
 ...
 INP/printer_test_3D.jpg
@@ -511,9 +511,9 @@ The "anahald_r2c_histogram" is a relatively long-running command, so please be p
 </div>
 </div>
 
-<div id="outline-container-orgd08b82d" class="outline-2">
-<h2 id="orgd08b82d">Performance and computer-memory considerations</h2>
-<div class="outline-text-2" id="text-orgd08b82d">
+<div id="outline-container-org05bd1dd" class="outline-2">
+<h2 id="org05bd1dd">Performance and computer-memory considerations</h2>
+<div class="outline-text-2" id="text-org05bd1dd">
 <p>
 Anaglyph HALD Generator does its work by first constructing a potentially huge file containing the HALD image in PPM plain-text format, then converting it into a proper TIFF image, then deleting the text file.<br />
 </p>
@@ -541,7 +541,7 @@ A reasonable workflow approach would be to make level-8 HALD-s for trial and eva
 </div>
 </div>
 <div id="postamble" class="status">
-<p>Oleg Kosyakovsky</p><p>Haifa, Israel</p><p>2024</p>
+<p>Oleg Kosyakovsky</p><p>Haifa, Israel</p><p>2024-2025</p>
 </div>
 </body>
 </html>

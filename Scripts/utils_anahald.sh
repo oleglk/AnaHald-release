@@ -68,7 +68,7 @@ ChooseGammaForAnahaldSampleHald ()  {
     haldPrefixToGamma["hald__ahg_oleg_cp"]=1.0
     haldPrefixToGamma["hald__ahg_oleg_mc"]=1.0
     haldPrefixToGamma["hald__ahg_oleg_gp"]=1.0
-    haldPrefixToGamma["hald__ahg_oleg_ec"]=0.9
+    haldPrefixToGamma["hald__ahg_oleg_ec"]=0.95
     haldPrefixToGamma["hald__ahg_oleg_xc"]=0.88
     haldPrefixToGamma["hald__ahg_oleg_sf"]=0.88
     
@@ -92,7 +92,7 @@ Run_SBS_to_ANA() {
   echo "-I- Entered: \nRun_SBS_to_ANA  '$1'  '$2'  '$3'  '$4'"
   if [[ $3 != "" ]]; then _haldParam="$3 -hald-clut";  fi
   if [[ $3 != "" ]]; then _haldNameOrEmpty=$(basename -- $3 "");  fi
-  if [[ "${_gm^^}" == "AUTO" ]]; then
+  if [[ "$(echo "$_gm" | tr '[:lower:]' '[:upper:]')" == "AUTO" ]]; then
       _gm=$(ChooseGammaForHald $_haldNameOrEmpty)
       echo "-I- Auto-picked GAMMA value of $_gm for HALD '$_haldNameOrEmpty'"
   fi
@@ -117,7 +117,7 @@ Run_Apply_Hald_to_SBS() {
   echo "-I- Entered: \nRun_Apply_Hald_to_SBS  '$1'  '$2'  '$3'  '$4'"
   if [[ $3 != "" ]]; then _haldParam="$3 -hald-clut";  fi
   if [[ $3 != "" ]]; then _haldNameOrEmpty=$(basename -- $3 "");  fi
-  if [[ "${_gm^^}" == "AUTO" ]]; then
+  if [[ "$(echo "$_gm" | tr '[:lower:]' '[:upper:]')" == "AUTO" ]]; then
       _gm=$(ChooseGammaForHald $_haldNameOrEmpty)
       echo "-I- Auto-picked GAMMA value of $_gm for HALD '$_haldNameOrEmpty'"
   fi
