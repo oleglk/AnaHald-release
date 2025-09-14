@@ -16,5 +16,5 @@ class AhConfig:
     OUTDIR_NAME = "ANA"
     MAKE_TIFF   = False   # True or False
     WINDOW_WIDTH  = 1024  # must be 800 ... (screen_width  -delta)
-    WINDOW_HEIGHT = 720   # must be 600 ... (screen_height -delta)
+    WINDOW_HEIGHT = 640   # must be 600 ... (screen_height -delta)
 #################################################################################
