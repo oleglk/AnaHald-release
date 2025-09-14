@@ -70,7 +70,7 @@ inpDir = os.path.dirname(inpPath1)
 
 # decide on output directory - either given or ANA/ under input directory
 if ( (len(sys.argv) >= 3) and
-     (os.path.isdir(sys.argv[-1] or (not os.path.exists(sys.argv[-1])))) ):
+     (os.path.isdir(sys.argv[-1]) or (not os.path.exists(sys.argv[-1]))) ):
     outDir = sys.argv[-1]
     inpPatterns = sys.argv[1:-1]
 else:
