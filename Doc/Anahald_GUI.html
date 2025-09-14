@@ -6,7 +6,7 @@
 <!-- 2025-09-14 Sun 16:55 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Anaglyph HALD Generator (Anahald) - Impact of HALD LUT-s on human skin colour appearance</title>
+<title>Anaglyph HALD Generator (Anahald) - Image Viewer GUI</title>
 <meta name="author" content="Oleg Kosyakovsky" />
 <meta name="generator" content="Org Mode" />
 <style>
@@ -194,8 +194,38 @@
   .org-svg { }
 </style>
 <link rel="stylesheet" type="text/css" href="files/css/Anahald_styles_main.css" />
-<style type="text/css">.example {background-color: rgb(50,50,50);}</style>
-<link rel="stylesheet" type="text/css" href="files/css/Anahald_styles_gallery.css" />
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -203,63 +233,128 @@
  |
  <a accesskey="H" href="http://www.dualcam.net"> HOME </a>
 </div><div id="content" class="content">
-<h1 class="title">Anaglyph HALD Generator (Anahald) - Impact of HALD LUT-s on human skin colour appearance</h1>
-<p>
-(this page has dark background to improve viewing experience with anaglyph samples)<br />
-</p>
-
+<h1 class="title">Anaglyph HALD Generator (Anahald) - Image Viewer GUI</h1>
 <p>
 <i>By Oleg Kosyakovsky</i><br />
 </p>
-<p>
-This page shows how different anaglyph conversions - standard and Anahald-based - convey skin colours on the de-facto standard test image lenna.png .<br />
-Well, instead of the original planar image, its 2d-to-3d conversion by IMGonline.com.ua (<a href="https://www.imgonline.com.ua/eng/stereoscopic-3d-picture-from-photo.php">https://www.imgonline.com.ua/eng/stereoscopic-3d-picture-from-photo.php</a>) is used.<br />
-</p>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgc6655b4">Functionality</a></li>
+<li><a href="#org18427eb">Compatibility, pre-requisites and installation</a></li>
+<li><a href="#orga84eb52">Configuration options</a></li>
+<li><a href="#orgca8bd60">Usage</a></li>
+<li><a href="#org94f5542">Adding more HALD LUTs</a></li>
+</ul>
+</div>
+</div>
 
-<img src="http://dualcam.net/galleries/LENNA/Lenna_3D__imgonline-com__HCA.JPG" width="40%"> 
-<img src="http://dualcam.net/galleries/LENNA/Lenna_3D__imgonline-com__DBA.JPG" width="40%"> 
-<p class="ahg_caption">|Left-Above:::::Anaglyph-option-Half-Color - - - - -> Anaglyph-option-Dubois:::::Right-Above|</p>
-<img src="http://dualcam.net/galleries/LENNA/Lenna_3D__imgonline-com__SUA.JPG" width="40%"> 
-<img src="http://dualcam.net/galleries/LENNA/Lenna_3D__imgonline-com__SPA.JPG" width="40%">
-<p class="ahg_caption">|Left-Above:::::Anaglyph-option-Suto - - - - -> Anaglyph-option-SPM:::::Right-Above-Above|</p>
-<img src="http://dualcam.net/galleries/LENNA/Lenna_3D__imgonline-com__SBS.JPG" width="60%"  style="display: block; margin: auto" >
-<p class="ahg_caption">|Above::::: - - - - - - - - - - - The-original-stereopair - - - -  - - - - - - - - -        - - - - :::::Above|<br/>|</p>
-<img src="http://dualcam.net/galleries/LENNA/Lenna_3D__imgonline-com_ahg_oleg_cp__FCA.jpg" width="40%"> 
-<img src="http://dualcam.net/galleries/LENNA/Lenna_3D__imgonline-com_ahg_oleg_mc__FCA.jpg" width="40%"> 
-<p class="ahg_caption"><br/>|Left-Above::::: Anahald-anaglyph-Color-Preserve/gamma=1.0 - - -> Anahald-anaglyph-Moderate-Correction/gamma=1.0 - - -:::::Right-Above|</p>
-<img src="http://dualcam.net/galleries/LENNA/Lenna_3D__imgonline-com_ahg_oleg_gp__FCA.jpg" width="40%"> 
-<img src="http://dualcam.net/galleries/LENNA/Lenna_3D__imgonline-com_ahg_oleg_ec__FCA.jpg" width="40%"> 
-<p class="ahg_caption"><br/>|Left-Above::::: Anahald-anaglyph-General-Purpose/gamma=1.0 - - -> Anahald-anaglyph-Eye-Comfort/gamma=0.9:::::Right-Above|</p>
-<img  src="http://dualcam.net/galleries/LENNA/Lenna_3D__imgonline-com_ahg_oleg_sf__FCA.jpg" width="40%"> 
-<img src="http://dualcam.net/galleries/LENNA/Lenna_3D__imgonline-com_ahg_oleg_xc__FCA.jpg" width="40%">
-<p class="ahg_caption"><br/>|Left-Above::::: Anahald-anaglyph-Small-Flowers/gamma=0.85 - - -> Anahald-anaglyph-eXtreme-Correction/gamma=0.85 - - ->:::::Right-Above|</p>
-<hr />
+<div id="outline-container-orgc6655b4" class="outline-2">
+<h2 id="orgc6655b4">Functionality</h2>
+<div class="outline-text-2" id="text-orgc6655b4">
 <p>
-Observations from the above comparison - the author's take:<br />
+Anahald GUI allows to preview application of pre-made HALD LUTs to stereopairs and save the resulting anaglyph files. Given to the user are two image controls - choice of HALD LUT and gamma. Here is the screenshot of the viewer:<br />
+</p>
+<p width="600px" align="center">
+<img src="files/anahald_gui.jpg" alt="anahald_gui.jpg" width="600px" align="center" /><br />
+Saved images are stored in subdirectories under the folders of the corresponding side-by-side input image. E.g. anaglyph made from SBS image C:\Inp\img.tif will go to directory C:\Inp\&lt;Configurable-Subdirectory-Name&gt;\.<br />
+</p>
+<hr />
+</div>
+</div>
+
+<div id="outline-container-org18427eb" class="outline-2">
+<h2 id="org18427eb">Compatibility, pre-requisites and installation</h2>
+<div class="outline-text-2" id="text-org18427eb">
+<p>
+Anahald GUI is tested only on Windows.<br />
+Please follow installation instructions in <a href="Anahald_Choice.html#orge987db1">Installing Anahald-Choice</a>. There is nothing more to be done specifically for the GUI viewer.<br />
+</p>
+<hr />
+</div>
+</div>
+
+<div id="outline-container-orga84eb52" class="outline-2">
+<h2 id="orga84eb52">Configuration options</h2>
+<div class="outline-text-2" id="text-orga84eb52">
+<p>
+The following options could be tuned by modifying &lt;Anahald-Root&gt;\Code\Choice\ah_cfg.py file:<br />
 </p>
 <ol class="org-ol">
-<li>Differences between the conversions are less pronounceable when viewed through red-cyan glasses.<br /></li>
-<li>StereoPhotoMaker-"Dubois" and undocumented StereoPhotoMaker-"SPM" options are off.<br /></li>
-<li>StereoPhotoMaker-"Half-color" option appears fine at the first glance because the face looks good; but do notice the shoulder becoming wax-colored.<br /></li>
-<li>Undocumented StereoPhotoMaker-"Suto" option looks good.<br /></li>
-<li>Anahald-"Color-Preserve", Anahald-"Moderate-Correction", and to some degree Anahald-"Eye-Comfort" look good also.<br /></li>
-<li>Anahald-"Color-Preserve" is nearly indistinguishable from StereoPhotoMaker-"Suto".<br /></li>
+<li>Name of the output directory - through 'OUTDIR_NAME' variable - change the name in double quotes.<br />
+<ul class="org-ul">
+<li>the default name is "ANA"<br /></li>
+</ul></li>
+<li>Output format is JPEG if 'MAKE_TIFF' variable set to False, or TIFF if it's set to True.<br />
+<ul class="org-ul">
+<li>the default choice is JPEG<br /></li>
+</ul></li>
+<li>GUI window dimensions in pixels - through 'WINDOW_WIDTH' and 'WINDOW_HEIGHT' variables.<br />
+<ul class="org-ul">
+<li>minimal size is 800x600, upper limit is available screen area<br /></li>
+<li>if specified dimensions are outside of the above bounds, error is shown and the size defaults to 800x600<br /></li>
+</ul></li>
 </ol>
-<hr />
 <p>
-Now let's put all the usable options side-by-side for the final glance. This time Anahald-originated conversions are made darker for more fare comparison with the StereoPhotoMaker-"Half-color" variant.<br />
-</p>
-<img src="http://dualcam.net/galleries/LENNA/Lenna_3D__imgonline-com__HCA.JPG" width="40%"> 
-<img src="http://dualcam.net/galleries/LENNA/Lenna_3D__imgonline-com_ahg_oleg_cp__g0d8.jpg" width="40%"> 
-<p class="ahg_caption">|Left-Above:::::Anaglyph-option-Half-Color - - -> Anaglyph-option-Color-Preserve/gamma=0.8:::::Right-Above|</p>
-<img src="http://dualcam.net/galleries/LENNA/Lenna_3D__imgonline-com_ahg_oleg_mc__g0d8.jpg" width="40%"> 
-<img src="http://dualcam.net/galleries/LENNA/Lenna_3D__imgonline-com_ahg_oleg_ec__g0d7.jpg" width="40%"> 
-<p class="ahg_caption">|Left-Above::::: Anahald-anaglyph-Moderate-Correction/gamma=0.8 - - -> Anahald-anaglyph-Eye-Comfort/gamma=0.7:::::Right-Above|</p>
-<p>
-To be honest, the model's skin has a very similar appearance on all the four conversions when viewing through the <a href="Glasses_Screens_etc.html#org2bc4f3d">author's DIY dual-film-filter glasses</a>.<br />
-With "Nvidia 3d-vision discover" glasses, the advantage of Anahald-based options is subtle, though undoubtedly apparent.<br />
+You need to restart Anahald GUI for the change to take effect.<br />
 </p>
 <hr />
+</div>
+</div>
+
+<div id="outline-container-orgca8bd60" class="outline-2">
+<h2 id="orgca8bd60">Usage</h2>
+<div class="outline-text-2" id="text-orgca8bd60">
+<p>
+<span class="underline">Invocation</span> is performed by starting Python interpreter with path of &lt;Anahald-Root&gt;\Code\View\viewer_app.py as the single argument.<br />
+The usual way of accessing Python interpreter on Windows is to start <span class="underline">its</span> command shell and run the interpreter from this shell's prompt.<br />
+For example the shell of WinPython appears in the author's Start-Menu as "WinPython Command Prompt". It looks like the regular Windows Cmd shell, but has all the environment prepared for the Python interpreter.<br />
+On the author's computer, from within this WinPython shell, Anahald Viewer could be started by the following command:<br />
+</p>
+<pre class="example" id="orgf82bc04">
+python c:\Oleg\GitWork\AnaHald\Code\View\viewer_app.py
+</pre>
+<p>
+It is also possible to use 'python.bat' configured in <a href="Anahald_Choice.html#org5507767">Python arrangement for auto-choice</a> as the shortcut for python interpreter. Then you can use the regular Cmd window (not the one associated with Python).<br />
+On the same author's computer this would look like:<br />
+</p>
+<pre class="example" id="org7cb413f">
+c:\Oleg\GitWork\AnaHald\Code\Choice\python.bat c:\Oleg\GitWork\AnaHald\Code\View\viewer_app.py
+</pre>
+
+<p>
+The <span class="underline">usage routine</span> involves loading SBS images and choosing for them HALD-LUTs and gamma settings:<br />
+</p>
+<ul class="org-ul">
+<li>Open first image with &lt;Open SBS image&gt; button, then browse using &lt;Prev&gt; and &lt;Next&gt;.<br /></li>
+<li>Select HALD LUT and gamma, then press &lt;Preview&gt; to render the image on-screen.<br /></li>
+<li>Press &lt;Save&gt; to store full-size image in the output subdirectory (see <a href="#orga84eb52">Configuration options</a>).<br /></li>
+<li>If auto-choice is properly configured, pressing &lt;Auto&gt; button selects recommended HALD LUT and gamma; then press &lt;Preview&gt; to observe the effect.<br /></li>
+</ul>
+<hr />
+</div>
+</div>
+
+<div id="outline-container-org94f5542" class="outline-2">
+<h2 id="org94f5542">Adding more HALD LUTs</h2>
+<div class="outline-text-2" id="text-org94f5542">
+<p>
+Anahald GUI is not restricted to Anahald sample LUTs; it will work with any HALD LUT in TIFF format as long as it satisfies the following two conditions:<br />
+</p>
+<ol class="org-ol">
+<li>resides in one of the two HALD directories - <i>&lt;Anahald-Root&gt;\SAMPLE_HALDS</i> or <i>&lt;Anahald-Root&gt;\SAMPLE_HALDS\ADD\</i><br /></li>
+<li>its filename agrees with the pattern <i>"hald__&lt;ANY-STRING&gt;__16.TIF"</i><br />
+<ul class="org-ul">
+<li>examples: "hald__ahg_oleg_cp__16.TIF", "hald__greenish__16.TIF"<br /></li>
+</ul></li>
+</ol>
+<p>
+New HALD(s) should be put in the proper directory prior to starting Anahald GUI.<br />
+</p>
+<hr />
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p>Oleg Kosyakovsky</p><p>Haifa, Israel</p><p>2024-2025</p>

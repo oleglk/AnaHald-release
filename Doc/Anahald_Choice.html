@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-09-14 Sun 16:55 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Anaglyph HALD Generator (Anahald) - Auto-choice of a LUT for stereopair</title>
+<meta name="author" content="Oleg Kosyakovsky" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="files/css/Anahald_styles_main.css" />
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="Anahald_Intro.html"> UP </a>
+ |
+ <a accesskey="H" href="http://www.dualcam.net"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Anaglyph HALD Generator (Anahald) - Auto-choice of a LUT for stereopair</h1>
+<p>
+<i>By Oleg Kosyakovsky</i><br />
+</p>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org0fa8132">Functionality</a></li>
+<li><a href="#orge987db1">Pre-requisites and installation</a>
+<ul>
+<li><a href="#org5507767">Python</a></li>
+<li><a href="#orgfb571d6">ImageMagick</a></li>
+<li><a href="#org03f6979">Code- and Data files</a></li>
+</ul>
+</li>
+<li><a href="#org89e639e">Usage</a>
+<ul>
+<li><a href="#org1dfb4f5">Command-line for Windows command-prompt</a></li>
+<li><a href="#org9fba531">Command-line for BASH on Windows or Linux</a></li>
+<li><a href="#orgdc5692b">Drag-and-drop on Windows</a></li>
+</ul>
+</li>
+<li><a href="#orgaf696bd">Re-training the model - for computer geeks</a>
+<ul>
+<li><a href="#orgefe0f5d">Input requirements for training</a>
+<ul>
+<li><a href="#org3526a2f">Helper procedure to generate filename-to-HALD map CSV</a></li>
+</ul>
+</li>
+<li><a href="#org9d0ff06">Invoking the training procedure</a></li>
+<li><a href="#orgd74b264">Locating training outputs</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<p>
+Automatic choice of a HALD-LUT for a given stereopair is facilitated by a neural network (ResNet-18) trained on the author's test-image dataset. It runs on Python and uses ImageMagick for actual image processing. Accuracy achieved by its training is 96.5%.<br />
+The author uses Anahald auto-choice on Windows; some basic testing preformed on Linux too.<br />
+</p>
+
+<hr />
+
+<div id="outline-container-org0fa8132" class="outline-2">
+<h2 id="org0fa8132">Functionality</h2>
+<div class="outline-text-2" id="text-org0fa8132">
+<p>
+Anahald auto-choice is a command-line utility that accepts stereopair (SBS) image and outputs anaglyph made with an Anahald LUT that suites it best.<br />
+On Windows one can use Anahald auto-choice in drag-and-drop manner as well.<br />
+The utility is based on neural network "ResNet-18" implemented in Python and trained from scratch on the author's stereo-image dataset.<br />
+At the time of this writing the accuracy of Anahald auto-choice is good though not ideal. But it does make reasonable choices for absolute majority of images, thus saving lots of postprocessing time to the user.<br />
+</p>
+
+<hr />
+</div>
+</div>
+
+<div id="outline-container-orge987db1" class="outline-2">
+<h2 id="orge987db1">Pre-requisites and installation</h2>
+<div class="outline-text-2" id="text-orge987db1">
+</div>
+<div id="outline-container-org5507767" class="outline-3">
+<h3 id="org5507767">Python</h3>
+<div class="outline-text-3" id="text-org5507767">
+<p>
+Required are Python interpreter and the following libraries: <i>torch, torchvision, pandas</i>.<br />
+  The need for additional libraries complicates use-cases where the libraries are installed under virtual environments.<br />
+  Having said the above, most Python installations should support command-line usage scenario - when the user first opens the console window with the required environment, then types commands into it.<br />
+  On contrary, drag-and-drop kind of usage requires to start python under the hood, so that there's no chance to request a particular environment.<br />
+</p>
+
+<p>
+The author succeeded to use drag-and-drop only with WinPython on Windows, while command line worked under WinPython and Anaconda on Windows, and under pre-installed Python 3.8 under WSL-Linux.<br />
+</p>
+
+
+<p>
+If you are on Linux, Python is most probably preinstalled; otherwise follow the installation procedure of your Linux distribution.<br />
+If you are on Windows, the author's recommendation is to <a href="https://winpython.github.io/">install WinPython</a> - it should handle both command-line and drag-and-drop usage approaches.<br />
+</p>
+
+<p>
+Do install the 3 additional libraries - <i>torch, torchvision, pandas</i> - by issuing the three "pip install LIBRARY-NAME" commands at the OS prompt (i.e. CMD on Windows, BASH on Unix):<br />
+</p>
+<ul class="org-ul">
+<li>On Windows it should be CMD terminal associatd with your Python installation - like "WinPython Command Prompt" for WinPython, "Anaconda Termimal" for Anaconda-Python.<br /></li>
+<li>On Linux it should be a regular BASH prompt.<br /></li>
+</ul>
+
+<p>
+The last step is to "help" Anahald auto-choice in finding the appropriate Python interpreter. This is achieved by one-line scripts Code/Choice/python.bat and Code/Choice/python.sh that invoke Python interpreter by absolute path while passing it all command-line arguments.<br />
+The distribution includes 3 examples of such files:<br />
+</p>
+<ul class="org-ul">
+<li>Code/Choice/python.bat.EXAMPLE - for use with DOS-CMD scripts on Windows<br /></li>
+<li>Code/Choice/python.sh.EXAMPLE-WINDOWS - for use with BASH scripts on Windows<br /></li>
+<li>Code/Choice/python.sh.EXAMPLE-Linux - for use with BASH scripts on Linux<br /></li>
+</ul>
+<p>
+Copy the relevant example into script named Code/Choice/python.bat or Code/Choice/python.sh accordingly, and change the path to match your system.<br />
+Note that Linux example doesn't include absolute path; it relies on the system PATH instead; it's fine on Linux where it's unlikely to have multiple installations of Python<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgfb571d6" class="outline-3">
+<h3 id="orgfb571d6">ImageMagick</h3>
+<div class="outline-text-3" id="text-orgfb571d6">
+<p>
+See <a href="Anahald_Install.html#org9e10894">Obtaining ImageMagick</a> for installation instructions.<br />
+After installing ImageMagick, find the path of its main utility - "magick[.exe]" for newer versions or "convert[.exe]" for older versions.<br />
+You need to define environment variable <b>IMAGEMAGICK_CONVERT_OR_MAGICK</b> to contain the above path.<br />
+If ImageMagick is included in the system PATH variable, <b>IMAGEMAGICK_CONVERT_OR_MAGICK</b> can contain just "magick[.exe]" or "convert[.exe]"; otherwise absolute path is required. The former option is typical of Linux systems, while the latter is more suitable for Windows.<br />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org03f6979" class="outline-3">
+<h3 id="org03f6979">Code- and Data files</h3>
+<div class="outline-text-3" id="text-org03f6979">
+<p>
+Anahald auto-choice expects a hardcoded folder hierarchy to locate its code- and data files:<br />
+</p>
+<pre class="example" id="org4d0467f">
+  Directory arrangement:
+----------------------
+      +---SAMPLE_HALDS                      
+      |   |   hald__ahg_oleg_cp__16.TIF     
+      |   |   hald__ahg_oleg_ec__16.TIF     
+      |   |   hald__ahg_oleg_gp__16.TIF     
+      |   |   hald__ahg_oleg_sf__16.TIF     
+      |   |                                 
+      |   +---ADD                           
+      |           hald__ahg_oleg_mc__16.TIF 
+      |           hald__ahg_oleg_xc__16.TIF 
+      |                                     
+      +---Code                           
+      |   |                                 
+      |   +---Choice         
+      |   |   (Python code files)
+      |   |   choose_hald_for_image.bat
+      |   |   choose_hald_for_image.sh
+      |   |   python.bat
+      |   |   python.sh
+      |   |                                 
+      |   +---View         
+      |   |   (Python code files)
+      |
+      +---CHOICE_MODELS
+      |   |   anahald_label_codes__96d5__20250814-231159.csv
+      |   |   anahald_model_params__96d5__20250814-231159.pth
+      |
+</pre>
+<ul class="org-ul">
+<li>Anahald choice code is a part of Anahald distribution; follow the instructions in <a href="Anahald_Install.html#org952a7c3">Anahald source code installation guide</a> if you didn't do it yet.<br />
+<ul class="org-ul">
+<li>Note that the link here points at the specific subsection dealing with obtaining source code. If you plan to use pre-made LUTs and don't intend to generate new ones, you don't need to neither install Tcl, nor to verify that Anahald Tcl code functions.<br /></li>
+</ul></li>
+<li><a href="http://dualcam.net/galleries/ADDON__ANAHALD/SAMPLE_HALDS/anahald_sample_luts.zip">Download Anahald premade LUTs - sample HALDs here</a> and place them under directory ..\..\SAMPLE_HALDS\ relative to location of 'choose_hald_for_image.bat'.<br /></li>
+<li><a href="http://dualcam.net/galleries/ADDON__ANAHALD/CHOICE_MODELS/anahald_choice_model__96d5__20250814-231159.zip">Download Anahald choice model files here</a> and place them under directory ..\..\CHOICE_MODELS\ relative to location of 'choose_hald_for_image.bat'.<br /></li>
+</ul>
+<hr />
+</div>
+</div>
+</div>
+
+<div id="outline-container-org89e639e" class="outline-2">
+<h2 id="org89e639e">Usage</h2>
+<div class="outline-text-2" id="text-org89e639e">
+<p>
+Command lines for the two shells are described below. The parameters for both are semantically identical, but differ in path syntax:<br />
+</p>
+<ul class="org-ul">
+<li>Windows CMD expects directory separators as "\" and drive names like "C:\"<br /></li>
+<li>BASH expects directory separators as "<code>/</code>" and drive names like "<code>/C/</code>"<br /></li>
+</ul>
+</div>
+<div id="outline-container-org1dfb4f5" class="outline-3">
+<h3 id="org1dfb4f5">Command-line for Windows command-prompt</h3>
+<div class="outline-text-3" id="text-org1dfb4f5">
+<p>
+<b>choose_hald_for_image.bat</b>  <i>INPUT-SBS-IMAGE-GLOB-1</i> &#x2026; <i>INPUT-SBS-IMAGE-GLOB-n</i>  [/OUTPUT-DIRECTORY/]<br />
+</p>
+<ul class="org-ul">
+<li><i>INPUT-SBS-IMAGE-GLOB</i> - either path of SBS image file, or glob pattern matching one or more such files; e.g. the script obtains either list of input files, or one or more glob patterns matching those<br /></li>
+<li><i>OUTPUT-DIRECTORY</i> - optional path of the output directory for resulting anaglyphs; if not given, defaults to "ANA\" subdirectory under the location of input file(s)<br /></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org9fba531" class="outline-3">
+<h3 id="org9fba531">Command-line for BASH on Windows or Linux</h3>
+<div class="outline-text-3" id="text-org9fba531">
+<p>
+<b>choose_hald_for_image.sh</b>  <i>INPUT-SBS-IMAGE-GLOB-1</i> &#x2026; <i>INPUT-SBS-IMAGE-GLOB-n</i>  [/OUTPUT-DIRECTORY/]<br />
+</p>
+<ul class="org-ul">
+<li>parameters are the same as for Windows CMD; only path syntax differ<br /></li>
+</ul>
+
+<p>
+Example (BASH on Windows):<br />
+</p>
+<pre class="example" id="org96394f4">
+/c/Oleg/GitWork/AnaHald/Code/Choice/choose_hald_for_image.sh  /G/Photo_Archive/Photos_5/Israel_2016/Stereo/241216__Akko3D/SBS/*.TIF  /y/TMP
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgdc5692b" class="outline-3">
+<h3 id="orgdc5692b">Drag-and-drop on Windows</h3>
+<div class="outline-text-3" id="text-orgdc5692b">
+<p>
+Drag-and-drop invocation differs in having no provision to supply command arguments other than list of input files. For this reason output directory will always be "ANA\" subdirectory under the location of input file(s), and glob patterns aren't supported.<br />
+For convenience, the author's recommendation is to place shortcut to <b>choose_hald_for_image.bat</b> on the desktop.<br />
+After one or more input images are dropped onto the shortcut, a new DOS-CMD window opens where operation log is printed. If anything goes wrong, examine error and warning messages in this window.<br />
+When the script finishes, "Press Enter to close&#x2026;" prompt appears in the bottom of the above log window. Do not press Enter if you want to read the log.<br />
+</p>
+<hr />
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgaf696bd" class="outline-2">
+<h2 id="orgaf696bd">Re-training the model - for computer geeks</h2>
+<div class="outline-text-2" id="text-orgaf696bd">
+<p>
+The author's dataset included ~620 labeled(!) images, augmented to ~1860 by blurring and sharpening. The result is usable but leaves space for improvement.<br />
+A user with a larger dataset or different preferences may benefit by re-training auto-choice model.<br />
+As re-training is considered the "toy" for the most advanced users, there are no OS shell wrappers - the procedure is invoked from Python-interpreter prompt.<br />
+</p>
+</div>
+<div id="outline-container-orgefe0f5d" class="outline-3">
+<h3 id="orgefe0f5d">Input requirements for training</h3>
+<div class="outline-text-3" id="text-orgefe0f5d">
+<ol class="org-ol">
+<li>A collection of SBS stereopairs<br /></li>
+<li><p>
+A CSV file that maps between the above stereopair filenames and sample HALD LUTs chosen for them. Example of a CSV file:<br />
+</p>
+<pre class="example" id="org08cac47">
+$ head -6 sbs_to_hald.csv
+SbsFileName,HaldId
+DSC00022-00034,ahg_oleg_cp
+DSC00033,ahg_oleg_gp
+DSC00035,ahg_oleg_gp
+DSC00037,ahg_oleg_gp
+DSC00040-00564,ahg_oleg_sf
+</pre></li>
+</ol>
+</div>
+<div id="outline-container-org3526a2f" class="outline-4">
+<h4 id="org3526a2f">Helper procedure to generate filename-to-HALD map CSV</h4>
+<div class="outline-text-4" id="text-org3526a2f">
+<p>
+CSV file mentioned above could be generated by MapSbsToHalds() Python procedure given a directory with anaglyph images named "&lt;FILE-ID&gt;[_&lt;HALD-ID&gt;].jpg (example: "DSC00037_ahg_oleg_gp.jpg").<br />
+</p>
+<ul class="org-ul">
+<li>Images with "_&lt;HALD-ID&gt;" suffix are mapped to corresponding HALD.<br /></li>
+<li>Images without "_&lt;HALD-ID&gt;" suffix are mapped to the identity HALD - "ahg_oleg_id".<br /></li>
+</ul>
+<p>
+Example of <span class="underline">invocation of MapSbsToHalds()</span>; includes loading the Python code:<br />
+</p>
+<pre class="example" id="org8156715">
+import sys;  sys.path.append('C:\\Oleg\\Gitwork\\Anahald\\Code\\Choice')
+from choose_hald_resnet import *
+
+ANADIR='D:\\Work\\RMA_WA\\OUT\\Anaglyph_RR\\ANAGLYPHS;  haldDict = MapSbsToHalds(ANADIR, outCsvPathOrEmpty="TMP/sbs_to_hald.csv");  len(haldDict)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org9d0ff06" class="outline-3">
+<h3 id="org9d0ff06">Invoking the training procedure</h3>
+<div class="outline-text-3" id="text-org9d0ff06">
+<p>
+Here it's assumed that you have Anahald installed (which includes auto-choice) - e.g. <a href="#orge987db1">Pre-requisites and installation</a> section is completed.<br />
+</p>
+<ul class="org-ul">
+<li>Arrange Python environment, preferably with CUDA videocard processor(s), install libraries <i>torch</i>, <i>torchvision</i>, and <i>pandas</i>.<br />
+<ul class="org-ul">
+<li>in order to have CUDA available, you may need Python interpreter different from the one used for auto-choice invocations<br /></li>
+</ul></li>
+<li>In code file "choose_hald_base.py" change the target accuracy - training stops and stores the results when accuracy indicated by "SUFFICIENT_ACCURACY_TO_STOP" variable is achieved.<br /></li>
+<li><p>
+As shown in the following example, load the code into the above Python shell and start training. Note the addition of Python-code path to sys.path; do provide the path that matches your Anahald installation.<br />
+</p>
+<pre class="example" id="org32d0d8b">
+import sys;  sys.path.append('C:\\Oleg\\Gitwork\\Anahald\\Code\\Choice')
+from choose_hald_resnet import *
+
+TrainAnahaldResnet('sbs_to_hald.csv', 'ALL_SBS_1080', num_epochs=100)
+</pre>
+<p>
+Comments for the example:<br />
+</p>
+<ul class="org-ul">
+<li>directory added to sys.path is the one where "choose_hald_resnet.py" is located<br /></li>
+<li>'sbs_to_hald.csv' is the path of CSV file mapping stereopair filenames to HALD identifiers<br />
+<ul class="org-ul">
+<li>the HALD identifier is not its filename; for example sample HALD file "hald__ahg_oleg_cp__16.TIF" has identifier "ahg_oleg_cp"<br /></li>
+</ul></li>
+<li>'ALL_SBS_1080' is the path of a directory with input stereopair images<br /></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgd74b264" class="outline-3">
+<h3 id="orgd74b264">Locating training outputs</h3>
+<div class="outline-text-3" id="text-orgd74b264">
+<p>
+Two files constitute training output; the &lt;TIMESTAMP&gt; fields in their names must be equal:<br />
+</p>
+<ol class="org-ol">
+<li>"anahald_model_params__&lt;TIMESTAMP&gt;.pth" - the trained model parameters<br /></li>
+<li>"anahald_label_codes__&lt;TIMESTAMP&gt;.csv - maps internal label codes to HALD identifiers<br /></li>
+</ol>
+<p>
+Anahald training reports the paths of output files; watch for messages like:<br />
+</p>
+<pre class="example" id="orgdc2176b">
+-I- Saved model in 'MODELS\anahald_model_params__20250817-221920.pth'
+-I- Success saving dictionary in 'MODELS\anahald_label_codes__20250817-221920.csv
+</pre>
+<p>
+Copy the two files into "CHOICE_MODELS" directory (see <a href="#org03f6979">Code- and Data files</a>).<br />
+Update the model filename in "choose_hald_for_image.py" - change the assignment of variable "MODEL_FILENAME", e.g.:<br />
+</p>
+<pre class="example" id="org243fc5b">
+MODEL_FILENAME = "anahald_model_params__20250817-221920.pth"
+</pre>
+<p>
+Now everything is set to run auto-choice with the new model.<br />
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p>Oleg Kosyakovsky</p><p>Haifa, Israel</p><p>2024-2025</p>
+</div>
+</body>
+</html>
